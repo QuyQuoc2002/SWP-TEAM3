@@ -34,3 +34,6 @@ create table  `apartment_img_banner` (
     constraint apartment_img_banner
         primary key (apartment_img_banner_id)
 );
+
+
+quoc
