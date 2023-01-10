@@ -22,6 +22,7 @@ create table  `apartment` (
     apartment_content_aboutus 		text CHARACTER SET utf8mb4,
     apartment_content_service 		text CHARACTER SET utf8mb4,
     apartment_content_recruitment 	text CHARACTER SET utf8mb4,
+    apratment_accessible	boolean,
     constraint apartment_pk
         primary key (apartment_id)
 );
@@ -31,11 +32,24 @@ create table  `apartment_img_banner` (
     apartment_img_banner_id       	int auto_increment,
     apartment_id      				int,
     apartment_img_banner_id_url  	varchar(300),
-    constraint apartment_img_banner
+    constraint apartment_img_banner_pk
         primary key (apartment_img_banner_id)
 );
 
+drop table if exists `city`;
+create table  `city` (
+    city_id       	int auto_increment,
+    city_name     	varchar(100) CHARACTER SET utf8mb4,
+    constraint city_pk
+        primary key (city_id)
+);
 
-quoc
+drop table if exists `district`;
+create table  `district` (
+    district_id       	int auto_increment,
+    city_id				int,
+    district_name     	varchar(100) CHARACTER SET utf8mb4,
+    constraint district_pk
+        primary key (district_id)
+);
 
-quoc

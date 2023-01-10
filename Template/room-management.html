@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motel</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/icon/fontawesome-free-6.2.0-web/css/all.css">
+
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/room-management.css">
+    <style>
+        th,
+        td {
+            color: white;
+        }
+
+        #example_length {
+            color: wheat;
+        }
+
+        #example_length select {
+            color: white;
+            background: #191C24;
+        }
+
+        #example_filter {
+            color: wheat !important;
+        }
+
+        #example_filter input {
+            color: wheat !important;
+        }
+
+        #example_paginate {
+            color: wheat !important;
+        }
+
+        #example_info {
+            color: wheat !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar navbar-dark">
+                <a href="menu.html" class="navbar-brand ms-4 mb-3 text-primary-cus" style="font-size: 32px;">
+                    <h3><i class="fa-solid fa-user-pen"></i>QiMotel</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="assets/images/1.png" alt="" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="ms-2 text-white">
+                        <h6 class="mb-0">Quy Quoc</h6>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="menu.html" class="nav-item nav-link"><i class="fa-solid fa-list me-2"></i>Menu</a>
+                    <a href="homepage-management.html" class="nav-item nav-link"><i
+                            class="fa fa-tachometer-alt me-2"></i>Apartment Info</a>
+                    <a href="members.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Members</a>
+                    <a href="staff.html" class="nav-item nav-link"><i class="fa-solid fa-user-gear me-2"></i>Staffs</a>
+                    <a href="vehical.html" class="nav-item nav-link"><i
+                            class="fa-solid fa-motorcycle me-2"></i>Vehicals</a>
+                    <div class="nav-item dropdown">
+                        <a href="room-management.html" class="nav-link dropdown-toggle active"
+                            data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Managemnt</a>
+                        <div class="dropdown-menu bg-transparent border-0 show">
+                            <a href="room-management.html" class="dropdown-item active">Controls</a>
+                            <a href="floor.html" class="dropdown-item">floor 1</a>
+                            <a href="floor.html" class="dropdown-item">floor 2</a>
+                            <a href="floor.html" class="dropdown-item">floor 3</a>
+                            <a href="floor.html" class="dropdown-item">floor 4</a>
+                        </div>
+                    </div>
+                    <a href="deposit-contract.html" class="nav-item nav-link"><i
+                            class="fa-solid fa-file-signature me-2"></i>Deposit contract</a>
+                    <a href="leases-contract.html" class="nav-item nav-link"><i
+                            class="fa-solid fa-file-contract me-2"></i>tenancy agreement</a>
+                    <a href="" class="nav-item nav-link"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary-cus navbar-dark sticky-top px-4 py-2">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a class="sidebar-toggler flex-shrink-0" style="text-decoration: none;">
+                    <i class="fa fa-search text-primary-cus"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control bg-dark-cus border-0 text-white" type="search" placeholder="Search">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle me-2 text-light-cus" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
+                        </a>
+                        <div
+                            class="dropdown-menu dropdown-menu-end bg-secondary-cus border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="assets/images/1.png" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="assets/images/1.png" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="assets/images/1.png" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle me-2 text-light-cus" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notification</span>
+                        </a>
+                        <div
+                            class="dropdown-menu dropdown-menu-end bg-secondary-cus border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Profile updated</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">New user added</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Password changed</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown me-2">
+                        <a href="#" class="nav-link dropdown-toggle text-light-cus" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="assets/images/1.png" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div
+                            class="dropdown-menu dropdown-menu-end bg-secondary-cus border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <div id="room" class="container-fluid pt-4 px-4">
+                <div class="d-flex justify-content-around text-uppercase mb-5 info">
+                    <h3>100 Phòng</h3>
+                    <h3>4 Tầng</h3>
+                    <a href="">
+                        <h3>Thêm Phòng</h3>
+                    </a>
+                    <a href="">
+                        <h3>Thêm Tầng</h3>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-4 mb-4">
+                        <div class="bg-secondary-cus rounded p-2 card-feature">
+                            <div class="card-feature-content">
+                                <i class="fa-regular fa-circle text-primary-cus"></i>
+                                <div class="card-feature-title">
+                                    <h4 class="text-white">Phòng Trống</h4>
+                                    <p class="text-white">25 Phòng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <div class="bg-secondary-cus rounded p-2 card-feature">
+                            <div class="card-feature-content">
+                                <i class="fa-regular fa-circle-check text-primary-cus"></i>
+                                <div class="card-feature-title">
+                                    <h4 class="text-white">Phòng Đang cọc</h4>
+                                    <p class="text-white">25 Phòng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <div class="bg-secondary-cus rounded p-2 card-feature">
+                            <div class="card-feature-content">
+                                <i class="fa-solid fa-circle-check text-primary-cus"></i>
+                                <div class="card-feature-title">
+                                    <h4 class="text-white">Phòng Đang thuê</h4>
+                                    <p class="text-white">50 Phòng </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#add-room">
+                            <div class="bg-secondary-cus rounded p-2 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-circle-plus text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Phòng</h4>
+                                        <p class="text-white">Thêm Phòng</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#edit-type-room">
+                            <div class="bg-secondary-cus rounded p-2 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-circle-plus text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Loại Phòng</h4>
+                                        <p class="text-white">Thêm, Sửa, Xóa Loại Phòng</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#edit-floor">
+                            <div class="bg-secondary-cus rounded p-2 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-circle-plus text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Tầng</h4>
+                                        <p class="text-white">Thêm, Sửa, Xóa Tầng</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add-room" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true" style="margin-top: 120px;">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary-cus">
+                <div class="rounded my-4 mx-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <a href="index.html" class="">
+                            <h3 class="text-primary-cus"><i class="fa fa-user-edit me-2"></i>Thêm Phòng</h3>
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control bg-dark" id="input-name-room"
+                            placeholder="name@example.com">
+                        <label for="floatingInput">Tên Phòng</label>
+                    </div>
+                    <!-- <div class="form-floating mb-3"> -->
+                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3">
+                        <option value="">Loại Phòng 2 người 25m2 7.000.000đ</option>
+                        <option value="">Loại Phòng</option>
+                        <option value="">Loại Phòng</option>
+                        <option value="">Loại Phòng</option>
+                    </select>
+                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3">
+                        <option value="">Tầng 1</option>
+                        <option value="">Loại Phòng</option>
+                        <option value="">Loại Phòng</option>
+                        <option value="">Loại Phòng</option>
+                    </select>
+                    <!-- </div> -->
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger py-3 w-100 mb-4"
+                                data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Lưu</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit-type-room" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true" style="margin-top: 120px;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-secondary-cus">
+                <div class="rounded my-4 mx-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <a href="index.html" class="">
+                            <h3 class="text-primary-cus"><i class="fa fa-user-edit me-2"></i>Thêm, Sửa Loại Phòng</h3>
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="d-flex mb-3 mt-4 type-room-head">
+                        <div class="w-25 me-3">Loại Phòng</div>
+                        <div class="w-25 me-3">Người Tối Đa</div>
+                        <div class="me-3" style="width: 40%;">Giá Tiền</div>
+                        <div class="w-25 me-3">Diện Tích</div>
+                        <div href="" style="width: 10%;"
+                            class="d-flex aligns-items-center justify-content-center align-items-center">
+                            act
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-25 me-3" value="LP1">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="2">
+                        <input type="number" class="form-control bg-dark text-white me-3" style="width: 40%;"
+                            value="2000000">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="20">
+                        <a href="" style="width: 10%;"
+                            class="d-flex aligns-items-center justify-content-center align-items-center">
+                            <i class="fa-solid fa-trash-can fs-3"></i>
+                        </a>
+                    </div>
+
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-25 me-3" value="LP1">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="2">
+                        <input type="number" class="form-control bg-dark text-white me-3" style="width: 40%;"
+                            value="2200000">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="22">
+                        <a href="" style="width: 10%;"
+                            class="d-flex aligns-items-center justify-content-center align-items-center">
+                            <i class="fa-solid fa-trash-can fs-3"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-25 me-3" value="LP1">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="3">
+                        <input type="number" class="form-control bg-dark text-white me-3" style="width: 40%;"
+                            value="2500000">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="25">
+                        <a href="" style="width: 10%;"
+                            class="d-flex aligns-items-center justify-content-center align-items-center">
+                            <i class="fa-solid fa-trash-can fs-3"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-25 me-3" value="LP1">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="3">
+                        <input type="number" class="form-control bg-dark text-white me-3" style="width: 40%;"
+                            value="3000000">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" value="30">
+                        <a href="" style="width: 10%;"
+                            class="d-flex aligns-items-center justify-content-center align-items-center">
+                            <i class="fa-solid fa-trash-can fs-3"></i>
+                        </a>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <input type="text" class="form-control bg-dark text-white w-25 me-3"
+                            placeholder="Type name">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3"
+                            placeholder="Lượng Người">
+                        <input type="number" class="form-control bg-dark text-white me-3" style="width: 40%;"
+                            placeholder="Giá Tiền">
+                        <input type="number" class="form-control bg-dark text-white w-25 me-3" placeholder="Diện Tích">
+                        <div href="" style="width: 10%;"
+                            class="d-flex aligns-items-center justify-content-center align-items-center">
+                            act
+                        </div>
+                    </div>
+
+                    <!-- </div> -->
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger py-3 w-100 mb-4"
+                                data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-----------------------------Edit Floor-------------------->
+    <!-- #region sadasd-->
+    <div class="modal fade" id="edit-floor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true" style="margin-top: 120px;">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary-cus">
+                <div class="rounded my-4 mx-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <a href="index.html" class="">
+                            <h3 class="text-primary-cus"><i class="fa fa-user-edit me-2"></i>Thêm, Sửa Tầng</h3>
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-75" value="Tầng 1">
+                        <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
+                                class="fa-solid fa-trash-can fs-3"></i></a>
+                    </div>
+
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-75" value="Tầng 2">
+                        <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
+                                class="fa-solid fa-trash-can fs-3"></i></a>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-75" value="Tầng 3">
+                        <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
+                                class="fa-solid fa-trash-can fs-3"></i></a>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-75" value="Tầng 4">
+                        <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
+                                class="fa-solid fa-trash-can fs-3"></i></a>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-75" placeholder="thêm tầng">
+                        <div class="d-flex aligns-items-center justify-content-center align-items-center w-25">Act</div>
+                    </div>
+
+                    <!-- </div> -->
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger py-3 w-100 mb-4"
+                                data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Lưu</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+</body>
+<script src="assets/js/bootstrap.bundle.js"></script>
+
+</html>
