@@ -1,0 +1,70 @@
+body {
+    color: #fff;
+}
+
+p, h1, h2, h3, h4, h5 {margin: 0; padding: 0;}
+
+.card-feature-content {
+    display: flex;
+}
+
+.card-feature-content i {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    background-color: black;
+    border-radius: 50px;
+    margin-right: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-feature-content .card-feature-title {
+    padding: 0 0 4px 0;
+}
+
+.card-feature-content .card-feature-title h3,
+.card-feature-content .card-feature-title p
+{
+    margin: 0;
+}
+
+.card-feature {
+    transition: 0.4s;
+}
+
+.card-feature:hover {
+    transform: scale(1.02, 1.05) ;
+}
+
+#room .info h3 {
+    color: #c7af8b;
+}
+#room .info a h3:hover {
+    color: #fea826;
+}
+
+#input-name-room {
+    color: white;
+}
+
+#input-name-room:focus {
+    opacity: 1;
+}
+
+#edit-floor input,
+#edit-type-room input {
+    opacity: 0.5;
+}
+
+#edit-floor input:focus,
+#edit-type-room input:focus {
+    opacity: 1;
+}
+
+.type-room-head div {
+    color: #c7af8b  ;
+}
+
