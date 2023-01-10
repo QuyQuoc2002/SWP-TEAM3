@@ -83,3 +83,5 @@ table:
 		
 		
 	User, User_Role, Role
+
+tài khoản, mật khẩu, nút kích hoạt, homepage, dashboard, tên, số điện thoại, tỉnh, thành phố, map
