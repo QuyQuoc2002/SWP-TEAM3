@@ -1,0 +1,26 @@
+th, td {color: white;}
+
+#example_length {
+    color: wheat;
+}
+
+#example_length select{
+    color: white;
+    background: #191C24;
+}
+
+#example_filter {
+    color: wheat !important;
+}
+
+#example_filter input {
+    color: wheat !important;
+}
+
+#example_paginate {
+    color: wheat !important;
+}
+
+#example_info {
+    color: wheat !important;
+}

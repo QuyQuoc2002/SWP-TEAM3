@@ -1,0 +1,60 @@
+body {
+    color: #fff;
+}
+
+#staff .card-staff .card-staff-header {
+    color: #c7af8b;
+    letter-spacing: 1px;
+    background-color: transparent;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    padding: 12px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+#staff .card-staff .card-staff-header input {
+    color: #c7af8b;
+    width: 75%;
+}
+
+#staff .card-staff .card-staff-body .contact {
+    padding: 8px 20px 10px;
+}
+
+#staff .card-staff .card-staff-body .contact .phone {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+#staff .card-staff .card-staff-body .price {
+    margin: 16px 10% 0 10%;
+    padding: 6px 15px 6px;
+    font-weight: 400;
+    font-size: 1.25rem;
+    border-radius: 0;
+    text-align: center;
+    background-color: #3a3b3c;
+    background-image: linear-gradient(to right, #1d1d1d, #3a3b3c, #1d1d1d);
+}
+
+#staff .card-staff .card-staff-body .user,
+#staff .card-staff .card-staff-body .action {
+    padding: 0 15px 10px;
+}
+
+.avatar {
+    width: 3.25rem;
+    border-radius: 50%;
+}
+
+#staff .card-staff .card-staff-body .circle {
+    border: 3px solid #28a745;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    padding: 0.35rem;
+}
+
+p, h1, h2, h3, h4, h5 {margin: 0; padding: 0;}
+

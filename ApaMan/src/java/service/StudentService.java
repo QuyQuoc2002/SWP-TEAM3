@@ -5,7 +5,7 @@
 package service;
 
 import dao.StudentDAO;
-import enity.Student;
+import entity.Student;
 import java.util.List;
 
 /**

@@ -3,6 +3,7 @@
     --secondary: #191C24;
     --light: #6C7293;
     --dark: #000000;
+    --wheat: rgb(254, 198, 94)
 }
 
 * {
@@ -33,6 +34,10 @@ a{
     z-index: 99;
 }
 
+.text-wheat {
+    color: var(--wheat) !important;
+}
+
 .text-white {
     color: white !important;
 }
@@ -58,6 +63,11 @@ a{
 
 .btn-dark-cus:active {
     background-color: var(--secondary) !important;
+    color: wheat !important;
+}
+
+.btn-light-cus {
+    background-color: var(--light) !important;
     color: wheat !important;
 }
 

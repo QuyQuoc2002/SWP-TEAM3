@@ -1,0 +1,262 @@
+<%-- 
+    Document   : menu.jsp
+    Created on : Jan 12, 2023, 2:22:40 AM
+    Author     : DELL
+--%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motel</title>
+    <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/menu.css">
+</head>
+
+<body>
+
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar navbar-dark">
+                <a href="menu.html" class="navbar-brand ms-4 mb-3 text-primary-cus" style="font-size: 32px;">
+                    <h3><i class="fa-solid fa-user-pen"></i>QiMotel</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="assets/images/1.png" alt="" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="ms-2 text-white">
+                        <h6 class="mb-0">Quy Quoc</h6>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="menu.html" class="nav-item nav-link active"><i class="fa-solid fa-list me-2"></i>Menu</a>
+                    <a href="homepage-management.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Apartment Info</a>
+                    <a href="members.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Members</a>
+                    <a href="staff.html" class="nav-item nav-link"><i class="fa-solid fa-user-gear me-2"></i>Staffs</a>
+                    <a href="vehical.html" class="nav-item nav-link"><i class="fa-solid fa-motorcycle me-2"></i>Vehicals</a>
+                    <div class="nav-item dropdown">
+                        <a href="room-management.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Managemnt</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="room-management.html" class="dropdown-item">Controls</a>
+                            <a href="floor.html" class="dropdown-item">floor 1</a>
+                            <a href="floor.html" class="dropdown-item">floor 2</a>
+                            <a href="floor.html" class="dropdown-item">floor 3</a>
+                            <a href="floor.html" class="dropdown-item">floor 4</a>
+                        </div>
+                    </div>
+                    <a href="deposit-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-signature me-2"></i>Deposit contract</a>
+                    <a href="leases-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-contract me-2"></i>tenancy agreement</a>
+                    <a href="sign-out" class="nav-item nav-link"><i class="fa-solid fa-right-from-bracket me-2"></i>Sign Out</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary-cus navbar-dark sticky-top px-4 py-2">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a class="sidebar-toggler flex-shrink-0" style="text-decoration: none;">
+                    <i class="fa fa-search text-primary-cus"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control bg-dark-cus border-0 text-white" type="search" placeholder="Search">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle me-2 text-light-cus" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
+                        </a>
+                        <div
+                            class="dropdown-menu dropdown-menu-end bg-secondary-cus border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="assets/images/1.png" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="assets/images/1.png" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="assets/images/1.png" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle me-2 text-light-cus" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                        </a>
+                        <div
+                            class="dropdown-menu dropdown-menu-end bg-secondary-cus border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Profile updated</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">New user added</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Password changed</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown me-2">
+                        <a href="#" class="nav-link dropdown-toggle text-light-cus" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="assets/images/1.png" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div
+                            class="dropdown-menu dropdown-menu-end bg-secondary-cus border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row">
+                    <div class="col-4 mb-4">
+                        <a href="homepage-management.html">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa fa-tachometer-alt text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Apartment Info</h4>
+                                        <p class="text-white">Update apartment information</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="members.html">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-users text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Member</h4>
+                                        <p class="text-white">List of tenant</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="staff.html">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-user-gear text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Staff</h4>
+                                        <p class="text-white">Staff information</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="vehical.html">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-motorcycle text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Vehical</h4>
+                                        <p class="text-white">Member's vehical</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="room-management.html">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-house text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Room</h4>
+                                        <p class="text-white">Apartment's rooms</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-file-signature text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Deposit Contract</h4>
+                                        <p class="text-white">Deposit contract template</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <a href="">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa-solid fa-file-contract text-primary-cus"></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">Tenancy Agreement</h4>
+                                        <p class="text-white">Tenancy agreement template</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="assets/js/bootstrap.bundle.js"></script>
+
+</html>

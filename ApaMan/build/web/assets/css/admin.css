@@ -1,0 +1,55 @@
+.panel-form {
+     border-radius: 12px;
+     background-color: #191C24;
+     /* border: 1px solid #2b303e; */
+     padding: 12px 10px 8px 10px;
+ }
+
+.form-group fieldset {
+     border: 2px solid #2b303e;
+     border-radius: 10px;
+     padding: 0 12px 12px;
+     position: relative;
+}
+
+.form-group fieldset legend {
+     border-radius: 8px;
+     font-weight: 400;
+     color: white;
+     width: auto;
+     max-width: 100%;
+     font-size: 12px;
+     padding: 0 8px;
+     margin-bottom: 0;
+     float: none;
+     opacity: 0.25;
+}
+
+.form-group fieldset input {
+     background-color: transparent;
+     color: white;
+     border: 0px solid transparent;
+}
+
+.form-group .form-control {
+     padding: 0;
+}
+
+.form-group .form-control:focus {
+     box-shadow: none;
+     background: transparent;
+     color: white;
+     opacity: 1;
+}
+
+.form-group fieldset select {
+     width: 100%;
+     color: white;
+     background-color: transparent;
+}
+
+.form-group fieldset select option {
+     color: white;
+     background-color: #191C24;
+}
+

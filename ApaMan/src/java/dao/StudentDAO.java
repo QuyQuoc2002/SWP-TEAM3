@@ -5,7 +5,7 @@
 package dao;
 
 import connection.MySQLConnection;
-import enity.Student;
+import entity.Student;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
