@@ -19,7 +19,7 @@
 <body>
 
     <div class="logo-index">
-        <a href="index.html"><img src="assets/images/logo.png"></a>
+        <div><img src="assets/images/logo.png"></div>
     </div>
 
     <div class="s01">

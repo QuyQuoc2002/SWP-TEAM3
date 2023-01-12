@@ -16,4 +16,7 @@ public interface IConst {
     String ROLE_HOST = "HOST";
     String ROLE_STAFF = "STAFF";
     String ROLE_MEMBER = "MEMBER";
+    
+    String ADMIN_EMAIL = "quocpqhe163061@fpt.edu.vn";
+    String ADMIN_EMAIL_PASS = "Shironeko02";
 }

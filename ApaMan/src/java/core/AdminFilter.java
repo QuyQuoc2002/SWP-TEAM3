@@ -113,10 +113,10 @@ public class AdminFilter implements Filter {
             if (curAccount.getRole().getRoleName().equals(IConst.ROLE_ADMIN)) {
                 chain.doFilter(request, response);
             } else {
-                resp.sendRedirect("QSneaker/WEB-INF/error-404.jsp");
+                resp.sendRedirect("WEB-INF/error-404.jsp");
             }
         } else {
-            resp.sendRedirect("QSneaker/WEB-INF/error-404.jsp");
+            resp.sendRedirect("WEB-INF/error-404.jsp");
         }
     }
 

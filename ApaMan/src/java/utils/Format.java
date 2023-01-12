@@ -10,6 +10,8 @@ package utils;
  */
 public class Format {
 
+    private Format(){};
+    
     /**
      * Format phone number ex: 0911092002 -> 0911 092 002
      * 

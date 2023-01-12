@@ -36,7 +36,7 @@
             }
 
             .content {
-                width: 330px;
+                width: 400px;
                 background: #dde1e7;
                 border-radius: 10px;
                 padding: 40px 30px;
@@ -140,6 +140,7 @@
                 </div>
                 <input type="hidden" name="apartmentId" value="${requestScope.apartmentId}">
                 <button type="submit">Sign in</button>
+                <a href="forgot-password?apartmentId=${requestScope.apartmentId}">Forgot Password ?</a>
             </form>
         </div>
     </body>

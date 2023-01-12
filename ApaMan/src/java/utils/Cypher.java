@@ -10,6 +10,8 @@ package utils;
  */
 public class Cypher {
 
+    private Cypher(){};
+    
     private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*,.";
 
     // create encryptData() method for encrypting user input string with given shift key   
@@ -64,7 +66,7 @@ public class Cypher {
 
     public static String generateData() {
         String data = "";
-        for (int i = 0; i <= 20; i++) {
+        for (int i = 0; i <= 8; i++) {
             int index = (int) (Math.random() * ALPHABET.length());
             data += ALPHABET.charAt(index);
         }

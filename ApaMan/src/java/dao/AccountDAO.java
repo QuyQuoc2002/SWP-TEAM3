@@ -18,6 +18,28 @@ import java.sql.SQLException;
  */
 public class AccountDAO {
 
+    public Account authenticate(String username, int apartmentId) {
+        String query = "Select * FROM apamandb.`account` WHERE account_username = ? AND apartment_id = ? AND account_accessible = true";
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
+            if (ps != null) {
+                ps.setObject(1, username);
+                ps.setObject(2, apartmentId);
+                ResultSet rs = ps.executeQuery();
+                if (rs != null && rs.next()) {
+                    Account obj = Account.builder()
+                            .accountId(rs.getInt("account_id"))
+                            .apartmentId(rs.getInt("apartment_id"))
+                            .accountUsername(rs.getString("account_username"))
+                            .build();
+                    return obj;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
     public Account login(String username, String password, int apartmemtId) {
         String query = "SELECT a.account_id, a.apartment_id, a.account_username, a.account_password, r.role_name FROM apamandb.`account` a join `role` r ON a.role_id = r.role_id\n"
                 + "Where a.account_username = ? AND a.account_password = ? AND a.account_accessible = true AND (a.apartment_id = 0 OR a.apartment_id = ?)";
@@ -43,8 +65,23 @@ public class AccountDAO {
         }
         return null;
     }
-    
+
     public static void main(String[] args) {
-        System.out.println(new AccountDAO().login("admin","admin", 0));
+        System.out.println(new AccountDAO().login("admin", "admin", 0));
+    }
+
+    public boolean resetPassword(String username, String password, int apartmentId) {
+        int check = 0;
+        String sql = "UPDATE apamandb.`account` SET account_password = ? WHERE account_username = ? And apartment_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, password);
+            ps.setObject(2, username);
+            ps.setObject(3, apartmentId);
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
     }
 }

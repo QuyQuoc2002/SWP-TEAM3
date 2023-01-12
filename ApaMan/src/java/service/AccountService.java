@@ -15,7 +15,15 @@ public class AccountService {
     
     private AccountDAO accountDAO = new AccountDAO();
     
+    public Account authenticate(String username, int apartmentId) {
+        return accountDAO.authenticate(username, apartmentId);
+    }
+    
     public Account login(String username, String password, int apartmemtId) {
         return accountDAO.login(username, password, apartmemtId);
+    }
+    
+    public boolean resetPassword(String username, String password, int apartmentId) {
+        return accountDAO.resetPassword(username, password, apartmentId);
     }
 }

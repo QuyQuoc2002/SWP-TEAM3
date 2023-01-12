@@ -58,7 +58,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo" style="margin: 15px; ">
-                           <a href="index.html">
+                           <a href="/ApaMan">
                               <img src="assets/images/logo.png" style="margin-left: -70px;" />
                            </a>
                         </div>
@@ -73,31 +73,31 @@
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
-                           <li class="nav-item active">
-                              <a class="nav-link" href="#">Home</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#about">About</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#room">Our room</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#service">Service</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#review">Review</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="#contact">Contact Us</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="login?apartmentId=1">Login</a>
-                              <!-- <div class="login-popup" >
-                              
-
-                              </div> -->
-                           </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#room">Our room</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#service">Service</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#review">Review</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contact">Contact Us</a>
+                            </li>
+                            <c:if test="${sessionScope.curAccount == null}">
+                                <li class="nav-item"><a class="nav-link" href="login?apartmentId=1">Sign In</a></li>
+                            </c:if>
+                            <c:if test="${sessionScope.curAccount != null}">
+                                <li class="nav-item"><a class="nav-link" href="sign-out">Sign Out</a></li>
+                            </c:if>
+                                
                         </ul>
                      </div>
                   </nav>

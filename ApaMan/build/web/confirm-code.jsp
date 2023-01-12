@@ -125,22 +125,17 @@
 
     <body>
         <div class="content">
-            <div class="text">Login</div>
-            <form action="sign-in" method="post" style="position: relative;">
+            <div class="text">Confirm Code</div>
+            <form action="reset-password" method="post" style="position: relative;">
                 <span style="color: red; font-weight: 600; position: absolute; top: -28px; left: 0; right: 0;">${sessionScope.message}</span>
                 <div class="field">
-                    <span class="fa fa-user"></span>
-                    <input type="text" required name="username">
-                    <label for="">Email</label>
-                </div>
-                <div class="field">
-                    <span class="fa fa-lock"></span>
-                    <input type="password" required name="password">
-                    <label for="">Password</label>
+                    <span class="fa fa-code"></span>
+                    <input type="text" required name="code">
+                    <label for="">Code</label>
                 </div>
                 <input type="hidden" name="apartmentId" value="${requestScope.apartmentId}">
-                <button type="submit">Sign in</button>
-                <a href="forgot-password?apartmentId=${requestScope.apartmentId}">Forgot Password ?</a>
+                <input type="hidden" name="username" value="${requestScope.username}">
+                <button type="submit">Get New Password</button>
             </form>
         </div>
     </body>
