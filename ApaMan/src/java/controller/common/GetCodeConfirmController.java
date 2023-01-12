@@ -45,8 +45,7 @@ public class GetCodeConfirmController extends HttpServlet {
                 try {
                     int code = (int) (Math.random() * 1000000);
                     session.setAttribute("code", code);
-                    System.out.println(code);
-//                    Mail.send(username, "ApaMan Notification", "Your code is: " + code);
+                    Mail.send(username, "ApaMan Notification", "Your code is: " + code);
                     response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username="+username);
                 } catch (Exception e) {
                     response.sendRedirect("WEB-INF/error-404.jsp");

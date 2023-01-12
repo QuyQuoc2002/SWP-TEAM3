@@ -45,7 +45,7 @@ public class SignInController extends HttpServlet {
             password = Cypher.encryptData(password, IConst.SHIFT_KEY);
             Account curAccount = new AccountService().login(username, password, apartmentId);
             if (curAccount == null) {
-                session.setAttribute("message", "Wrong Email or Password");
+                session.setAttribute("message", "Wrong Username or Password");
                 response.sendRedirect("login?apartmentId=" + apartmentId);
             } else {
                 session.setAttribute("curAccount", curAccount);

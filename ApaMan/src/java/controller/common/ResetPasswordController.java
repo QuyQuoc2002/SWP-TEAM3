@@ -48,10 +48,8 @@ public class ResetPasswordController extends HttpServlet {
                 session.setAttribute("message", "Wrong Code Confirm");
                 response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username="+username);
             }
-            System.out.println(oldCode);
             if (code == oldCode) {
                 String newPassword = Cypher.generateData();
-                System.out.println(newPassword);
                 boolean resetSuccess = new AccountService().resetPassword(username, Cypher.encryptData(newPassword, IConst.SHIFT_KEY), apartmentId);
                 if (resetSuccess) {
                     String message = "New Password is: " + newPassword;
