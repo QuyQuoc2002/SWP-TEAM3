@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "ConfirmCodePageController", urlPatterns = {"/confirm-code"})
-public class ConfirmCodePageController extends HttpServlet {
+@WebServlet(name = "PageForgotPasswordController", urlPatterns = {"/forgot-password"})
+public class PageForgotPasswordController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,11 +34,8 @@ public class ConfirmCodePageController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            String username = request.getParameter("username");
             request.setAttribute("apartmentId", apartmentId);
-            request.setAttribute("username", username);
-            request.getRequestDispatcher("confirm-code.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
         }
     }
 

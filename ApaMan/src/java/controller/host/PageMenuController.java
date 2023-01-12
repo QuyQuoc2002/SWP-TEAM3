@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.common;
+package controller.host;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginPageController extends HttpServlet {
+@WebServlet(name = "PageMenuController", urlPatterns = {"/apartment"})
+public class PageMenuController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,8 +34,7 @@ public class LoginPageController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            request.setAttribute("apartmentId", apartmentId);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("menu.jsp").forward(request, response);
         }
     }
 

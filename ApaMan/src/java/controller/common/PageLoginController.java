@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "ForgotPasswordPageController", urlPatterns = {"/forgot-password"})
-public class ForgotPasswordPageController extends HttpServlet {
+@WebServlet(name = "PageLoginController", urlPatterns = {"/login"})
+public class PageLoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +35,7 @@ public class ForgotPasswordPageController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
             request.setAttribute("apartmentId", apartmentId);
-            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 

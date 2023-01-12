@@ -1,8 +1,9 @@
+package controller.admin;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.host;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,8 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "MenuPageController", urlPatterns = {"/apartment"})
-public class MenuPageController extends HttpServlet {
+@WebServlet(urlPatterns = {"/admin"})
+public class PageAdminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,8 +34,7 @@ public class MenuPageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            request.getRequestDispatcher("menu.jsp").forward(request, response);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
         }
     }
 

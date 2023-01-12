@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "IndexPageController", urlPatterns = {""})
-public class IndexPageController extends HttpServlet {
+@WebServlet(name = "PageConfirmCodeController", urlPatterns = {"/confirm-code"})
+public class PageConfirmCodeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +33,12 @@ public class IndexPageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
+            String username = request.getParameter("username");
+            request.setAttribute("apartmentId", apartmentId);
+            request.setAttribute("username", username);
+            request.getRequestDispatcher("confirm-code.jsp").forward(request, response);
+            
         }
     }
 

@@ -16,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "HomepageController", urlPatterns = {"/homepage"})
-public class HomepageController extends HttpServlet {
+@WebServlet(name = "PageHomepageController", urlPatterns = {"/homepage"})
+public class PageHomepageController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
