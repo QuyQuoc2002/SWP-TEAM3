@@ -4,26 +4,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Cypher.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/StudentDAO.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Mail.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/forgot-password.jsp</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/ForgotPasswordPageController.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/IndexPageController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/PageConfirmCodeController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/PageLoginController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/constant/IConst.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/SignInController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/PageMenuController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/AccountDAO.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/service/StudentService.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/GetCodeConfirmController.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/ConfirmCodePageController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/login.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/admin/PageAdminController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Format.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/homepage.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/PageHomepageController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/confirm-code.jsp</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/HomepageController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/PageForgotPasswordController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/service/AccountService.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/ResetPasswordController.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/core/AdminFilter.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/LoginPageController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/PageIndexController.java</file>
         </group>
     </open-files>
 </project-private>
