@@ -133,6 +133,17 @@
                     <input type="text" required name="code">
                     <label for="">Code</label>
                 </div>
+                <div class="field">
+                    <span class="fa fa-key"></span>
+                    <input type="password" required name="newPassword">
+                    <label for="">New Password</label>
+                </div>
+                <div class="field">
+                    <span class="fa fa-key"></span>
+                    <input type="password" required name="confirmPassword">
+                    <label for="">Confirm Password</label>
+                </div>
+                <span>Password must from 8 to 20 characters, Password just contain: [a-z A-Z 0-9 !@#$%^&*,.]</span>
                 <input type="hidden" name="apartmentId" value="${requestScope.apartmentId}">
                 <input type="hidden" name="username" value="${requestScope.username}">
                 <button type="submit">Get New Password</button>

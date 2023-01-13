@@ -35,35 +35,42 @@ public class ResetPasswordController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        HttpSession session = request.getSession();
+        int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
+        String username = request.getParameter("username");
+        try {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            String username = request.getParameter("username");
-            int code = Integer.parseInt(request.getParameter("code"));
-            int oldCode = -1;
-            try {
-                oldCode = (int) session.getAttribute("code");
-            } catch (Exception e) {
-                session.setAttribute("message", "Wrong Code Confirm");
-                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username="+username);
-            }
+            int code = Integer.parseInt(request.getParameter("code")); //exceoption
+            int oldCode = (int) session.getAttribute("code"); //exceoption
             if (code == oldCode) {
-                String newPassword = Cypher.generateData();
-                boolean resetSuccess = new AccountService().resetPassword(username, Cypher.encryptData(newPassword, IConst.SHIFT_KEY), apartmentId);
-                if (resetSuccess) {
-                    String message = "New Password is: " + newPassword;
-                    session.setAttribute("message", message);
-                    session.removeAttribute("code");
-                    response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username="+username);
+                String newPassword = request.getParameter("newPassword");
+                String confirmPassword = request.getParameter("confirmPassword");
+                if (newPassword.matches(IConst.REGEX_PASSWORD)) {
+                    if (newPassword.equals(confirmPassword)) {
+                        boolean resetSuccess = new AccountService().resetPassword(username, Cypher.encryptData(newPassword, IConst.SHIFT_KEY), apartmentId);
+                        if (resetSuccess) {
+                            String message = "Change Password success";
+                            session.setAttribute("message", message);
+                            session.removeAttribute("code");
+                            response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
+                        } else {
+                            response.sendRedirect("WEB-INF/error-404.jsp");
+                        }
+                    } else {
+                        session.setAttribute("message", "Password not matches");
+                        response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
+                    }
                 } else {
-                    response.sendRedirect("WEB-INF/error-404.jsp");
+                    session.setAttribute("message", "Password is wrong format");
+                    response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
                 }
             } else {
                 session.setAttribute("message", "Wrong Code Confirm");
-                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username="+username);
+                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
             }
-            
+        } catch (IOException | NumberFormatException |NullPointerException e) {
+            session.setAttribute("message", "Wrong Code Confirm");
+            response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
         }
     }
 

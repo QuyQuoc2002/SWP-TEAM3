@@ -19,4 +19,6 @@ public interface IConst {
     
     String ADMIN_EMAIL = "quocpqhe163061@fpt.edu.vn";
     String ADMIN_EMAIL_PASS = "Shironeko02";
+    
+    String REGEX_PASSWORD = "^[a-zA-Z0-9!@#$%^&*,.]{8,20}$";
 }
