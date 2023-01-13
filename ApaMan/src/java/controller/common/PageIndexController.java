@@ -4,6 +4,8 @@
  */
 package controller.common;
 
+import entity.City;
+import entity.District;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import service.CityService;
+import service.DistrictService;
 
 /**
  *
@@ -33,6 +38,10 @@ public class PageIndexController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            List<City> cities = new CityService().getAll();
+            List<District> districts = new DistrictService().getAll();
+            request.setAttribute("cities", cities);
+            request.setAttribute("districts", districts);
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }

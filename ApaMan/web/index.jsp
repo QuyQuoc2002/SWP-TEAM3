@@ -27,22 +27,22 @@
         <form>
             <div class="inner-form">
                 <div class="input-select">
-                    <select class="form-select" aria-label="Default select example" style="padding-right: 8rem;">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <select id="city" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrDistrict(value);">
+                        <option selected="selected" value="0">Choose one city</option>
+                        <c:forEach items="${requestScope.cities}" var="city">
+                            <option value="${city.cityId}">${city.cityName}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="input-select">
-                    <select class="form-select" aria-label="Default select example" style="padding-right: 8rem;">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select id="district" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrBtnSearch(value);">
+                        <option selected="selected" value="0">Choose one district</option>
+                        <c:forEach items="${requestScope.districts}" var="district">
+                            <option data-cityId="${district.cityId}" value="${district.districtId}">${district.districtName}</option>
+                        </c:forEach>
                     </select>
                 </div>
-                <a href="index.html"><button type="button" class="btn btn-primary">Search</button></a>
+                <button type="button" class="btn btn-primary" id="btn-search">Search</button>
             </div>
         </form>
     </div>
@@ -105,6 +105,28 @@
             </div>
         </div>
     </div>
+    <script>
+        let city = document.getElementById('city');
+        let district = document.getElementById('district');
+        let btnSearch = document.getElementById('btn-search');
+        district.disabled = Number(city.value) === 0 ? true : false;
+        btnSearch.disabled = Number(district.value) === 0 ? true : false;
+        
+        function setAttrDistrict(cityValue) {
+            district.disabled = Number(cityValue) === 0 ? true : false;
+            district.options[0].selected = true ;
+            setAttrBtnSearch(district.options[0].value);
+            for (let i = 0; i < district.length; i++) {
+                district.options[i].style.display = district.options[i].dataset.cityid === cityValue ? "block" : "none";
+            }
+        }
+        
+        function setAttrBtnSearch(districtValue) {
+            btnSearch.disabled = Number(districtValue) === 0 ? true : false;
+        }
+        
+        
+    </script>
 </body>
 
 </html>
