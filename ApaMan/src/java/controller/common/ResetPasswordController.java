@@ -68,6 +68,31 @@ public class ResetPasswordController extends HttpServlet {
                 session.setAttribute("message", "Wrong Code Confirm");
                 response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
             }
+            /*
+            if (code != oldCode) {
+                session.setAttribute("message", "Wrong Code Confirm");
+                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
+            }
+            String newPassword = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
+            if (!newPassword.matches(IConst.REGEX_PASSWORD)) {
+                session.setAttribute("message", "Password is wrong format");
+                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
+            }
+            if (!newPassword.equals(confirmPassword)) {
+                session.setAttribute("message", "Password not matches");
+                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
+            }
+            boolean resetSuccess = new AccountService().resetPassword(username, Cypher.encryptData(newPassword, IConst.SHIFT_KEY), apartmentId);
+            if (resetSuccess) {
+                String message = "Change Password success";
+                session.setAttribute("message", message);
+                session.removeAttribute("code");
+                response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
+            } else {
+                response.sendRedirect("WEB-INF/error-404.jsp");
+            }
+            */
         } catch (IOException | NumberFormatException |NullPointerException e) {
             session.setAttribute("message", "Wrong Code Confirm");
             response.sendRedirect("confirm-code?apartmentId=" + apartmentId + "&username=" + username);
