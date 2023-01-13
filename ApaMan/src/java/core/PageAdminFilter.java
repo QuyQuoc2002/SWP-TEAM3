@@ -25,8 +25,8 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
-public class AdminFilter implements Filter {
+@WebFilter(filterName = "PageAdminFilter", urlPatterns = "/admin/*")
+public class PageAdminFilter implements Filter {
 
     private static final boolean debug = true;
 
@@ -35,13 +35,13 @@ public class AdminFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public AdminFilter() {
+    public PageAdminFilter() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AdminFilter:DoBeforeProcessing");
+            log("PageAdminFilter:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -69,7 +69,7 @@ public class AdminFilter implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("FLoginFilter:DoAfterProcessing");
+            log("PageAdminFilter:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -109,8 +109,9 @@ public class AdminFilter implements Filter {
 
         HttpSession session = req.getSession();
         Account curAccount = (Account) session.getAttribute("curAccount");
+        String curAccountRoleName = curAccount.getRole().getRoleName();
         if (curAccount != null) {
-            if (curAccount.getRole().getRoleName().equals(IConst.ROLE_ADMIN)) {
+            if (curAccountRoleName.equals(IConst.ROLE_ADMIN)) {
                 chain.doFilter(request, response);
             } else {
                 resp.sendRedirect("WEB-INF/error-404.jsp");
@@ -149,7 +150,7 @@ public class AdminFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("FLoginFilter:Initializing filter");
+                log("PageAdminFilter:Initializing filter");
             }
         }
     }
@@ -160,9 +161,9 @@ public class AdminFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("FLoginFilter()");
+            return ("PageAdminFilter()");
         }
-        StringBuffer sb = new StringBuffer("FLoginFilter(");
+        StringBuffer sb = new StringBuffer("PageAdminFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
