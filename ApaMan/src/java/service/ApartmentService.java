@@ -19,4 +19,8 @@ public class ApartmentService {
     public List<Apartment> getAll(int districtId) {
         return apartmentDAO.getAll(districtId);
     }
+    
+    public Apartment getOne(int apartmentId) {
+        return apartmentDAO.getOne(apartmentId);
+    }
 }

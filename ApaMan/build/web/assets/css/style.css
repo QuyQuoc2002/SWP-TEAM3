@@ -20,7 +20,6 @@
 @import url(icomoon.css);
 @import url(font-awesome.min.css);
 @import url(meanmenu.css);
-@import url(owl.carousel.min.css);
 @import url(swiper.min.css);
 @import url(slick.css);
 @import url(jquery.fancybox.min.css);
@@ -301,21 +300,6 @@ button {
 
 /** banner section **/
 
-.banner_main {
-     position: relative;
-}
-
-.banner .carousel-indicators li {
-     width: 20px;
-     height: 20px;
-     border-radius: 30px;
-     background: #292929;
-}
-
-.banner .carousel-indicators .active {
-     background-color: #fe0000;
-}
-
 .booking_ocline {
      position: absolute;
      width: 100%;
@@ -386,16 +370,7 @@ button {
      transition: ease-in 0.5s;
 }
 
-.carousel-control-next,
-.carousel-control-prev {
-     display: none;
-}
 
-.carousel-indicators {
-     right: inherit;
-     bottom: 53px;
-     margin-left: 9%;
-}
 
 
 /** end banner section **/
@@ -759,7 +734,6 @@ button {
 
 .footer {
      background: #0f1521;
-     margin-top: 90px;
      padding-top: 60px;
      text-align: center;
 }

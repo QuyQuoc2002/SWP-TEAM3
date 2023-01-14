@@ -4,6 +4,8 @@
  */
 package controller.common;
 
+import entity.Apartment;
+import entity.ApartmentImgBanner;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import service.ApartmentImgBannerService;
+import service.ApartmentService;
 
 /**
  *
@@ -33,6 +38,11 @@ public class PageHomepageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
+            Apartment apartment = new ApartmentService().getOne(apartmentId);
+            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(apartmentId);
+            
+            request.setAttribute("apartment", apartment);
+            request.setAttribute("apartmentImgBanners", apartmentImgBanners);
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
         }
     }
