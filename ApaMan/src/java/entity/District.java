@@ -14,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class District {
+    
     private int districtId;
     private int cityId;
     private String districtName;

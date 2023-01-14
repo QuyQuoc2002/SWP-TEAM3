@@ -4,6 +4,7 @@
  */
 package controller.common;
 
+import entity.Apartment;
 import entity.City;
 import entity.District;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import service.ApartmentService;
 import service.CityService;
 import service.DistrictService;
 
@@ -38,11 +40,11 @@ public class PageIndexController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            List<City> cities = new CityService().getAll();
-            List<District> districts = new DistrictService().getAll();
-            request.setAttribute("cities", cities);
-            request.setAttribute("districts", districts);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+//            List<City> cities = new CityService().getAll();
+//            List<District> districts = new DistrictService().getAll();
+//            request.setAttribute("cities", cities);
+//            request.setAttribute("districts", districts);
+//            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
@@ -58,7 +60,18 @@ public class PageIndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            List<City> cities = new CityService().getAll();
+            List<District> districts = new DistrictService().getAll();
+            List<Apartment> apartments = new ApartmentService().getAll(0);
+            
+            request.setAttribute("apartments", apartments);
+            request.setAttribute("cities", cities);
+            request.setAttribute("districts", districts);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -72,7 +85,22 @@ public class PageIndexController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            int districtId = Integer.parseInt(request.getParameter("districtId"));
+            
+            List<City> cities = new CityService().getAll();
+            List<District> districts = new DistrictService().getAll();
+            List<Apartment> apartments = new ApartmentService().getAll(districtId);
+            
+            
+            request.setAttribute("districtId", districtId);
+            request.setAttribute("apartments", apartments);
+            request.setAttribute("cities", cities);
+            request.setAttribute("districts", districts);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
 
     /**

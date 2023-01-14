@@ -35,6 +35,7 @@ public class PageConfirmCodeController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
             String username = request.getParameter("username");
+            
             request.setAttribute("apartmentId", apartmentId);
             request.setAttribute("username", username);
             request.getRequestDispatcher("confirm-code.jsp").forward(request, response);

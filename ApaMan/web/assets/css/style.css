@@ -642,6 +642,7 @@ button {
 
 .blog .blog_box .blog_img figure img {
      width: 100%;
+     height: 250px;
      transition: all .5s;
 }
 

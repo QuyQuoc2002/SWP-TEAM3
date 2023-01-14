@@ -5,12 +5,13 @@
         <group>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/StudentDAO.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/entity/Account.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/nbproject/build-impl.xml</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/AccountDAO.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/entity/District.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/DistrictDAO.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/index.jsp</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/entity/City.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/CItyDAO.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/admin.jsp</file>
         </group>
     </open-files>
 </project-private>

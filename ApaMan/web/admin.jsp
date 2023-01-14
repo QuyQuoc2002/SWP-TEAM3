@@ -172,6 +172,12 @@
                                     <input type="text" class="form-control" value="Phone">
                                 </fieldset>
                             </div>
+                            <div class="col-12 form-group mb-3">
+                                <fieldset>
+                                    <legend>Address</legend>
+                                    <input type="text" class="form-control" value="Address">
+                                </fieldset>
+                            </div>
                             <div class="col-6 form-group mb-3">
                                 <fieldset>
                                     <legend>City</legend>
@@ -243,6 +249,12 @@
                                 <fieldset>
                                     <legend>Phone</legend>
                                     <input type="text" class="form-control" value="Phone">
+                                </fieldset>
+                            </div>
+                            <div class="col-12 form-group mb-3">
+                                <fieldset>
+                                    <legend>Address</legend>
+                                    <input type="text" class="form-control" value="Address">
                                 </fieldset>
                             </div>
                             <div class="col-6 form-group mb-3">

@@ -34,6 +34,7 @@ public class PageForgotPasswordController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
+            
             request.setAttribute("apartmentId", apartmentId);
             request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
         }
