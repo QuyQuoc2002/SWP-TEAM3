@@ -109,8 +109,8 @@ public class PageAdminFilter implements Filter {
 
         HttpSession session = req.getSession();
         Account curAccount = (Account) session.getAttribute("curAccount");
-        String curAccountRoleName = curAccount.getRole().getRoleName();
         if (curAccount != null) {
+            String curAccountRoleName = curAccount.getRole().getRoleName();
             if (curAccountRoleName.equals(IConst.ROLE_ADMIN)) {
                 chain.doFilter(request, response);
             } else {

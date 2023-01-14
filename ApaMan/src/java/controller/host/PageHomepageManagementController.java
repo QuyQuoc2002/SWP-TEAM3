@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.common;
+package controller.host;
 
-import constant.IConst;
 import entity.Account;
+import entity.Apartment;
+import entity.ApartmentImgBanner;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +15,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import service.AccountService;
-import utils.Cypher;
+import java.util.List;
+import service.ApartmentImgBannerService;
+import service.ApartmentService;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "SignInController", urlPatterns = {"/sign-in"})
-public class SignInController extends HttpServlet {
+@WebServlet(name = "PageHomepageManagementController", urlPatterns = {"/homepage-management"})
+public class PageHomepageManagementController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,22 +41,13 @@ public class SignInController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            password = Cypher.encryptData(password, IConst.SHIFT_KEY);
-            Account curAccount = new AccountService().login(username, password, apartmentId);
-            if (curAccount == null) {
-                session.setAttribute("message", "Wrong Username or Password");
-                response.sendRedirect("login?apartmentId=" + apartmentId);
-            } else {
-                session.setAttribute("curAccount", curAccount);
-                if (curAccount.getRole().getRoleName().equals(IConst.ROLE_ADMIN)) {
-                    response.sendRedirect("admin");
-                } else {
-                    response.sendRedirect("apartment");
-                }
-            }
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
+            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(curAccount.getApartmentId());
+            
+            request.setAttribute("apartment", apartment);
+            request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+            request.getRequestDispatcher("homepage-management.jsp").forward(request, response);
         }
     }
 

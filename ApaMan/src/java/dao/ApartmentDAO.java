@@ -42,7 +42,7 @@ public class ApartmentDAO {
                         .apartmentImgAboutus(rs.getString("apartment_img_aboutus"))
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
-                        .apartmentContentRecuitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
                         .apartmentAccessible(rs.getBoolean("apartment_accessible"))
                         .build();
                 list.add(obj);
@@ -72,7 +72,7 @@ public class ApartmentDAO {
                         .apartmentImgAboutus(rs.getString("apartment_img_aboutus"))
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
-                        .apartmentContentRecuitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
                         .apartmentAccessible(rs.getBoolean("apartment_accessible"))
                         .build();
                 return obj;

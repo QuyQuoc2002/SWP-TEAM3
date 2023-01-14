@@ -92,7 +92,7 @@
                                             <a class="nav-link" href="#contact">Contact Us</a>
                                         </li>
                                         <c:if test="${sessionScope.curAccount == null}">
-                                            <li class="nav-item"><a class="nav-link" href="login?apartmentId=1">Sign In</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="login?apartmentId=${requestScope.apartment.apartmentId}">Sign In</a></li>
                                             </c:if>
                                             <c:if test="${sessionScope.curAccount != null}">
                                             <li class="nav-item"><a class="nav-link" href="sign-out">Sign Out</a></li>
@@ -109,7 +109,7 @@
         <!-- end header inner -->
         <!-- end header -->
         <!-- banner -->
-        <div class="text-center my-5 text-danger text-uppercase fw-bolder" style="font-size: 50px;">${requestScope.apartment.apartmentName}</div>
+        <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">${requestScope.apartment.apartmentName}</div>
         <section>
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
@@ -814,7 +814,7 @@
                         </div>
                     </div>
                 </div>
-                <div>${requestScope.apartment.apartmentContentRecuitment}</div>
+                <div>${requestScope.apartment.apartmentContentRecruitment}</div>
             </div>
         </div>
         <!-- end contact -->

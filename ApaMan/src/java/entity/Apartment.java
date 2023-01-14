@@ -25,6 +25,6 @@ public class Apartment {
     private String apartmentImgAboutus;
     private String apartmentContentAboutus;
     private String apartmentContentService;
-    private String apartmentContentRecuitment;
+    private String apartmentContentRecruitment;
     private boolean apartmentAccessible;
 }

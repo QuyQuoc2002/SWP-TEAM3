@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "PageApartmentFilter", urlPatterns = "/apartment/*")
+@WebFilter(filterName = "PageApartmentFilter", urlPatterns = {"/apartment/*", "/homepage-management/*"})
 public class PageApartmentFilter implements Filter {
 
     private static final boolean debug = true;
@@ -109,8 +109,8 @@ public class PageApartmentFilter implements Filter {
 
         HttpSession session = req.getSession();
         Account curAccount = (Account) session.getAttribute("curAccount");
-        String curAccountRoleName = curAccount.getRole().getRoleName();
         if (curAccount != null) {
+            String curAccountRoleName = curAccount.getRole().getRoleName();
             if (curAccountRoleName.equals(IConst.ROLE_ADMIN)
                     || curAccountRoleName.equals(IConst.ROLE_HOST)) 
             {
