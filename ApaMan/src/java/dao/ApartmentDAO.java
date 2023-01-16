@@ -6,6 +6,7 @@ package dao;
 
 import connection.MySQLConnection;
 import entity.Apartment;
+import entity.Student;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ApartmentDAO {
 
-    public List<Apartment> getAll(int districtId) {
+    public List<Apartment> getAll(int districtId) { //31 LOC
 
         String sql = "SELECT * FROM apartment Where apartment_accessible = true";
         sql += districtId != 0 ? " AND district_id = ?" : ""; // Query search by district Id
@@ -37,8 +38,8 @@ public class ApartmentDAO {
                         .districId(rs.getInt("district_id"))
                         .apartmentAddress(rs.getString("apartment_address"))
                         .apartmentIntro(rs.getString("apartment_intro"))
-                        .apartmentLat(rs.getDouble("apartment_lat"))
-                        .apartmentLon(rs.getDouble("apartment_lon"))
+                        .apartmentLat(rs.getString("apartment_lat"))
+                        .apartmentLon(rs.getString("apartment_lon"))
                         .apartmentImgAboutus(rs.getString("apartment_img_aboutus"))
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
@@ -54,7 +55,7 @@ public class ApartmentDAO {
         return null;
     }
 
-    public Apartment getOne(int apartmentId) {
+    public Apartment getOne(int apartmentId) { //27LOC
         String sql = "SELECT * FROM apartment WHERE apartment_accessible = true AND  apartment_id = ?";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
@@ -67,8 +68,8 @@ public class ApartmentDAO {
                         .districId(rs.getInt("district_id"))
                         .apartmentAddress(rs.getString("apartment_address"))
                         .apartmentIntro(rs.getString("apartment_intro"))
-                        .apartmentLat(rs.getDouble("apartment_lat"))
-                        .apartmentLon(rs.getDouble("apartment_lon"))
+                        .apartmentLat(rs.getString("apartment_lat"))
+                        .apartmentLon(rs.getString("apartment_lon"))
                         .apartmentImgAboutus(rs.getString("apartment_img_aboutus"))
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
@@ -81,6 +82,41 @@ public class ApartmentDAO {
             e.printStackTrace(System.out);
         }
         return null;
+    }
+    
+    public boolean update(Apartment obj, int apartmentId) { //32Loc
+        int check = 0;
+        String sql = "UPDATE Apartment SET "
+                + "apartment_name = ?, "
+                + "district_id = ?, "
+                + "apartment_address = ?, "
+                + "apartment_intro = ?, "
+                + "apartment_lat = ?, "
+                + "apartment_lon = ?, "
+                + "apartment_img_aboutus = ?, "
+                + "apartment_content_aboutus = ?, "
+                + "apartment_content_service = ?, "
+                + "apartment_content_recruitment = ? "
+                + "WHERE apartment_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, obj.getApartmentName());
+            ps.setObject(2, obj.getDistricId());
+            ps.setObject(3, obj.getApartmentAddress());
+            ps.setObject(4, obj.getApartmentIntro());
+            ps.setObject(5, obj.getApartmentLat());
+            ps.setObject(6, obj.getApartmentLon());
+            ps.setObject(7, obj.getApartmentImgAboutus());
+            ps.setObject(8, obj.getApartmentContentAboutus());
+            ps.setObject(9, obj.getApartmentContentService());
+            ps.setObject(10, obj.getApartmentContentRecruitment());
+            ps.setObject(11, apartmentId);
+            
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
     }
 
 }

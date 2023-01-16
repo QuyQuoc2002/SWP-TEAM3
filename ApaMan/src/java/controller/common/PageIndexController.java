@@ -94,7 +94,6 @@ public class PageIndexController extends HttpServlet {
             List<District> districts = new DistrictService().getAll();
             List<Apartment> apartments = new ApartmentService().getAll(districtId);
             
-            
             request.setAttribute("districtId", districtId);
             request.setAttribute("apartments", apartments);
             request.setAttribute("cities", cities);

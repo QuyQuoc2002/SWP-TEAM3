@@ -23,4 +23,8 @@ public class ApartmentService {
     public Apartment getOne(int apartmentId) {
         return apartmentDAO.getOne(apartmentId);
     }
+    
+    public boolean update(Apartment obj, int apartmentId) {
+        return apartmentDAO.update(obj, apartmentId);
+    }
 }

@@ -20,8 +20,8 @@ public class Apartment {
     private int districId;
     private String apartmentAddress;
     private String apartmentIntro;
-    private double apartmentLat;
-    private double apartmentLon;
+    private String apartmentLat;
+    private String apartmentLon;
     private String apartmentImgAboutus;
     private String apartmentContentAboutus;
     private String apartmentContentService;

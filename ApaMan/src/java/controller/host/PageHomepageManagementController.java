@@ -37,18 +37,18 @@ public class PageHomepageManagementController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            Account curAccount = (Account) session.getAttribute("curAccount");
-            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
-            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(curAccount.getApartmentId());
-            
-            request.setAttribute("apartment", apartment);
-            request.setAttribute("apartmentImgBanners", apartmentImgBanners);
-            request.getRequestDispatcher("homepage-management.jsp").forward(request, response);
-        }
+//        response.setContentType("text/html;charset=UTF-8");
+//        try ( PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            HttpSession session = request.getSession();
+//            Account curAccount = (Account) session.getAttribute("curAccount");
+//            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
+//            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(curAccount.getApartmentId());
+//            
+//            request.setAttribute("apartment", apartment);
+//            request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+//            request.getRequestDispatcher("homepage-management.jsp").forward(request, response);
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,7 +63,18 @@ public class PageHomepageManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
+            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(curAccount.getApartmentId());
+
+            request.setAttribute("apartment", apartment);
+            request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+            request.getRequestDispatcher("homepage-management.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -77,7 +88,42 @@ public class PageHomepageManagementController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            ApartmentService apartmentService = new ApartmentService();
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            int apartmentId = curAccount.getApartmentId();
+            Apartment apartment = apartmentService.getOne(apartmentId);
+            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(apartmentId);
+
+            boolean updateSuccess = false;
+            String editType = request.getParameter("editType");
+            switch (editType) {
+                case "editIntroduction":
+                    apartment.setApartmentIntro(request.getParameter("editIntroductionContent"));
+                    break;
+                case "editAboutus":
+                    apartment.setApartmentContentAboutus(request.getParameter("editAboutusContent"));
+                    break;
+                case "editService":
+                    apartment.setApartmentContentService(request.getParameter("editServiceContent"));
+                    break;
+                case "editRecruitment":
+                    apartment.setApartmentContentRecruitment(request.getParameter("editRecruitmentContent"));
+                    break;
+            }
+            updateSuccess = apartmentService.update(apartment, apartmentId);
+            if (updateSuccess) {
+                apartment = apartmentService.getOne(apartmentId);
+                request.setAttribute("apartment", apartment);
+                request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+                request.getRequestDispatcher("homepage-management.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("WEB-INF/error-404.jsp");
+            }
+        }
     }
 
     /**

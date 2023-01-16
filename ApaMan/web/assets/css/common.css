@@ -6,24 +6,8 @@
     --wheat: rgb(254, 198, 94)
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-}
-
-ol,
-ul {
-    list-style: none;
-}
-
 html {
     scroll-behavior: smooth;
-}
-
-a{
-    text-decoration: none;
 }
 
 .back-to-top {

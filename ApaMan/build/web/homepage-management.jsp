@@ -37,6 +37,21 @@
                 <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">Apartment Info Edit</div>
                 <div class="container-fluid pt-4 px-4">
 
+                    <!--------------------- Introduction ----------------------->
+                    <section class="recruitment mb-5">
+                        <div class="top-side d-flex justify-content-between">
+                            <h2 class="text-wheat">Introduction</h2>
+                            <div class="controls">
+                                <form action="homepage-management" method="post"> 
+                                    <input type="hidden" name="editIntroductionContent">
+                                    <input type="hidden" name="editType" value="editIntroduction">
+                                    <button type="submit" onclick="editIntroduction()" class="btn btn-dark-cus">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="edit-introduction"></div>
+                    </section>
+
                     <!--------------------- Banner ----------------------->
                     <section id="banner" class="banner mb-5">
                         <div class="top-side d-flex justify-content-between">
@@ -83,28 +98,44 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <div id="edit-aboutus"></div>
-                                <div onclick="editAboutus()" class="btn btn-dark-cus">Save</div>
+                                <form action="homepage-management" method="post">                                   
+                                    <input type="hidden" name="editAboutusContent">
+                                    <div id="edit-aboutus"></div>
+                                    <input type="hidden" name="editType" value="editAboutus">
+                                    <button type="submit" onclick="editAboutus()" class="btn btn-dark-cus">Save</button>
+                                </form>
                             </div>
                             <div class="col-6">
                                 <img src="${requestScope.apartment.apartmentImgAboutus}" class="d-block w-100" alt="...">
                             </div>
                         </div>
                     </section>
+
+                    <!--------------------- Service ----------------------->
                     <section class="services mb-5">
                         <div class="top-side d-flex justify-content-between">
                             <h2 class="text-wheat">Services</h2>
                             <div class="controls">
-                                <div onclick="editService()" class="btn btn-dark-cus">Save</div>
+                                <form action="homepage-management" method="post"> 
+                                    <input type="hidden" name="editServiceContent">
+                                    <input type="hidden" name="editType" value="editService">
+                                    <button type="submit" onclick="editService()" class="btn btn-dark-cus">Save</button>
+                                </form>
                             </div>
                         </div>
                         <div id="edit-service"></div>
                     </section>
+
+                    <!--------------------- Recruitment ----------------------->
                     <section class="recruitment mb-5">
                         <div class="top-side d-flex justify-content-between">
                             <h2 class="text-wheat">Recruitment</h2>
                             <div class="controls">
-                                <div onclick="editRecruitment()" class="btn btn-dark-cus">Save</div>
+                                <form action="homepage-management" method="post"> 
+                                    <input type="hidden" name="editRecruitmentContent">
+                                    <input type="hidden" name="editType" value="editRecruitment">
+                                    <button type="submit" onclick="editRecruitment()" class="btn btn-dark-cus">Save</button>
+                                </form>
                             </div>
                         </div>
                         <div id="edit-recruitment"></div>
@@ -117,6 +148,21 @@
                                     let editorAboutus;
                                     let editorSerive;
                                     let editorRecruitment;
+                                    let editorIntroduction;
+
+                                    ClassicEditor
+                                            .create(document.querySelector('#edit-introduction'))
+                                            .then(newEditor => {
+                                                editorIntroduction = newEditor;
+                                                editorIntroduction.setData("${requestScope.apartment.apartmentIntro}");
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
+                                    function editIntroduction() {
+                                        let data = editorIntroduction.getData();
+                                        document.getElementById("edit-introduction").parentElement.firstElementChild.lastElementChild.firstElementChild.firstElementChild.value = data;
+                                    }
 
                                     ClassicEditor
                                             .create(document.querySelector('#edit-aboutus'))
@@ -128,8 +174,8 @@
                                                 console.error(error);
                                             });
                                     function editAboutus() {
-                                        var data = editorAboutus.getData();
-                                        console.log(data);
+                                        let data = editorAboutus.getData();
+                                        document.getElementById("edit-aboutus").parentElement.firstElementChild.value = data;
                                     }
 
                                     ClassicEditor
@@ -142,8 +188,8 @@
                                                 console.error(error);
                                             });
                                     function editService() {
-                                        var data = editorSerive.getData();
-                                        console.log(data);
+                                        let data = editorSerive.getData();
+                                        document.getElementById("edit-service").parentElement.firstElementChild.lastElementChild.firstElementChild.firstElementChild.value = data;
                                     }
 
                                     ClassicEditor
@@ -156,8 +202,8 @@
                                                 console.error(error);
                                             });
                                     function editRecruitment() {
-                                        var data = editorRecruitment.getData();
-                                        console.log(data);
+                                        let data = editorRecruitment.getData();
+                                        document.getElementById("edit-recruitment").parentElement.firstElementChild.lastElementChild.firstElementChild.firstElementChild.value = data;
                                     }
 
         </script>

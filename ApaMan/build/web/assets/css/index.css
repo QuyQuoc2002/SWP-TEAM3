@@ -60,3 +60,7 @@ body {
 .s01 form .inner-form .input-field.third-wrap .btn-search:hover {
     background: #2d62d3;
 }
+
+.blog_room a {
+    text-decoration: none;
+}

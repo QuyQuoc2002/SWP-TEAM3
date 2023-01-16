@@ -25,19 +25,11 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/common.css">
         <link rel="stylesheet" href="assets/css/hompage.css">
-        <link rel="stylesheet" href="assets/css/table.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <!-- <link rel="stylesheet" href="assets/css/banner-hompage.css">
-        <link rel="stylesheet" href="assets/css/room-homepage.css">
-        <link rel="stylesheet" href="assets/css/review-homepage.css"> -->
-
-        <!-- Responsive-->
-        <link rel="stylesheet" href="assets/css/responsive.css">
         <!-- fevicon -->
         <link rel="icon" href="assets/images/fevicon.png" type="image/gif" />
 
         <!-- Tweaks for older IEs-->
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
               media="screen">
 

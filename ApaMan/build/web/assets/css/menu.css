@@ -33,3 +33,6 @@
     transform: scale(1.02, 1.05) ;
 }
 
+.row>.col-4>a {
+    text-decoration: none;
+}

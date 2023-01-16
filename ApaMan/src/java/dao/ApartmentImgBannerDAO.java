@@ -20,14 +20,11 @@ import java.util.List;
  */
 public class ApartmentImgBannerDAO {
 
-    public List<ApartmentImgBanner> getAll(int apartmentId) {
-
+    public List<ApartmentImgBanner> getAll(int apartmentId) { //20Loc
         String sql = "SELECT * FROM apartment_img_banner Where apartment_id = ?";//
-
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, apartmentId);
             ResultSet rs = ps.executeQuery();
-
             List<ApartmentImgBanner> list = new ArrayList<>();//
             while (rs.next()) {
                 ApartmentImgBanner obj = ApartmentImgBanner.builder()
