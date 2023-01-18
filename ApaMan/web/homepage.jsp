@@ -107,7 +107,7 @@
                 <div class="carousel-inner">
                     <c:forEach items="${apartmentImgBanners}" var="apartmentImgBanner" varStatus="i">
                         <div class="carousel-item <c:if test="${i.index eq 0}">active</c:if>">
-                            <img style="height: 500px; object-fit: cover" src="${apartmentImgBanner.apartmentImgBannerPath}" class="d-block w-100" alt="...">
+                            <img style="height: 700px; object-fit: cover" src="${apartmentImgBanner.apartmentImgBannerPath}" class="d-block w-100" alt="...">
                         </div>
                     </c:forEach>
                 </div>

@@ -19,4 +19,20 @@ public class ApartmentImgBannerService {
     public List<ApartmentImgBanner> getAll(int apartmentId) {
         return apartmentImgBannerDAO.getAll(apartmentId);
     }
+    
+    public ApartmentImgBanner getOne(int apartmentImgBannerId) {
+        return apartmentImgBannerDAO.getOne(apartmentImgBannerId);
+    }
+    
+    public int add(ApartmentImgBanner obj) {
+        return apartmentImgBannerDAO.add(obj);
+    }
+    
+    public boolean update(ApartmentImgBanner obj, int apartmentImgBannerId) {
+        return apartmentImgBannerDAO.update(obj, apartmentImgBannerId);
+    }
+    
+    public boolean delete(int apartmentImgBannerId) {
+        return apartmentImgBannerDAO.delete(apartmentImgBannerId);
+    }
 }

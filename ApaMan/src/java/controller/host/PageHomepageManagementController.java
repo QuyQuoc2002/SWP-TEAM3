@@ -118,10 +118,12 @@ public class PageHomepageManagementController extends HttpServlet {
             if (updateSuccess) {
                 apartment = apartmentService.getOne(apartmentId);
                 request.setAttribute("apartment", apartment);
-                request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+                request.setAttribute("apartmentImgBanners", apartmentImgBanners);               
+                session.setAttribute("messageUpdate", "info|Edit|Edit success!");
                 request.getRequestDispatcher("homepage-management.jsp").forward(request, response);
             } else {
-                response.sendRedirect("WEB-INF/error-404.jsp");
+                session.setAttribute("messageUpdate", "error|Edit|Something wrong, edit Failed");
+                response.sendRedirect("homepage-management");
             }
         }
     }

@@ -26,6 +26,7 @@ import jakarta.servlet.http.HttpSession;
  * @author DELL
  */
 @WebFilter(filterName = "PageApartmentFilter", urlPatterns = {"/apartment/*", "/homepage-management/*"})
+
 public class PageApartmentFilter implements Filter {
 
     private static final boolean debug = true;

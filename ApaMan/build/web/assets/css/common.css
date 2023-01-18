@@ -6,6 +6,10 @@
     --wheat: rgb(254, 198, 94)
 }
 
+.a-none {
+    text-decoration: none;
+}
+
 html {
     scroll-behavior: smooth;
 }

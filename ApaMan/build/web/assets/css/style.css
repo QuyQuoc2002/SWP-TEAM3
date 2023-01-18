@@ -262,25 +262,6 @@ button {
     padding: 0;
 }
 
-.titlepage h2::before {
-    position: absolute;
-    content: "";
-    background-color: #ff0909;
-    width: 20px;
-    height: 4px;
-    transform: rotate(-36deg);
-}
-
-.titlepage h2::after {
-    position: absolute;
-    content: "";
-    background-color: #ff0909;
-    width: 20px;
-    height: 4px;
-    transform: rotate(-36deg);
-    bottom: 10px;
-}
-
 .d_flex {
     display: flex;
     align-items: center;
