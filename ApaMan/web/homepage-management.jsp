@@ -28,15 +28,13 @@
         </div>
         <div class="container-fluid position-relative d-flex p-0">
             <!-- Sidebar Start -->
-            <div class="sidebar pe-4 pb-3">
-                <%@include file="component/common/sidebar.jsp" %>
-            </div>
+            <%@include file="component/common/sidebar.jsp" %>
             <!-- Sidebar End -->
             <div class="content">
                 <!-- Navbar Start -->
                 <%@include file="component/common/navbar.jsp" %>
                 <!-- Navbar End -->
-                <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">Apartment Info Edit</div>
+                <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">APARTMENT INFO EDIT</div>
                 <div class="container-fluid pt-4 px-4">
 
                     <!----------------------------------------------- Introduction ---------------------------------------->

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/icon/fontawesome-free-6.2.0-web/css/all.css">
 
     <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/switch-toggle-btn.css">
     <link rel="stylesheet" href="assets/css/staff.css">
 </head>
 
@@ -155,6 +156,28 @@
                 <div class="row">
                     <div class="col-4 mb-4">
                         <div class="bg-secondary-cus rounded p-2 card-staff">
+                            <div class="row px-3 pt-2">
+                                <div class="col-8 text-wheat">
+                                    <div style="line-height: 34px; font-size: 20px;">
+                                        <i class="fa-solid fa-user me-2"></i>P105Mem01
+                                    </div>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-lock me-2" style="line-height: 34px;"></i><input class="text-wheat w-100" style="background: transparent; line-height: 34px; font-size: 20px;" type="text" value="1231234">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="d-flex justify-content-end">
+                                        <span class="text-secondary">Active</span>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <label class="switch ms-3">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <hr>
                             <div class="card-staff-header">
                                 <div>
                                     <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="Hòa Lạc"></span>
@@ -198,26 +221,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 mb-4">
+                    <div class="col-4 mb-4" id="new-staff">
                         <div class="bg-secondary-cus rounded p-2 card-staff">
                             <div class="card-staff-header">
                                 <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="Hòa Lạc"></span>
+                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus hometown" type="text" placeholder="Hometown"></span>
                                 </div>
                                 <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="11-09-2002"></span>
+                                    <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus dob" type="text" placeholder="dd-MM-yyyy"></span>
                                 </div>
                             </div>
                             <div class="card-staff-body">
                                 <div class="contact text-white">
                                     <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75" type="text" value="01232314234"></span>
+                                        <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number"></span>
                                     </div>
                                     <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white" type="text" value="12312312"></span>
+                                        <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white citizen-identification" type="text" placeholder="citizen identification"></span>
                                     </div>
                                 </div>
-                                <div class="price"><input class="border-0 bg-transparent text-white text-center" type="text" value="8.000.000"><sup>đ</sup>
+                                <div class="price"><input class="border-0 bg-transparent text-white text-center salary" type="text" placeholder="Salary"><sup>đ</sup>
                                 </div>
                                 <div class="user mt-4">
                                     <div class="media d-flex">
@@ -225,198 +248,18 @@
                                             <img class="avatar" src="assets/images/avatar.png" alt="">
                                         </a>
                                         <div class="media-body pt-2">
-                                            <h5><input class="border-0 bg-secondary-cus text-white" type="text" value="Nguyễn Văn A"></h5>
-                                            <p class="mt-1"><input class="border-0 bg-secondary-cus text-white" type="text" value="Bảo vệ"></p>
+                                            <h5><input class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name"></h5>
+                                            <p class="mt-1"><input class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job"></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="action mt-2">
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-primary w-100">Save</button>
+                                            <button class="btn btn-primary w-100">Create</button>
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-danger w-100">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="Hòa Lạc"></span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="11-09-2002"></span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75" type="text" value="01232314234"></span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white" type="text" value="12312312"></span>
-                                    </div>
-                                </div>
-                                <div class="price"><input class="border-0 bg-transparent text-white text-center" type="text" value="8.000.000"><sup>đ</sup>
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5><input class="border-0 bg-secondary-cus text-white" type="text" value="Nguyễn Văn A"></h5>
-                                            <p class="mt-1"><input class="border-0 bg-secondary-cus text-white" type="text" value="Bảo vệ"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="action mt-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-primary w-100">Save</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-danger w-100">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="Hòa Lạc"></span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="11-09-2002"></span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75" type="text" value="01232314234"></span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white" type="text" value="12312312"></span>
-                                    </div>
-                                </div>
-                                <div class="price"><input class="border-0 bg-transparent text-white text-center" type="text" value="8.000.000"><sup>đ</sup>
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5><input class="border-0 bg-secondary-cus text-white" type="text" value="Nguyễn Văn A"></h5>
-                                            <p class="mt-1"><input class="border-0 bg-secondary-cus text-white" type="text" value="Bảo vệ"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="action mt-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-primary w-100">Save</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-danger w-100">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="Hòa Lạc"></span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value="11-09-2002"></span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75" type="text" value="01232314234"></span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white" type="text" value="12312312"></span>
-                                    </div>
-                                </div>
-                                <div class="price"><input class="border-0 bg-transparent text-white text-center" type="text" value="8.000.000"><sup>đ</sup>
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5><input class="border-0 bg-secondary-cus text-white" type="text" value="Nguyễn Văn A"></h5>
-                                            <p class="mt-1"><input class="border-0 bg-secondary-cus text-white" type="text" value="Bảo vệ"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="action mt-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-primary w-100">Save</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-danger w-100">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value=""></span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus" type="text" value=""></span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75" type="text" value=""></span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white" type="text" value=""></span>
-                                    </div>
-                                </div>
-                                <div class="price"><input class="border-0 bg-transparent text-white text-center" type="text" value="---"><sup>đ</sup>
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5><input class="border-0 bg-secondary-cus text-white" type="text" value=""></h5>
-                                            <p class="mt-1"><input class="border-0 bg-secondary-cus text-white" type="text" value=""></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="action mt-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-primary w-100">Tạo</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-danger w-100">Điền lại</button>
+                                            <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
                                         </div>
                                     </div>
                                 </div>
@@ -427,6 +270,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function resetStaff() {
+            document.querySelector('#new-staff .hometown').value = null
+            document.querySelector('#new-staff .dob').value = null
+            document.querySelector('#new-staff .phone-number').value = null
+            document.querySelector('#new-staff .citizen-identification').value = null
+            document.querySelector('#new-staff .salary').value = null
+            document.querySelector('#new-staff .name').value = null
+            document.querySelector('#new-staff .job').value = null
+        }
+    </script>
 
 </body>
 <script src="assets/js/bootstrap.bundle.js"></script>

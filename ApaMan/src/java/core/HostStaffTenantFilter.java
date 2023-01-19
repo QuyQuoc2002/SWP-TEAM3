@@ -25,9 +25,9 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "PageApartmentFilter", urlPatterns = {"/apartment/*", "/homepage-management/*"})
+@WebFilter(filterName = "HostStaffTenantFilter", urlPatterns = {"/apartment/*"})
 
-public class PageApartmentFilter implements Filter {
+public class HostStaffTenantFilter implements Filter {
 
     private static final boolean debug = true;
 
@@ -36,13 +36,13 @@ public class PageApartmentFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public PageApartmentFilter() {
+    public HostStaffTenantFilter() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("PageApartmentFilter:DoBeforeProcessing");
+            log("HostStaffTenantFilter:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -70,7 +70,7 @@ public class PageApartmentFilter implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("PageApartmentFilter:DoAfterProcessing");
+            log("HostStaffTenantFilter:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -113,7 +113,9 @@ public class PageApartmentFilter implements Filter {
         if (curAccount != null) {
             String curAccountRoleName = curAccount.getRole().getRoleName();
             if (curAccountRoleName.equals(IConst.ROLE_ADMIN)
-                    || curAccountRoleName.equals(IConst.ROLE_HOST)) 
+                    || curAccountRoleName.equals(IConst.ROLE_HOST)
+                    || curAccountRoleName.equals(IConst.ROLE_STAFF)
+                    || curAccountRoleName.equals(IConst.ROLE_TENANT)) 
             {
                 chain.doFilter(request, response);
             } else {
@@ -153,7 +155,7 @@ public class PageApartmentFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("PageApartmentFilter:Initializing filter");
+                log("HostStaffTenantFilter:Initializing filter");
             }
         }
     }
@@ -164,9 +166,9 @@ public class PageApartmentFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("PageApartmentFilter()");
+            return ("HostStaffTenantFilter()");
         }
-        StringBuffer sb = new StringBuffer("PageApartmentFilter(");
+        StringBuffer sb = new StringBuffer("HostStaffTenantFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

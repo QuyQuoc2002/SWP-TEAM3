@@ -16,7 +16,7 @@
             <a href="apartment" class="nav-item nav-link"><i class="fa-solid fa-list me-2"></i>Menu</a>
             <a href="homepage-management" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Apartment Info</a>
             <a href="members.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Members</a>
-            <a href="staff.html" class="nav-item nav-link"><i class="fa-solid fa-user-gear me-2"></i>Staffs</a>
+            <a href="staff" class="nav-item nav-link"><i class="fa-solid fa-user-gear me-2"></i>Staffs</a>
             <a href="vehical.html" class="nav-item nav-link"><i class="fa-solid fa-motorcycle me-2"></i>Vehicals</a>
             <div class="nav-item dropdown">
                 <a href="room-management.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Managemnt</a>
@@ -30,7 +30,7 @@
             </div>
             <a href="deposit-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-signature me-2"></i>Deposit contract</a>
             <a href="leases-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-contract me-2"></i>tenancy agreement</a>
-            <a href="" class="nav-item nav-link"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+            <a href="sign-out" class="nav-item nav-link"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
         </div>
     </nav>
 </div>
