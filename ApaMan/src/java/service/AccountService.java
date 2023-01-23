@@ -26,4 +26,12 @@ public class AccountService {
     public boolean resetPassword(String username, String password, int apartmentId) {
         return accountDAO.resetPassword(username, password, apartmentId);
     }
+    
+    public boolean update(Account obj, int accountId) {
+        return accountDAO.update(obj, accountId);
+    }
+   
+    public Account getOne(int accountId) {
+        return accountDAO.getOne(accountId);
+    }
 }

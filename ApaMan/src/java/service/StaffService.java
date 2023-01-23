@@ -13,9 +13,18 @@ import java.util.List;
  * @author DELL
  */
 public class StaffService {
+
     private StaffDAO staffDAO = new StaffDAO();
-    
+
     public List<Staff> getAll(int apartmentId) {
         return staffDAO.getAll(apartmentId);
+    }
+
+    public Staff getOne(int staffId) {
+        return staffDAO.getOne(staffId);
+    }
+
+    public boolean update(Staff obj, int staffId) {
+        return staffDAO.update(obj, staffId);
     }
 }

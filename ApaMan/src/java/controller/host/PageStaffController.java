@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import service.AccountService;
 import service.StaffService;
 
 /**
@@ -41,7 +42,7 @@ public class PageStaffController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PageStaffController</title>");            
+            out.println("<title>Servlet PageStaffController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet PageStaffController at " + request.getContextPath() + "</h1>");
@@ -68,7 +69,7 @@ public class PageStaffController extends HttpServlet {
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
-            
+
             List<Staff> staffs = new StaffService().getAll(apartmentId);
             request.setAttribute("staffs", staffs);
             request.getRequestDispatcher("staff.jsp").forward(request, response);
@@ -86,7 +87,61 @@ public class PageStaffController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            String submitType = request.getParameter("submitType");
+            AccountService accountService = new AccountService();
+            StaffService staffService = new StaffService();
+            switch (submitType) {
+                case "Save":
+                    String password = request.getParameter("password");
+                    boolean accountAccessible = request.getParameter("accountAccessible") != null;
+                    String countrySide = request.getParameter("countrySide");
+                    String dob = request.getParameter("dob");
+                    String phoneNumber = request.getParameter("phoneNumber");
+                    String citizenIdentification = request.getParameter("citizenIdentification");
+                    String salary = request.getParameter("salary");
+                    String name = request.getParameter("name");
+                    String job = request.getParameter("job");
+                    int staffId = Integer.parseInt(request.getParameter("staffId"));
+                    int accountId = Integer.parseInt(request.getParameter("accountId"));
+                    
+                    Account account = accountService.getOne(accountId);
+                    account.setAccountAccessible(accountAccessible);
+                    account.setAccountPassword(password);
+                    boolean updateAccountSuccess = accountService.update(account, accountId);
+                    
+                    Staff staff = staffService.getOne(staffId);
+                    staff.setStaffCountryside(countrySide);
+                    staff.setStaffDob(dob);
+                    staff.setStaffPhoneNumber(phoneNumber);
+                    staff.setStaffCitizenIdentification(citizenIdentification);
+                    staff.setStaffSalary(salary);
+                    staff.setStaffName(name);
+                    staff.setStaffJob(job);
+                    boolean updateStaffSuccess = staffService.update(staff, staffId);
+                    
+                    if (updateAccountSuccess && updateStaffSuccess) {
+                        session.setAttribute("messageUpdate", "success|Update|Update Success");
+                    } else {
+                        session.setAttribute("messageUpdate", "error|Update|Update Fail");
+                    }
+                    break;
+                case "Delete":
+
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            int apartmentId = curAccount.getApartmentId();
+
+            List<Staff> staffs = staffService.getAll(apartmentId);
+            request.setAttribute("staffs", staffs);
+            request.getRequestDispatcher("staff.jsp").forward(request, response);
+        }
     }
 
     /**
