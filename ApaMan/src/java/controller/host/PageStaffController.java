@@ -95,6 +95,9 @@ public class PageStaffController extends HttpServlet {
             String submitType = request.getParameter("submitType");
             AccountService accountService = new AccountService();
             StaffService staffService = new StaffService();
+            int staffId;
+            int accountId;
+            
             switch (submitType) {
                 case "Save":
                     String password = request.getParameter("password");
@@ -106,8 +109,8 @@ public class PageStaffController extends HttpServlet {
                     String salary = request.getParameter("salary");
                     String name = request.getParameter("name");
                     String job = request.getParameter("job");
-                    int staffId = Integer.parseInt(request.getParameter("staffId"));
-                    int accountId = Integer.parseInt(request.getParameter("accountId"));
+                    staffId = Integer.parseInt(request.getParameter("staffId"));
+                    accountId = Integer.parseInt(request.getParameter("accountId"));
                     
                     Account account = accountService.getOne(accountId);
                     account.setAccountAccessible(accountAccessible);
@@ -131,7 +134,16 @@ public class PageStaffController extends HttpServlet {
                     }
                     break;
                 case "Delete":
-
+                    staffId = Integer.parseInt(request.getParameter("staffId"));
+                    accountId = Integer.parseInt(request.getParameter("accountId"));
+                    boolean deleteAccountSuccess = accountService.delete(accountId);
+                    boolean deleteStaffSuccess = staffService.delete(staffId);
+                    
+                    if (deleteAccountSuccess && deleteStaffSuccess) {
+                        session.setAttribute("messageUpdate", "success|Delete|Delete Success");
+                    } else {
+                        session.setAttribute("messageUpdate", "error|Delete|Delete Fail");
+                    }
                     break;
                 default:
                     throw new AssertionError();

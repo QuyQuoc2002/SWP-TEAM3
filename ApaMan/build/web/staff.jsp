@@ -150,7 +150,7 @@
                                                         <input type="submit" name="submitType" value="Save" class="btn btn-primary w-100">
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="submit" name="submitType" value="Delete" class="btn btn-danger w-100">
+                                                        <a onclick="confirmDeleteStaff('${staff.account.accountId}', '${staff.staffId}', '${staff.account.accountUsername}');" class="btn btn-danger w-100">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -163,28 +163,23 @@
                 </div>
             </div>
         </div>
+
+        <!-------------------------------------------MODAL-------------------------------------------->
+        <%@include file="component/modal/modal-delete-account-staff.jsp" %>
+
+        <!-------------------------------------------JS-------------------------------------------->
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>
-
-        <script>
-            function resetStaff() {
-                document.querySelector('#new-staff .countryside').value = null;
-                document.querySelector('#new-staff .dob').value = null;
-                document.querySelector('#new-staff .phone-number').value = null;
-                document.querySelector('#new-staff .citizen-identification').value = null;
-                document.querySelector('#new-staff .salary').value = null;
-                document.querySelector('#new-staff .name').value = null;
-                document.querySelector('#new-staff .job').value = null;
-            }
-        </script>
+        <script src="assets/js/staff.js"></script>
+        <script src="assets/js/main.js"></script>
 
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>
-            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
-            if (messageUpdate !== 'null') {
-                const words = messageUpdate.split("|");
-                showToast(words[0], words[1], words[2]);
-            }
+                                                            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+                                                            if (messageUpdate !== 'null') {
+                                                                const words = messageUpdate.split("|");
+                                                                showToast(words[0], words[1], words[2]);
+                                                            }
         </script>
 
     </body>

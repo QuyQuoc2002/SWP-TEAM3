@@ -27,4 +27,8 @@ public class StaffService {
     public boolean update(Staff obj, int staffId) {
         return staffDAO.update(obj, staffId);
     }
+    
+    public boolean delete(int staffId) {
+        return staffDAO.delete(staffId);
+    }
 }

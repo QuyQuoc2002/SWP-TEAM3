@@ -137,4 +137,17 @@ public class AccountDAO {
         }
         return null;
     }
+
+    public boolean delete(int accountId) {
+        int check = 0;
+        String sql = "UPDATE `account` SET deleted = 1 WHERE account_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, accountId);
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
 }

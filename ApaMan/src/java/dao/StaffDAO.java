@@ -150,6 +150,19 @@ public class StaffDAO {
         return check > 0;
     }
     
+    public boolean delete(int staffId) {
+        int check = 0;
+        String sql = "DELETE FROM staff Where staff_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, staffId);
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+    
     public static void main(String[] args) {
         System.out.println(new StaffDAO().getOne(1));
     }

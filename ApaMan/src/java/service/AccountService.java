@@ -34,4 +34,8 @@ public class AccountService {
     public Account getOne(int accountId) {
         return accountDAO.getOne(accountId);
     }
+    
+    public boolean delete(int accountId) {
+        return accountDAO.delete(accountId);
+    }
 }
