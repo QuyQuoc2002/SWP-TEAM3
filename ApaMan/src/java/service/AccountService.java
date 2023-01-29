@@ -27,6 +27,10 @@ public class AccountService {
         return accountDAO.resetPassword(username, password, apartmentId);
     }
     
+    public int add(Account obj) {
+        return accountDAO.add(obj);
+    }
+    
     public boolean update(Account obj, int accountId) {
         return accountDAO.update(obj, accountId);
     }
@@ -37,5 +41,9 @@ public class AccountService {
     
     public boolean delete(int accountId) {
         return accountDAO.delete(accountId);
+    }
+    
+    public String getAccountUsername(int apartmentId, int roleId) {
+        return accountDAO.getAccountUsername(apartmentId, roleId);
     }
 }

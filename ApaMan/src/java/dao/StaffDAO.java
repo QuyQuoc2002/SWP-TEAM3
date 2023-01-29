@@ -73,7 +73,27 @@ public class StaffDAO {
         }
         return null;
     }
-    
+
+    public boolean add(Staff obj) {
+        int check = 0;
+        String sql = "INSERT INTO staff(account_id, staff_citizen_identification, staff_name, staff_dob, staff_phone_number, staff_countryside, staff_job, staff_salary)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, obj.getAccount().getAccountId());
+            ps.setObject(2, obj.getStaffCitizenIdentification());
+            ps.setObject(3, obj.getStaffName());
+            ps.setObject(4, obj.getStaffDob());
+            ps.setObject(5, obj.getStaffPhoneNumber());
+            ps.setObject(6, obj.getStaffCountryside());
+            ps.setObject(7, obj.getStaffJob());
+            ps.setObject(8, obj.getStaffSalary());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+
     public Staff getOne(int staffId) {
         String sql = "SELECT \n"
                 + "staff.staff_id, \n"
@@ -121,7 +141,7 @@ public class StaffDAO {
         }
         return null;
     }
-    
+
     public boolean update(Staff obj, int staffId) {
         int check = 0;
         String sql = "UPDATE staff SET\n"
@@ -149,7 +169,7 @@ public class StaffDAO {
         }
         return check > 0;
     }
-    
+
     public boolean delete(int staffId) {
         int check = 0;
         String sql = "DELETE FROM staff Where staff_id = ?";
@@ -162,7 +182,7 @@ public class StaffDAO {
         }
         return check > 0;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(new StaffDAO().getOne(1));
     }

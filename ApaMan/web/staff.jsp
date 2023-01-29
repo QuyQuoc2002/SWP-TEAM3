@@ -39,53 +39,55 @@
                     <div class="row">
                         <div class="col-4 mb-4" id="new-staff">
                             <div class="bg-secondary-cus rounded p-2 card-staff">
-                                <div class="row px-3 pt-2">
-                                    <div class="col-12 text-center text-wheat">
-                                        <h1 style="line-height: 70px">ADD NEW</h1>
-                                    </div>                        
-                                </div>
-                                <hr>
-                                <div class="card-staff-header">
-                                    <div>
-                                        <i class="fa-solid fa-mountain-sun me-1"></i><span><input class="border-0 bg-secondary-cus countryside" type="text" placeholder="Countryside"></span>
+                                <form action="add-staff" method="post">
+                                    <div class="row px-3 pt-2">
+                                        <div class="col-12 text-center text-wheat">
+                                            <h1 style="line-height: 70px">ADD NEW</h1>
+                                        </div>                        
                                     </div>
-                                    <div>
-                                        <i class="fa-regular fa-calendar-days me-1"></i><span><input class="border-0 bg-secondary-cus dob" type="text" placeholder="dd-MM-yyyy"></span>
-                                    </div>
-                                </div>
-                                <div class="card-staff-body">
-                                    <div class="contact text-white">
-                                        <div class="phone">
-                                            <i class="fa-solid fa-phone-volume me-2"></i><span><input class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number"></span>
+                                    <hr>
+                                    <div class="card-staff-header">
+                                        <div>
+                                            <i class="fa-solid fa-mountain-sun me-1"></i><span><input name="countrySide" class="border-0 bg-secondary-cus countryside" type="text" placeholder="Countryside"></span>
                                         </div>
                                         <div>
-                                            <i class="fa-regular fa-id-card me-2"></i><span><input class="border-0 bg-secondary-cus text-white citizen-identification" type="text" placeholder="citizen identification"></span>
+                                            <i class="fa-regular fa-calendar-days me-1"></i><span><input name="dob" class="border-0 bg-secondary-cus dob" type="text" placeholder="dd-MM-yyyy"></span>
                                         </div>
                                     </div>
-                                    <div class="price"><input class="border-0 bg-transparent text-white text-center salary" type="text" placeholder="Salary"><sup>đ</sup>
-                                    </div>
-                                    <div class="user mt-4">
-                                        <div class="media d-flex">
-                                            <a class="circle">
-                                                <img class="avatar" src="assets/images/avatar.png" alt="">
-                                            </a>
-                                            <div class="media-body pt-2">
-                                                <h5><input class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name"></h5>
-                                                <p class="mt-1"><input class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job"></p>
+                                    <div class="card-staff-body">
+                                        <div class="contact text-white">
+                                            <div class="phone">
+                                                <i class="fa-solid fa-phone-volume me-2"></i><span><input name="phoneNumber" class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number" required=""></span>
+                                            </div>
+                                            <div>
+                                                <i class="fa-regular fa-id-card me-2"></i><span><input name="citizenIdentification" class="border-0 bg-secondary-cus text-white citizen-identification" type="text" placeholder="citizen identification"></span>
+                                            </div>
+                                        </div>
+                                        <div class="price"><input name="salary" class="border-0 bg-transparent text-white text-center salary" type="text" placeholder="Salary"><sup>đ</sup>
+                                        </div>
+                                        <div class="user mt-4">
+                                            <div class="media d-flex">
+                                                <a class="circle">
+                                                    <img class="avatar" src="assets/images/avatar.png" alt="">
+                                                </a>
+                                                <div class="media-body pt-2">
+                                                    <h5><input name="name" class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name" required=""></h5>
+                                                    <p class="mt-1"><input name="job" class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job" required=""></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="action mt-2">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn btn-primary w-100">Create</button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="action mt-2">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <button class="btn btn-primary w-100">Create</button>
-                                            </div>
-                                            <div class="col-6">
-                                                <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                         <c:forEach items="${staffs}" var="staff">

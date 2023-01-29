@@ -19,6 +19,10 @@ public class StaffService {
     public List<Staff> getAll(int apartmentId) {
         return staffDAO.getAll(apartmentId);
     }
+    
+    public boolean add(Staff obj) {
+        return staffDAO.add(obj);
+    }
 
     public Staff getOne(int staffId) {
         return staffDAO.getOne(staffId);
@@ -31,4 +35,5 @@ public class StaffService {
     public boolean delete(int staffId) {
         return staffDAO.delete(staffId);
     }
+   
 }

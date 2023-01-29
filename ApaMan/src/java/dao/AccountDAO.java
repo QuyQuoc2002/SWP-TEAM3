@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import utils.Cypher;
 
 /**
@@ -82,23 +83,28 @@ public class AccountDAO {
         }
         return check > 0;
     }
-
-    public boolean update(Account obj, int accountId) {
+    
+    public int add(Account obj) {
         int check = 0;
-        String sql = "UPDATE apamandb.`account` SET apartment_id = ?, account_username = ?, account_password = ?, account_accessible = ?, role_id = ? WHERE account_id = ?";
-
-        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        String sql = "INSERT INTO `account`(apartment_id, account_username, account_password, account_accessible, role_id, deleted)"
+                + " VALUES(?, ?, ?, ?, ?, ?)";
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS) : null;) {
             ps.setObject(1, obj.getApartmentId());
             ps.setObject(2, obj.getAccountUsername());
             ps.setObject(3, Cypher.encryptData(obj.getAccountPassword(), IConst.SHIFT_KEY));
             ps.setObject(4, obj.isAccountAccessible());
-            ps.setObject(5, obj.getRole().getRoleId());
-            ps.setObject(6, obj.getAccountId());
+            ps.setObject(5, obj.getRole().getRoleId());    
+            ps.setObject(6, 0);
             check = ps.executeUpdate();
+            if (check > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-        return check > 0;
+        return 0;
     }
 
     public Account getOne(int accountId) {
@@ -138,6 +144,24 @@ public class AccountDAO {
         return null;
     }
 
+    public boolean update(Account obj, int accountId) {
+        int check = 0;
+        String sql = "UPDATE apamandb.`account` SET apartment_id = ?, account_username = ?, account_password = ?, account_accessible = ?, role_id = ? WHERE account_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, obj.getApartmentId());
+            ps.setObject(2, obj.getAccountUsername());
+            ps.setObject(3, Cypher.encryptData(obj.getAccountPassword(), IConst.SHIFT_KEY));
+            ps.setObject(4, obj.isAccountAccessible());
+            ps.setObject(5, obj.getRole().getRoleId());
+            ps.setObject(6, obj.getAccountId());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+
     public boolean delete(int accountId) {
         int check = 0;
         String sql = "UPDATE `account` SET deleted = 1 WHERE account_id = ?";
@@ -150,4 +174,23 @@ public class AccountDAO {
         }
         return check > 0;
     }
+    
+    public String getAccountUsername(int apartmentId, int roleId) {
+        String sql
+                = "SELECT * FROM apamandb.account Where apartment_id = ? AND role_id = ? ORDER BY account_id DESC LIMIT 1;";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ps.setObject(2, roleId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String obj = rs.getString("account_username");
+                return obj;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
 }
