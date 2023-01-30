@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "HostFilter", urlPatterns = {"/homepage-management/*"})
+@WebFilter(filterName = "HostFilter", urlPatterns = {"/homepage-management/*", "/room-control"})
 
 public class HostFilter implements Filter {
 
@@ -112,8 +112,7 @@ public class HostFilter implements Filter {
         Account curAccount = (Account) session.getAttribute("curAccount");
         if (curAccount != null) {
             String curAccountRoleName = curAccount.getRole().getRoleName();
-            if (curAccountRoleName.equals(IConst.ROLE_ADMIN)
-                    || curAccountRoleName.equals(IConst.ROLE_HOST)) 
+            if (curAccountRoleName.equals(IConst.ROLE_HOST)) 
             {
                 chain.doFilter(request, response);
             } else {
