@@ -38,7 +38,7 @@ public class PageHomepageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            Apartment apartment = new ApartmentService().getOne(apartmentId);
+            Apartment apartment = new ApartmentService().getOne(apartmentId, true);
             List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(apartmentId);
             
             request.setAttribute("apartment", apartment);

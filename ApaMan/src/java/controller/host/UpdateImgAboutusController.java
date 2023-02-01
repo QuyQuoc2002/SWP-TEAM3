@@ -44,7 +44,7 @@ public class UpdateImgAboutusController extends HttpServlet {
                     oldImgFile.delete();
                 }
                 part.write(storeFile.toString());
-                Apartment apartment = new ApartmentService().getOne(apartmentId);
+                Apartment apartment = new ApartmentService().getOne(apartmentId, true);
                 apartment.setApartmentImgAboutus("assets/images/" + fileName);
                 boolean updateSuccess = new ApartmentService().update(apartment, apartmentId);
                 if (updateSuccess) {

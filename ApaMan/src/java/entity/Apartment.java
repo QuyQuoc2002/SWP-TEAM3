@@ -17,7 +17,9 @@ public class Apartment {
     
     private int apartmentId;
     private String apartmentName;
-    private int districId;
+    private String hostName;
+    private String hostMobile;
+    private int districtId;
     private String apartmentAddress;
     private String apartmentIntro;
     private String apartmentLat;

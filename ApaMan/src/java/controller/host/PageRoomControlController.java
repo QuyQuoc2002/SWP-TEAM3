@@ -4,6 +4,8 @@
  */
 package controller.host;
 
+import entity.Account;
+import entity.Floor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import service.FloorService;
 
 /**
  *
@@ -33,6 +38,14 @@ public class PageRoomControlController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            FloorService floorService = new FloorService();
+            
+            HttpSession session = request.getSession();
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            int apartmentId = curAccount.getApartmentId();
+            
+            List<Floor> floors = floorService.getAll(apartmentId);
+            request.setAttribute("floors", floors);
             request.getRequestDispatcher("room-control.jsp").forward(request, response);
         }
     }

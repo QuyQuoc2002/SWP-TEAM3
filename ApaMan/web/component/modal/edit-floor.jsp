@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-----------------------------Edit Floor-------------------->
 <!-- #region sadasd-->
 <div class="modal fade" id="edit-floor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -17,12 +18,14 @@
                     </div>
                 </div>
                 <hr>
-                <div class="d-flex mb-3">
-                    <input type="text" class="form-control bg-dark text-white w-75" value="T?ng 1">
-                    <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
-                            class="fa-solid fa-trash-can fs-3"></i></a>
-                </div>
-
+                
+                <c:forEach items="${requestScope.floors}" var="floor">
+                    <div class="d-flex mb-3">
+                        <input type="text" class="form-control bg-dark text-white w-75" value="${floor.floorName}">
+                        <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
+                                class="fa-solid fa-trash-can fs-3"></i></a>
+                    </div>
+                </c:forEach>
                 <div class="d-flex mb-3">
                     <input type="text" class="form-control bg-dark text-white w-75" value="T?ng 2">
                     <a href="" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i

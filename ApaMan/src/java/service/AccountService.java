@@ -6,6 +6,7 @@ package service;
 
 import dao.AccountDAO;
 import entity.Account;
+import java.util.List;
 
 /**
  *
@@ -45,5 +46,9 @@ public class AccountService {
     
     public String getAccountUsername(int apartmentId, int roleId) {
         return accountDAO.getAccountUsername(apartmentId, roleId);
+    }
+    
+    public List<Account> getAllHostAccount() {
+        return accountDAO.getAllHostAccount();
     }
 }

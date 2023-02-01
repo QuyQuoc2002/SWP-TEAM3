@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/admin/*", "/host-apartment-detail"})
 public class AdminFilter implements Filter {
 
     private static final boolean debug = true;

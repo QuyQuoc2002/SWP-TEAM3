@@ -20,11 +20,27 @@ public class ApartmentService {
         return apartmentDAO.getAll(districtId);
     }
     
+    public List<Apartment> getAll() {
+        return apartmentDAO.getAll();
+    }
+    
+    public Apartment getOne(int apartmentId, boolean accessible) {
+        return apartmentDAO.getOne(apartmentId, accessible);
+    }
+    
     public Apartment getOne(int apartmentId) {
         return apartmentDAO.getOne(apartmentId);
     }
     
+    public int add(Apartment obj) {
+        return apartmentDAO.add(obj);
+    }
+    
     public boolean update(Apartment obj, int apartmentId) {
         return apartmentDAO.update(obj, apartmentId);
+    }
+    
+    public boolean delete(int apartmentId) {
+        return apartmentDAO.delete(apartmentId);
     }
 }

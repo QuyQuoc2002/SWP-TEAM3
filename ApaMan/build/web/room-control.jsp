@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,7 +138,7 @@
                             <a class="a-none" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#edit-floor">
                                 <div class="bg-secondary-cus rounded p-2 card-feature">
                                     <div class="card-feature-content">
-                                        <i class="fa-so lid fa-circle-plus text-primary-cus"></i>
+                                        <i class="fa-solid fa-circle-plus text-primary-cus"></i>
                                         <div class="card-feature-title">
                                             <h4 class="text-white">Floor</h4>
                                             <p class="text-white">Add, Edit, Delete Floor</p>

@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import utils.Cypher;
 
 /**
@@ -128,7 +130,7 @@ public class AccountDAO {
                         .accountId(rs.getInt("account_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .accountUsername(rs.getString("account_username"))
-                        .accountPassword(rs.getString("account_password"))
+                        .accountPassword(Cypher.decryptData(rs.getString("account_password"), IConst.SHIFT_KEY))
                         .accountAccessible(rs.getBoolean("account_accessible"))
                         .role(Role.builder()
                                 .roleId(rs.getInt("role_id"))
@@ -154,7 +156,7 @@ public class AccountDAO {
             ps.setObject(3, Cypher.encryptData(obj.getAccountPassword(), IConst.SHIFT_KEY));
             ps.setObject(4, obj.isAccountAccessible());
             ps.setObject(5, obj.getRole().getRoleId());
-            ps.setObject(6, obj.getAccountId());
+            ps.setObject(6, accountId);
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -187,6 +189,31 @@ public class AccountDAO {
                 String obj = rs.getString("account_username");
                 return obj;
             }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
+    public List<Account> getAllHostAccount() {
+
+        String sql = "SELECT * FROM account where role_id = 2";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
+
+            List<Account> list = new ArrayList<>();//
+            while (rs.next()) {
+                Account obj = Account.builder()
+                        .accountId(rs.getInt("account_id"))
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .accountUsername(rs.getString("account_username"))
+                        .accountPassword(Cypher.decryptData(rs.getString("account_password"), IConst.SHIFT_KEY))
+                        .accountAccessible(rs.getBoolean("account_accessible"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }

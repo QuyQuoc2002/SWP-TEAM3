@@ -39,7 +39,7 @@ public class PageMenuController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
-            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
+            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId(), true);
             
             request.setAttribute("apartment", apartment);
             request.getRequestDispatcher("menu.jsp").forward(request, response);
