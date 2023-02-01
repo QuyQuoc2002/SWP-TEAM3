@@ -497,7 +497,7 @@
                         </div>
                     </div>
                 </div>
-                <div>${requestScope.apartment.apartmentContentAboutus}</div>
+                <div>${requestScope.apartment.apartmentContentService}</div>
             </div>
         </div>
         <!-- end gallery -->

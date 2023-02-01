@@ -21,7 +21,7 @@
             <div class="nav-item dropdown">
                 <a href="room-management.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Managemnt</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="room-management.html" class="dropdown-item">Controls</a>
+                    <a href="room-control" class="dropdown-item">Controls</a>
                     <a href="floor.html" class="dropdown-item">floor 1</a>
                     <a href="floor.html" class="dropdown-item">floor 2</a>
                     <a href="floor.html" class="dropdown-item">floor 3</a>

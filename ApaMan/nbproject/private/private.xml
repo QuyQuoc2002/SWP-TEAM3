@@ -3,27 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/component/common/sidebar.jsp</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/PageLoginController.java</file>
-            <file>file:/D:/Github/SWP-Team3/ApaMan/web/assets/js/staff.js</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/PageMenuController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/AccountDAO.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/homepage-management.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Format.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/service/StaffService.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/room-control.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/component/modal/edit-room-type.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/component/modal/edit-floor.jsp</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/core/AdminFilter.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/ResetPasswordController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Calendars.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/AddImgBannerController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/PageStaffController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/common/SignOutController.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/PageRoomControlController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/assets/js/main.js</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/StudentDAO.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Cypher.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/ApartmentImgBannerDAO.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/utils/Mail.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/constant/IConst.java</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/component/modal/add-room.jsp</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/service/StudentService.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/core/HostStaffTenantFilter.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/component/modal/modal-delete-account-staff.jsp</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/UpdateImgAboutusController.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/dao/StaffDAO.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/web/staff.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/menu.jsp</file>
+            <file>file:/D:/Github/SWP-Team3/ApaMan/web/homepage.jsp</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/service/ApartmentImgBannerService.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/controller/host/addOneStaff.java</file>
             <file>file:/D:/Github/SWP-Team3/ApaMan/src/java/core/HostFilter.java</file>
