@@ -56,7 +56,7 @@
                     <hr class="mb-5" >
                     <h2 class="text-wheat">Account Host Apartment</h2>  <!-- display apartment -->
 
-                    <form action="host-apartment-detail" method="post">
+                    <form id="hostAccountForm" action="host-apartment-detail" method="post">
                         <div class="row" style="margin-bottom: 20px">                        
                             <div class="col-7">
                                 <div class="row panel-form mx-0">
@@ -65,32 +65,32 @@
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Username</legend>
-                                            <input type="text" class="form-control" name="accountUsername" value="${requestScope.hostAccount.accountUsername}">
+                                            <input id="accountUsername" type="text" class="form-control" name="accountUsername" value="${requestScope.hostAccount.accountUsername}">
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Password</legend>
-                                            <input type="text" class="form-control" name="accountPassword" value="${requestScope.hostAccount.accountPassword}">
+                                            <input id="accountPassword" type="text" class="form-control" name="accountPassword" value="${requestScope.hostAccount.accountPassword}">
                                         </fieldset>
                                     </div>
 
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Apartment Name</legend>
-                                            <input type="text" class="form-control" name="apartmentName" value="${requestScope.apartment.apartmentName}">
+                                            <input id="apartmentName" type="text" class="form-control" name="apartmentName" value="${requestScope.apartment.apartmentName}">
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Host Name</legend>
-                                            <input type="text" class="form-control" name="hostName" value="${requestScope.apartment.hostName}">
+                                            <input id="hostName" type="text" class="form-control" name="hostName" value="${requestScope.apartment.hostName}">
                                         </fieldset>
                                     </div>    
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Mobile</legend>
-                                            <input type="text" class="form-control" name="hostMobile" value="${requestScope.apartment.hostMobile}">
+                                            <input id="hostMobile" type="text" class="form-control" name="hostMobile" value="${requestScope.apartment.hostMobile}">
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
@@ -102,7 +102,7 @@
                                     <div class="col-12 form-group mb-3">
                                         <fieldset>
                                             <legend>Address</legend>
-                                            <input type="text" class="form-control" name="apartmentAddress" value="${requestScope.apartment.apartmentAddress}">
+                                            <input id="apartmentAddress" type="text" class="form-control" name="apartmentAddress" value="${requestScope.apartment.apartmentAddress}">
                                         </fieldset>
                                     </div>
 
@@ -153,7 +153,8 @@
                                         <h5 class="text-white ms-3" style="line-height: 34px;">Active Apartment</h5>
                                     </div>
                                     <div class="col-6 mb-3 d-flex">
-                                        <button class="btn btn-primary w-100" type="submit" name="submitType" value="Save">Save</button>
+                                        <input id="submitType" type="hidden" name="submitType">
+                                        <button class="btn btn-primary w-100" type="button" onclick="validateHostInfo();">Save</button>
                                     </div>
                                     <div class="col-6 mb-3 d-flex">
                                         <button class="btn btn-danger w-100" type="submit" name="submitType" value="Delete">Delete</button>
@@ -190,7 +191,8 @@
             </div>
         </div>
         <script src="assets/js/bootstrap.bundle.js"></script>
-        <script src="assets/js/toast.js"></script>                                
+        <script src="assets/js/toast.js"></script>   
+        <script src="assets/js/validate.js"></script>          
           
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>

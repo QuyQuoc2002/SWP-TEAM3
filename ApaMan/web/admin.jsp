@@ -70,7 +70,7 @@
                 <%@include file="component/common/navbar.jsp" %>
                 <!-- Navbar End -->
                 <div class="container-fluid pt-4 px-4">
-                    <form action="admin" method="post"> <!-- form add account host -->
+                    <form id="hostAccountForm" action="admin" method="post"> <!-- form add account host -->
                         <h2 class="text-wheat">Add One Account For Host Apartment</h2>
                         <div class="row">
                             <div class="col-7">
@@ -78,31 +78,31 @@
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Username</legend>
-                                            <input type="text" class="form-control" name="accountUsername" placeholder="username" required>
+                                            <input id="accountUsername" type="text" class="form-control" name="accountUsername" placeholder="username" >
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Password</legend>
-                                            <input type="text" class="form-control" name="accountPassword" placeholder="password" required>
+                                            <input id="accountPassword" type="text" class="form-control" name="accountPassword" placeholder="password" >
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Apartment Name</legend>
-                                            <input type="text" class="form-control" name="apartmentName" placeholder="apartment name" required>
+                                            <input id="apartmentName" type="text" class="form-control" name="apartmentName" placeholder="apartment name" >
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Host Name</legend>
-                                            <input type="text" class="form-control" name="hostName" placeholder="host name" required>
+                                            <input id="hostName" type="text" class="form-control" name="hostName" placeholder="host name" >
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Mobile</legend>
-                                            <input type="text" class="form-control" name="hostMobile" placeholder="phone number" required>
+                                            <input id="hostMobile" type="text" class="form-control" name="hostMobile" placeholder="phone number" >
                                         </fieldset>
                                     </div>
                                     <div class="col-6 form-group mb-3">
@@ -114,7 +114,7 @@
                                     <div class="col-12 form-group mb-3">
                                         <fieldset>
                                             <legend>Address</legend>
-                                            <input type="text" class="form-control" name="apartmentAddress" placeholder="address" required>
+                                            <input id="apartmentAddress" type="text" class="form-control" name="apartmentAddress" placeholder="address" >
                                         </fieldset>
                                     </div>
 
@@ -137,7 +137,7 @@
                                         </div>
 
                                     </div>
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                    <button class="btn btn-primary" type="button" onclick="validateHostInfo()">Add</button>
                                 </div>
                             </div>
                             <div class="col-5">
@@ -210,6 +210,7 @@
 
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>
+        <script src="assets/js/validate.js"></script>
         <script>
                                                 let city = document.getElementById('city');
                                                 let district = document.getElementById('district');
