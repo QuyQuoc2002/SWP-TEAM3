@@ -48,7 +48,7 @@ public class addOneStaff extends HttpServlet {
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
             String staffAccountUsername = accountService.getAccountUsername(apartmentId, IConst.ROLE_STAFF_ID);
-            staffAccountUsername = staffAccountUsername.substring(0, 5) + (Integer.parseInt(staffAccountUsername.substring(5)) + 1);
+            staffAccountUsername = staffAccountUsername == null ? "staff1" : staffAccountUsername.substring(0, 5) + (Integer.parseInt(staffAccountUsername.substring(5)) + 1);
             Account account = Account.builder()
                     .apartmentId(apartmentId)
                     .accountUsername(staffAccountUsername)
