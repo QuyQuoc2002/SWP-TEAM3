@@ -12,7 +12,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Motel</title>
+        <title>Apaman</title>
+        <link rel="icon" type="image/x-icon" href="assets/system/icons8-home-pulsar-color-32.png">
         <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
@@ -23,7 +24,7 @@
 
     <body>
         <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="color: black">
             </div>
         </div>
         <div class="container-fluid position-relative d-flex p-0">
@@ -57,7 +58,7 @@
                                     <div class="card-staff-body">
                                         <div class="contact text-white">
                                             <div class="phone">
-                                                <i class="fa-solid fa-phone-volume me-2"></i><span><input name="phoneNumber" class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number" required=""></span>
+                                                <i class="fa-solid fa-phone-volume me-2"></i><span><input name="phoneNumber" class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number"></span>
                                             </div>
                                             <div>
                                                 <i class="fa-regular fa-id-card me-2"></i><span><input name="citizenIdentification" class="border-0 bg-secondary-cus text-white citizen-identification" type="text" placeholder="citizen identification"></span>
@@ -71,15 +72,15 @@
                                                     <img class="avatar" src="assets/images/avatar.png" alt="">
                                                 </a>
                                                 <div class="media-body pt-2">
-                                                    <h5><input name="name" class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name" required=""></h5>
-                                                    <p class="mt-1"><input name="job" class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job" required=""></p>
+                                                    <h5><input name="name" class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name"></h5>
+                                                    <p class="mt-1"><input name="job" class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job"></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="action mt-2">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <button type="submit" class="btn btn-primary w-100">Create</button>
+                                                    <button onclick="validateNewStaffInfo()();" type="button" class="btn btn-primary w-100">Create</button>
                                                 </div>
                                                 <div class="col-6">
                                                     <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
@@ -167,11 +168,12 @@
         </div>
 
         <!-------------------------------------------MODAL-------------------------------------------->
-        <%@include file="component/modal/modal-delete-account-staff.jsp" %>
+        <%@include file="component/modal/modal-delete-account-staff.jsp"%>
 
         <!-------------------------------------------JS-------------------------------------------->
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>
+        <script src="assets/js/validate.js"></script>
         <script src="assets/js/staff.js"></script>
         <script src="assets/js/main.js"></script>
 

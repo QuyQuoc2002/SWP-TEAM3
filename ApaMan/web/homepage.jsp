@@ -16,7 +16,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <!-- site metas -->
-        <title>ABC Motel</title>
+        <title>Apaman</title>
+        <link rel="icon" type="image/x-icon" href="assets/system/icons8-home-pulsar-color-32.png">
 
         <!-- bootstrap css -->
         <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
@@ -787,10 +788,7 @@
                     <div class="col-md-6">
                         <div class="map_main">
                             <div class="map-responsive">
-                                <iframe
-                                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France"
-                                    width="600" height="400" frameborder="0" style="border:0; width: 100%;"
-                                    allowfullscreen=""></iframe>
+                                <iframe src="https://maps.google.com/maps?q=+${requestScope.apartment.apartmentLat}+,+${requestScope.apartment.apartmentLon}+&hl=en&z=14&amp;output=embed" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -811,47 +809,7 @@
         </div>
         <!-- end contact -->
         <!--  footer -->
-        <footer>
-            <div class="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class=" col-md-4">
-                            <h3>Contact US</h3>
-                            <ul class="conta">
-                                <li><i class="fa fa-map-marker" aria-hidden="true"></i> Address</li>
-                                <li><i class="fa fa-mobile" aria-hidden="true"></i> +01 1234569540</li>
-                                <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="#"> demo@gmail.com</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <h3>Menu Link</h3>
-                            <ul class="link_menu">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#about">About</a></li>
-                                <li><a href="#room">Room</a></li>
-                                <li><a href="#service">Service</a></li>
-                                <li><a href="#review">Review</a></li>
-                                <li><a href="#contact">Contact Us</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <h3>News letter</h3>
-                            <form class="bottom_form">
-                                <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
-                                <button class="sub_btn">subscribe</button>
-                            </form>
-                            <ul class="social_icon">
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </footer>
+        <%@include file="component/common/footer.jsp" %>
 
         <!--Modal-->
         <!--Room-->

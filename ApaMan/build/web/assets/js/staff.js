@@ -14,3 +14,4 @@ function confirmDeleteStaff(accountId, staffId, accountUsername) {
     document.getElementById('accountIdDelete').value = accountId;
     openModal('modal-delete-account-staff');
 }
+

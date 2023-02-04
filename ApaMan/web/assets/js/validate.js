@@ -1,10 +1,12 @@
-function validateHostInfo() {
-    const REGEX_PASSWORD = '^[a-zA-Z0-9!@#$%^&*,.]+$';
-    const REGEX_NAME = '^[a-zA-ZÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý, ]+$';
-    const REGEX_EMAIL = '^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$';
-    const REGEX_MOBILE = '^[0-9]{10}$';
-    const REGEX_DATE = '(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})';
+const REGEX_PASSWORD = '^[a-zA-Z0-9!@#$%^&*,.]+$';
+const REGEX_NAME = '^[a-zA-ZÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý, ]+$';
+const REGEX_ADDRESS = '^[a-zA-Z0-9,. ]+$';
+const REGEX_EMAIL = '^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$';
+const REGEX_MOBILE = '^[0-9]{10}$';
+const REGEX_DATE = '(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})';
 
+function validateHostInfo() {
+    
     const accountUsername = document.getElementById("accountUsername").value;
     const accountPassword = document.getElementById("accountPassword").value;
     const apartmentName = document.getElementById("apartmentName").value;
@@ -31,7 +33,7 @@ function validateHostInfo() {
 
     if (apartmentName.trim() === '') {
         errorStr += '<li>Please enter apartment name</li>';
-    } else if (!apartmentName.match(REGEX_NAME)) {
+    } else if (!apartmentName.match(REGEX_ADDRESS)) {
         errorStr += '<li>apartment name invalid</li>';
     }
     
@@ -49,7 +51,7 @@ function validateHostInfo() {
     
     if (apartmentAddress.trim() === '') {
         errorStr += '<li>Please enter apartment address</li>';
-    } else if (!apartmentAddress.match(REGEX_NAME)) {
+    } else if (!apartmentAddress.match(REGEX_ADDRESS)) {
         errorStr += '<li>apartment address invalid</li>';
     }
     
@@ -67,5 +69,40 @@ function validateHostInfo() {
     } else {
         document.getElementById("submitType").value='Save';
         document.getElementById("hostAccountForm").submit();
+    }
+}
+
+function validateNewStaffInfo() {
+    
+    const staffMobile = document.querySelector('#new-staff .phone-number').value;
+    const staffName = document.querySelector('#new-staff .name').value;
+    const staffJob = document.querySelector('#new-staff .job').value;
+
+    let errorStr = '<ol>';
+    
+    if (staffMobile.trim() === '') {
+        errorStr += '<li>Please enter phone number</li>';
+    } else if (!staffMobile.match(REGEX_MOBILE)) {
+        errorStr += '<li>phone number invalid</li>';
+    }
+    
+    if (staffName.trim() === '') {
+        errorStr += '<li>Please enter staff name</li>';
+    } else if (!staffName.match(REGEX_NAME)) {
+        errorStr += '<li>staff name invalid</li>';
+    }
+    
+    if (staffJob.trim() === '') {
+        errorStr += '<li>Please enter staff job</li>';
+    } else if (!staffJob.match(REGEX_ADDRESS)) {
+        errorStr += '<li>staff job invalid</li>';
+    }
+    
+    errorStr += '</ol>';
+    
+    if (errorStr !== '<ol></ol>') {
+        showToast("success", 'Error Validate', errorStr);
+    } else {
+        document.querySelector('#new-staff form').submit();
     }
 }

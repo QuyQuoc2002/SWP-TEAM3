@@ -4,6 +4,7 @@
  */
 package controller.host;
 
+import constant.IConst;
 import entity.Account;
 import entity.Apartment;
 import java.io.IOException;
@@ -39,8 +40,11 @@ public class PageMenuController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
-            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId(), true);
-            
+            if (curAccount.getRole().getRoleName().equals(IConst.ROLE_ADMIN)) {
+                int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
+                curAccount.setApartmentId(apartmentId);
+            }
+            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
             request.setAttribute("apartment", apartment);
             request.getRequestDispatcher("menu.jsp").forward(request, response);
         }

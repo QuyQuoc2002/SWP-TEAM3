@@ -7,14 +7,14 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Motel</title>
+        <title>Apaman</title>
+        <link rel="icon" type="image/x-icon" href="assets/system/icons8-home-pulsar-color-32.png">
         <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
         <link rel="stylesheet" href="assets/css/common.css">
-        <link rel="stylesheet" href="assets/css/admin.css">
         <link rel="stylesheet" href="assets/css/switch-toggle-btn.css">
-        <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
+        <link rel="stylesheet" href="assets/css/admin.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     </head>
 
@@ -131,53 +131,53 @@
 
                                     </div>
                                     <div class="col-6 form-group mb-3">
-                                        <a href="homepage.html" class="btn btn-secondary w-100"
+                                        <a href="homepage?apartmentId=${requestScope.apartment.apartmentId}" class="btn btn-secondary w-100"
                                            style="border-radius: 12px; color: bisque;">Homepage</a>
                                     </div>
                                     <div class="col-6 form-group mb-3">
-                                        <a href="menu.html" class="btn btn-secondary w-100"
+                                        <a href="apartment?apartmentId=${requestScope.apartment.apartmentId}" class="btn btn-secondary w-100"
                                            style="border-radius: 12px; color: bisque;">Dashboard</a>
                                     </div>
                                     <div class="col-6 mb-3 d-flex">
                                         <label class="switch">
                                             <input type="checkbox" name="accountAccessible"  <c:if test="${requestScope.hostAccount.accountAccessible}">checked</c:if>>
-                                            <span class="slider round"></span>true
-                                        </label>
-                                        <h5 class="text-white ms-3" style="line-height: 34px;">Active Account</h5>
-                                    </div>
-                                    <div class="col-6 mb-3 d-flex">
-                                        <label class="switch">
-                                            <input type="checkbox" name="apartmentAccessible" <c:if test="${requestScope.apartment.apartmentAccessible}">checked</c:if> >
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <h5 class="text-white ms-3" style="line-height: 34px;">Active Apartment</h5>
-                                    </div>
-                                    <div class="col-6 mb-3 d-flex">
-                                        <input id="submitType" type="hidden" name="submitType">
-                                        <button class="btn btn-primary w-100" type="button" onclick="validateHostInfo();">Save</button>
-                                    </div>
-                                    <div class="col-6 mb-3 d-flex">
-                                        <button class="btn btn-danger w-100" type="submit" name="submitType" value="Delete">Delete</button>
+                                                <span class="slider round"></span>true
+                                            </label>
+                                            <h5 class="text-white ms-3" style="line-height: 34px;">Active Account</h5>
+                                        </div>
+                                        <div class="col-6 mb-3 d-flex">
+                                            <label class="switch">
+                                                <input type="checkbox" name="apartmentAccessible" <c:if test="${requestScope.apartment.apartmentAccessible}">checked</c:if> >
+                                                <span class="slider round"></span>
+                                            </label>
+                                            <h5 class="text-white ms-3" style="line-height: 34px;">Active Apartment</h5>
+                                        </div>
+                                        <div class="col-6 mb-3 d-flex">
+                                            <input id="submitType" type="hidden" name="submitType">
+                                            <button class="btn btn-primary w-100" type="button" onclick="validateHostInfo();">Save</button>
+                                        </div>
+                                        <div class="col-6 mb-3 d-flex">
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#modal-delete-account-host" class="btn btn-danger w-100">Delete</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="col-5">
-                                <div id="map" class="w-100 h-100">
-                                    <div class="form-group" style="height: 15%">
-                                        <fieldset >
-                                            <legend>Search location</legend>
-                                            <input id="map-search" type="text" class="form-control controls"
-                                                   placeholder="Address" >
-                                        </fieldset>
-                                    </div>
-                                    <!-- <iframe class="w-100 h-50"> -->
-                                    <div id="map-canvas" style="height: 85%; width: 100%; border-radius:12px"></div>
 
-                                    <!-- </iframe> -->
-                                    <br>
-                                    <div style="display: flex;">
-                                        <input type="text" class="form-control latitude" name="apartmentLat" placeholder="Lat" readonly hidden value="${requestScope.apartment.apartmentLat}">
+                                <div class="col-5">
+                                    <div id="map" class="w-100 h-100">
+                                        <div class="form-group" style="height: 15%">
+                                            <fieldset >
+                                                <legend>Search location</legend>
+                                                <input id="map-search" type="text" class="form-control controls"
+                                                       placeholder="Address" >
+                                            </fieldset>
+                                        </div>
+                                        <!-- <iframe class="w-100 h-50"> -->
+                                        <div id="map-canvas" style="height: 85%; width: 100%; border-radius:12px"></div>
+
+                                        <!-- </iframe> -->
+                                        <br>
+                                        <div style="display: flex;">
+                                            <input type="text" class="form-control latitude" name="apartmentLat" placeholder="Lat" readonly hidden value="${requestScope.apartment.apartmentLat}">
                                         <input type="text" class="form-control longitude" name="apartmentLong" placeholder="Long" readonly hidden value="${requestScope.apartment.apartmentLon}">
 
                                     </div>
@@ -190,19 +190,20 @@
                 </div>
             </div>
         </div>
+        <%@include file="component/modal/modal-delete-account-host.jsp"%>
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>   
         <script src="assets/js/validate.js"></script>          
-          
+
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>
-            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
-            if (messageUpdate !== 'null') {
-                const words = messageUpdate.split("|");
-                showToast(words[0], words[1], words[2]);
-            }
+                                                const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+                                                if (messageUpdate !== 'null') {
+                                                    const words = messageUpdate.split("|");
+                                                    showToast(words[0], words[1], words[2]);
+                                                }
         </script>      
-         
+
         <script>
             let city = document.getElementById('city');
             let district = document.getElementById('district');
@@ -353,8 +354,8 @@
     <script>$(document).ready(function () {
                 $('#example').DataTable();
             });</script>
-    <%
-        request.getSession().removeAttribute("messageUpdate");
-    %>
+        <%
+            request.getSession().removeAttribute("messageUpdate");
+        %>
 
 </html> 

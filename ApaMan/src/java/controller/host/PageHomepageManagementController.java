@@ -68,7 +68,7 @@ public class PageHomepageManagementController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
-            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId(), true);
+            Apartment apartment = new ApartmentService().getOne(curAccount.getApartmentId());
             List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(curAccount.getApartmentId());
 
             request.setAttribute("apartment", apartment);
@@ -95,7 +95,7 @@ public class PageHomepageManagementController extends HttpServlet {
             ApartmentService apartmentService = new ApartmentService();
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
-            Apartment apartment = apartmentService.getOne(apartmentId, true);
+            Apartment apartment = apartmentService.getOne(apartmentId);
             List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(apartmentId);
 
             boolean updateSuccess = false;
@@ -116,7 +116,7 @@ public class PageHomepageManagementController extends HttpServlet {
             }
             updateSuccess = apartmentService.update(apartment, apartmentId);
             if (updateSuccess) {
-                apartment = apartmentService.getOne(apartmentId, true);
+                apartment = apartmentService.getOne(apartmentId);
                 request.setAttribute("apartment", apartment);
                 request.setAttribute("apartmentImgBanners", apartmentImgBanners);               
                 session.setAttribute("messageUpdate", "info|Edit|Edit success!");

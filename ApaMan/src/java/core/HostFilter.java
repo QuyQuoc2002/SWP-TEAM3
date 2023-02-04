@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "HostFilter", urlPatterns = {"/homepage-management/*", "/room-control"})
+@WebFilter(filterName = "HostFilter", urlPatterns = {"/homepage-management", "/room-control",})
 
 public class HostFilter implements Filter {
 

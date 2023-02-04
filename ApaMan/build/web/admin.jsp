@@ -137,6 +137,7 @@
                                         </div>
 
                                     </div>
+                                    <input type="hidden" id="submitType" name="submitType"> 
                                     <button class="btn btn-primary" type="button" onclick="validateHostInfo()">Add</button>
                                 </div>
                             </div>

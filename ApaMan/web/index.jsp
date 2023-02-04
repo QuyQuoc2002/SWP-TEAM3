@@ -9,7 +9,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Apaman</title>
+    <link rel="icon" type="image/x-icon" href="assets/system/icons8-home-pulsar-color-32.png">
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
@@ -72,7 +73,7 @@
                                     <a href="homepage?apartmentId=${apartment.apartmentId}"><img src="${apartment.apartmentImgAboutus}" alt="#" /></a>
                                 </figure>
                             </div>
-                            <div class="blog_room">
+                            <div class="blog_room" style="color: black;">
                                 <a href="homepage.html">
                                     <h3>${apartment.apartmentName}</h3>
                                 </a>
@@ -85,6 +86,7 @@
             </div>
         </div>
     </div>
+    <%@include file="component/common/footer.jsp" %>
     <script>
         let city = document.getElementById('city');
         let district = document.getElementById('district');
