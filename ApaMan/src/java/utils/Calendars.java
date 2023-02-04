@@ -14,9 +14,6 @@ import java.text.SimpleDateFormat;
  */
 public class Calendars {
     
-    private Calendars(){};
-
-    
     /**
      * Convert date to epoch timestamp
      * 
@@ -40,6 +37,13 @@ public class Calendars {
     public static long getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTimeInMillis() / 1000;
+    }
+    
+    public static String formatTime(String timeFormat, long millisecond) {
+        SimpleDateFormat isoFormat = new SimpleDateFormat(timeFormat);
+        isoFormat.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        String time = isoFormat.format(millisecond * 1000);
+        return time;
     }
 
 }

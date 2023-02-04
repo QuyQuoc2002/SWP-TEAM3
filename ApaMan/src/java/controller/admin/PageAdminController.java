@@ -23,6 +23,7 @@ import service.AccountService;
 import service.ApartmentService;
 import service.CityService;
 import service.DistrictService;
+import utils.Calendars;
 
 /**
  *
@@ -75,6 +76,8 @@ public class PageAdminController extends HttpServlet {
 
             List<Apartment> listApartment = new ApartmentService().getAll();
             request.setAttribute("listApartment", listApartment);
+            
+            request.setAttribute("Calendars", new Calendars());
 
             request.getRequestDispatcher("admin.jsp").forward(request, response);
         }
@@ -100,6 +103,7 @@ public class PageAdminController extends HttpServlet {
             int districtId = Integer.parseInt(request.getParameter("districtId"));
             String apartmentLat = request.getParameter("apartmentLat");
             String apartmentLong = request.getParameter("apartmentLong");
+            long apartmentCreateTime = Calendars.getCurrentTime();
 
             Apartment objApartment = Apartment.builder()
                     .apartmentName(apartmentName)
@@ -109,6 +113,7 @@ public class PageAdminController extends HttpServlet {
                     .districtId(districtId)
                     .apartmentLat(apartmentLat)
                     .apartmentLon(apartmentLong)
+                    .apartmentCreateTime(apartmentCreateTime)
                     .apartmentAccessible(false)
                     .build();
 

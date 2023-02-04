@@ -22,6 +22,7 @@ import service.AccountService;
 import service.ApartmentService;
 import service.CityService;
 import service.DistrictService;
+import utils.Calendars;
 
 /**
  *
@@ -75,6 +76,8 @@ public class HostApartmentDetailController extends HttpServlet {
 
             List<District> listDistrict = new DistrictService().getAll();
             request.setAttribute("listDistrict", listDistrict);
+            
+            request.setAttribute("Calendars", new Calendars());
 
             request.getRequestDispatcher("host-apartment-detail.jsp").forward(request, response);
         }

@@ -172,6 +172,7 @@
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Create time</th>
                                     <th>User Name</th>
                                     <th>Apartment Name</th>
                                     <th>Account Accessible</th>
@@ -184,6 +185,7 @@
                                     <c:forEach items="${requestScope.listHostAccount}" var="hostAccount" >
                                         <c:if test="${hostAccount.apartmentId eq apartment.apartmentId}" >
                                             <tr>
+                                                <td>${Calendars.formatTime('dd/MM/yyyy', apartment.apartmentCreateTime)}</td>
                                                 <td class="text-info">${hostAccount.accountUsername}</td>
                                                 <td>${apartment.apartmentName}</td>
                                                 <td>
@@ -232,7 +234,20 @@
         </script>
 
         <script>
-            let date = new Date().toLocaleDateString();
+            const currentDate = new Date();
+            const yyyy = currentDate.getFullYear();
+            let mm = currentDate.getMonth() + 1; // Months start at 0!
+            let dd = currentDate.getDate();
+
+            if (dd < 10)
+                dd = '0' + dd;
+            if (mm < 10)
+                mm = '0' + mm;
+
+            const date = dd + '/' + mm + '/' + yyyy;
+            console.log(date);
+
+
             document.getElementById("currentDate").value = date;
         </script>
 

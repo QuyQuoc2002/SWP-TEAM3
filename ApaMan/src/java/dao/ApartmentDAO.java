@@ -46,6 +46,7 @@ public class ApartmentDAO {
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
                         .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentCreateTime(rs.getLong("apartment_create_time"))
                         .apartmentAccessible(rs.getBoolean("apartment_accessible"))
                         .build();
                 list.add(obj);
@@ -59,7 +60,7 @@ public class ApartmentDAO {
 
     public List<Apartment> getAll() { //31 LOC
 
-        String sql = "SELECT * FROM apartment WHERE deleted = 0;";
+        String sql = "SELECT * FROM apartment WHERE deleted = 0 ORDER BY apartment_create_time DESC";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
@@ -79,6 +80,7 @@ public class ApartmentDAO {
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
                         .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentCreateTime(rs.getLong("apartment_create_time"))
                         .apartmentAccessible(rs.getBoolean("apartment_accessible"))
                         .build();
                 list.add(obj);
@@ -112,6 +114,7 @@ public class ApartmentDAO {
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
                         .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentCreateTime(rs.getLong("apartment_create_time"))
                         .apartmentAccessible(rs.getBoolean("apartment_accessible"))
                         .build();
                 return obj;
@@ -143,6 +146,7 @@ public class ApartmentDAO {
                         .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
                         .apartmentContentService(rs.getString("apartment_content_service"))
                         .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentCreateTime(rs.getLong("apartment_create_time"))
                         .apartmentAccessible(rs.getBoolean("apartment_accessible"))
                         .build();
                 return obj;
@@ -155,8 +159,8 @@ public class ApartmentDAO {
 
     public int add(Apartment obj) {
         int check = 0;
-        String sql = "INSERT INTO apamandb.apartment(apartment_name, host_name, host_mobile, district_id, apartment_address, apartment_lat, apartment_lon, apartment_accessible, deleted)\n"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO apamandb.apartment(apartment_name, host_name, host_mobile, district_id, apartment_address, apartment_lat, apartment_lon, apartment_create_time, apartment_accessible, deleted)\n"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS) : null;) {
             ps.setObject(1, obj.getApartmentName());
             ps.setObject(2, obj.getHostName());
@@ -165,8 +169,9 @@ public class ApartmentDAO {
             ps.setObject(5, obj.getApartmentAddress());
             ps.setObject(6, obj.getApartmentLat());
             ps.setObject(7, obj.getApartmentLon());
-            ps.setObject(8, obj.isApartmentAccessible());
-            ps.setObject(9, 0);
+            ps.setObject(8, obj.getApartmentCreateTime());
+            ps.setObject(9, obj.isApartmentAccessible());
+            ps.setObject(10, 0);
             check = ps.executeUpdate();
             if (check > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
@@ -233,4 +238,7 @@ public class ApartmentDAO {
         return check > 0;
     }
 
+    public static void main(String[] args) {
+        System.out.println(new ApartmentDAO().getAll());
+    }
 }

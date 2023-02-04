@@ -28,5 +28,6 @@ public class Apartment {
     private String apartmentContentAboutus;
     private String apartmentContentService;
     private String apartmentContentRecruitment;
+    private long apartmentCreateTime;
     private boolean apartmentAccessible;
 }
