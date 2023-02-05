@@ -20,7 +20,19 @@ public class FloorService {
         return floorDAO.getAll(apartmentId);
     }
     
+    public Floor getOne(int apartmentId) {
+        return floorDAO.getOne(apartmentId);
+    }
+    
     public boolean add(Floor obj) {
         return floorDAO.add(obj);
+    }
+    
+    public boolean updateFloors(List<Floor> list) {
+        return floorDAO.updateFloors(list);
+    }
+    
+    public boolean delete(int floorId, int apartmentId) {
+        return floorDAO.delete(floorId, apartmentId);
     }
 }

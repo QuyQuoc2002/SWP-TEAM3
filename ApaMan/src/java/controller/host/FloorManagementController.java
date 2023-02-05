@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import service.FloorService;
 
 /**
@@ -63,16 +65,26 @@ public class FloorManagementController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FloorManagementController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FloorManagementController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            FloorService floorService = new FloorService();
+
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            int apartmentId = curAccount.getApartmentId();
+
+            String submitType = request.getParameter("submitType");
+            switch (submitType) {
+                case "Delete":
+                    int floorId = Integer.parseInt(request.getParameter("floorId"));
+                    boolean deleteFloorSuccess = floorService.delete(floorId, apartmentId);
+                    if (deleteFloorSuccess) {
+                        session.setAttribute("messageUpdate", "success|Delete|Delete Floor Success|edit-floor");
+                    } else {
+                        session.setAttribute("messageUpdate", "error|Delete|Delete Floor Fail Somthing went wrong|edit-floor");
+                    }
+                    response.sendRedirect("room-control");
+                    break;
+            }
+            
         }
     }
 
@@ -108,11 +120,26 @@ public class FloorManagementController extends HttpServlet {
                     if (addFloorSuccess) {
                         session.setAttribute("messageUpdate", "success|Add|Add Floor Success|edit-floor");
                     } else {
-                        session.setAttribute("messageUpdate", "error|Add Floor Fail|edit-floor");
+                        session.setAttribute("messageUpdate", "error|Add|Add Floor Fail|edit-floor");
                     }
                     response.sendRedirect("room-control");
                     break;
                 case "Update":
+                    String[] updateFloorsNames = request.getParameterValues("floorName");
+                    String[] updateFloorsIdStrs = request.getParameterValues("floorId");
+                    List<Floor> updateFloors = new ArrayList<>();
+                    for (int i = 0; i < updateFloorsIdStrs.length; i++) {
+                        Floor updateFloor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
+                        updateFloor.setFloorName(updateFloorsNames[i]);
+                        updateFloors.add(updateFloor);
+                    } 
+                    boolean updateFloorsSuccess = floorService.updateFloors(updateFloors);
+                    if (updateFloorsSuccess) {
+                        session.setAttribute("messageUpdate", "success|APAMAN Notification|Update Floor Success|edit-floor");
+                    } else {
+                        session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Floor Fail|edit-floor");
+                    }
+                    response.sendRedirect("room-control");
                     break;
             }
         }

@@ -163,6 +163,7 @@
         <!-------------------------END MODAL---------------------------------->
         
         <script src="assets/js/bootstrap.bundle.js"></script>
+        <script src="assets/js/room-control.js"></script>
         <script src="assets/js/toast.js"></script>
         <script src="assets/js/main.js"></script>
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->

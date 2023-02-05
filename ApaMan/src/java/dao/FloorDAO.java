@@ -42,8 +42,28 @@ public class FloorDAO {
         }
         return null;
     }
-    
-        public boolean add(Floor obj) {
+
+    public Floor getOne(int apartmentId) {
+        String sql = "SELECT * FROM floor WHERE floor_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Floor obj = Floor.builder()
+                        .floorId(rs.getInt("floor_id"))
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .floorName(rs.getString("floor_name"))
+                        .build();
+                return obj;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public boolean add(Floor obj) {
         int check = 0;
         String sql = "INSERT INTO floor(apartment_id, floor_name)"
                 + " VALUES(?, ?)";
@@ -57,7 +77,35 @@ public class FloorDAO {
         return check > 0;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new FloorDAO().getAll(1));
+    public boolean updateFloors(List<Floor> list) {
+        String query = "UPDATE floor Set floor_name = ? WHERE floor_id = ?";
+        int[] arr = {};
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
+            if (ps != null) {
+                for (Floor obj : list) {
+                    ps.setObject(1, obj.getFloorName());
+                    ps.setObject(2, obj.getFloorId());
+                    ps.addBatch();
+                }
+                arr = ps.executeBatch();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return arr.length > 0;
+    }
+
+    public boolean delete(int floorId, int apartmentId) {
+        int check = 0;
+        String sql = "DELETE FROM floor Where floor_id = ? AND apartment_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, floorId);
+            ps.setObject(2, apartmentId);
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
     }
 }
