@@ -42,6 +42,20 @@ public class FloorDAO {
         }
         return null;
     }
+    
+        public boolean add(Floor obj) {
+        int check = 0;
+        String sql = "INSERT INTO floor(apartment_id, floor_name)"
+                + " VALUES(?, ?)";
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, obj.getApartmentId());
+            ps.setObject(2, obj.getFloorName());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
 
     public static void main(String[] args) {
         System.out.println(new FloorDAO().getAll(1));

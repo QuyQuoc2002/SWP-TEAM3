@@ -19,4 +19,8 @@ public class FloorService {
     public List<Floor> getAll(int apartmentId) {
         return floorDAO.getAll(apartmentId);
     }
+    
+    public boolean add(Floor obj) {
+        return floorDAO.add(obj);
+    }
 }

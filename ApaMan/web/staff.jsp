@@ -179,11 +179,11 @@
 
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>
-                                                            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
-                                                            if (messageUpdate !== 'null') {
-                                                                const words = messageUpdate.split("|");
-                                                                showToast(words[0], words[1], words[2]);
-                                                            }
+            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+            if (messageUpdate !== 'null') {
+                const words = messageUpdate.split("|");
+                showToast(words[0], words[1], words[2]);
+            }
         </script>
 
     </body>

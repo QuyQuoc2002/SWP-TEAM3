@@ -54,7 +54,10 @@
     </head>
 
     <body>
-
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="color: black">
+            </div>
+        </div>
         <div class="container-fluid position-relative d-flex p-0">
             <!-- Sidebar Start -->
             <%@include file="component/common/sidebar.jsp" %>
@@ -157,8 +160,23 @@
         <%@include file="component/modal/add-room.jsp" %>
         <%@include file="component/modal/edit-room-type.jsp" %>
         <%@include file="component/modal/edit-floor.jsp" %>
+        <!-------------------------END MODAL---------------------------------->
+        
+        <script src="assets/js/bootstrap.bundle.js"></script>
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/main.js"></script>
+        <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
+        <script>
+            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+            if (messageUpdate !== 'null') {
+                const words = messageUpdate.split("|");
+                showToast(words[0], words[1], words[2]);
+                openModal(words[3]);
+            }
+        </script>
 
     </body>
-    <script src="assets/js/bootstrap.bundle.js"></script>
-
+    <%
+            request.getSession().removeAttribute("messageUpdate");
+    %>
 </html>
