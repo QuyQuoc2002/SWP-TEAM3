@@ -46,13 +46,22 @@ public class AccountDAO {
     }
 
     public Account login(String username, String password, int apartmemtId) {
-        String query = "SELECT a.account_id, a.apartment_id, a.account_username, a.account_password, r.role_name FROM apamandb.`account` a join `role` r ON a.role_id = r.role_id\n"
-                + "Where a.account_username = ? AND a.account_password = ? AND a.account_accessible = true AND deleted = false AND (a.apartment_id = 0 OR a.apartment_id = ?)";
+        String query = "SELECT \n"
+                + "	a.account_id,\n"
+                + "	a.apartment_id,\n"
+                + "	a.account_username,\n"
+                + "	a.account_password,\n"
+                + "	r.role_name\n"
+                + "FROM apamandb.`account` a join `role` r ON a.role_id = r.role_id\n"
+                + "Where 	a.account_username = ? AND \n"
+                + "		a.account_password = ? AND \n"
+                + "        ((a.account_accessible = true AND deleted = false AND a.apartment_id = ? And (SELECT account_accessible FROM `account` WHERE apartment_id = ? AND role_id = 2) = true) OR a.apartment_id = 0);";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
             if (ps != null) {
                 ps.setObject(1, username);
                 ps.setObject(2, password);
                 ps.setObject(3, apartmemtId);
+                ps.setObject(4, apartmemtId);
                 ResultSet rs = ps.executeQuery();
                 if (rs != null && rs.next()) {
                     Account obj = Account.builder()
@@ -85,7 +94,7 @@ public class AccountDAO {
         }
         return check > 0;
     }
-    
+
     public int add(Account obj) {
         int check = 0;
         String sql = "INSERT INTO `account`(apartment_id, account_username, account_password, account_accessible, role_id, deleted)"
@@ -95,7 +104,7 @@ public class AccountDAO {
             ps.setObject(2, obj.getAccountUsername());
             ps.setObject(3, Cypher.encryptData(obj.getAccountPassword(), IConst.SHIFT_KEY));
             ps.setObject(4, obj.isAccountAccessible());
-            ps.setObject(5, obj.getRole().getRoleId());    
+            ps.setObject(5, obj.getRole().getRoleId());
             ps.setObject(6, 0);
             check = ps.executeUpdate();
             if (check > 0) {
@@ -176,7 +185,7 @@ public class AccountDAO {
         }
         return check > 0;
     }
-    
+
     public String getAccountUsername(int apartmentId, int roleId) {
         String sql
                 = "SELECT * FROM apamandb.account Where apartment_id = ? AND role_id = ? ORDER BY account_id DESC LIMIT 1;";
@@ -194,7 +203,7 @@ public class AccountDAO {
         }
         return null;
     }
-    
+
     public List<Account> getAllHostAccount() {
 
         String sql = "SELECT * FROM account where role_id = 2";//
