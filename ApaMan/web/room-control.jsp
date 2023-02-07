@@ -158,10 +158,9 @@
 
         <!-------------------------MODAL-------------------------------------->
         <%@include file="component/modal/add-room.jsp" %>
-        <%@include file="component/modal/edit-room-type.jsp" %>
         <%@include file="component/modal/edit-floor.jsp" %>
         <!-------------------------END MODAL---------------------------------->
-        
+
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/room-control.js"></script>
         <script src="assets/js/toast.js"></script>

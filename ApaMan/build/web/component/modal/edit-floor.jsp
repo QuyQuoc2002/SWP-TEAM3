@@ -10,20 +10,21 @@
                     <h3 class="text-primary-cus"><i class="fa fa-user-edit me-2"></i>Add, Edit, Delete Floor</h3>
                     <a data-bs-dismiss="modal" style="cursor: pointer; font-size: 20px;"><i class="fa-solid fa-xmark"></i></a>
                 </div>
-                <form action="floor-management" method="post">
+                <form id="add-floor-form" action="floor-management" method="post">
                     <div class="d-flex mb-3">
-                        <input type="text" name="floorName" class="form-control bg-dark text-white w-75" placeholder="Add Floor">
+                        <input id="add-floor-name" type="text" name="floorName" class="form-control bg-dark text-white w-75" placeholder="Add Floor">
                         <div class="text-white d-flex aligns-items-center justify-content-center align-items-center w-25">
-                            <button name="submitType" value="Add" type="submit" class=" btn btn-danger px-4">Add</button>
+                            <input type="hidden" name="submitType" value="Add">
+                            <button type="submit" class=" btn btn-danger px-4">Add</button>
                         </div>
                     </div>
                 </form>
                 <hr>
-                <form action="floor-management" method="post">
+                <form id="update-floor-form" action="floor-management" method="post">
                     <c:forEach items="${requestScope.floors}" var="floor">
                         <div class="d-flex mb-3">
                             <input type="hidden" name="floorId" value="${floor.floorId}">
-                            <input name="floorName" type="text" class="form-control bg-dark text-white w-75" value="${floor.floorName}">
+                            <input name="floorName" type="text" class="form-control bg-dark text-white w-75 floor-name" value="${floor.floorName}">
                             <a href="javascript:void(0);" onclick="openConfirmDeleteFloor('${floor.floorId}', '${floor.floorName}');" class="d-flex aligns-items-center justify-content-center align-items-center w-25"><i
                                     class="fa-solid fa-trash-can fs-3"></i></a>
                         </div>
@@ -32,10 +33,11 @@
                     <div id="update-floor-button-block">
                         <div class="row">
                             <div class="col-6">
-                                <button class="btn btn-danger py-3 w-100 mb-4" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger py-3 w-100 mb-4" data-bs-dismiss="modal">Close</button>
                             </div>
                             <div class="col-6">
-                                <button name="submitType" value="Update" type="submit" class="btn btn-primary py-3 w-100 mb-4">Save</button>
+                                <input type="hidden" name="submitType" value="Update">
+                                <button onclick="checkFloorNameDuplicate();" type="button" class="btn btn-primary py-3 w-100 mb-4">Save</button>
                             </div>
                         </div>
                     </div>

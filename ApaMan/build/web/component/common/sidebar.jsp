@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar navbar-dark">
         <a href="/apartment" class="navbar-brand ms-4 mb-3 text-primary-cus" style="font-size: 32px;">
@@ -19,13 +20,13 @@
             <a href="staff" class="nav-item nav-link"><i class="fa-solid fa-user-gear me-2"></i>Staffs</a>
             <a href="vehical.html" class="nav-item nav-link"><i class="fa-solid fa-motorcycle me-2"></i>Vehicals</a>
             <div class="nav-item dropdown">
-                <a href="room-management.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Managemnt</a>
+                <a href="room-management.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Management</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="room-control" class="dropdown-item">Controls</a>
-                    <a href="floor.html" class="dropdown-item">floor 1</a>
-                    <a href="floor.html" class="dropdown-item">floor 2</a>
-                    <a href="floor.html" class="dropdown-item">floor 3</a>
-                    <a href="floor.html" class="dropdown-item">floor 4</a>
+                    <a href="roomtype" class="dropdown-item">Room Type</a>
+                    <c:forEach items="${requestScope.sidebarFloors}" var="floor">
+                        <a href="floor.html" class="dropdown-item">${floor.floorName}</a>
+                    </c:forEach>
                 </div>
             </div>
             <a href="deposit-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-signature me-2"></i>Deposit contract</a>

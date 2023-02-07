@@ -84,7 +84,7 @@ public class FloorManagementController extends HttpServlet {
                     response.sendRedirect("room-control");
                     break;
             }
-            
+
         }
     }
 
@@ -112,27 +112,44 @@ public class FloorManagementController extends HttpServlet {
             switch (submitType) {
                 case "Add":
                     String floorName = request.getParameter("floorName");
-                    Floor floor = Floor.builder()
-                            .apartmentId(apartmentId)
-                            .floorName(floorName)
-                            .build();
-                    boolean addFloorSuccess = floorService.add(floor);
-                    if (addFloorSuccess) {
-                        session.setAttribute("messageUpdate", "success|Add|Add Floor Success|edit-floor");
+                    List<Floor> floors = floorService.getAll(apartmentId);
+
+                    //Check floor name already exist
+                    boolean floorNameExist = false;
+                    for (Floor obj : floors) {
+                        if (floorName.equals(obj.getFloorName())) {
+                            floorNameExist = true;
+                        }
+                    }
+
+                    if (floorNameExist) {
+                        session.setAttribute("messageUpdate", "warning|APAMAN Notification|Floor Name Exist, Add Fail|edit-floor");
                     } else {
-                        session.setAttribute("messageUpdate", "error|Add|Add Floor Fail|edit-floor");
+                        Floor floor = Floor.builder()
+                                .apartmentId(apartmentId)
+                                .floorName(floorName)
+                                .build();
+                        boolean addFloorSuccess = floorService.add(floor);
+                        if (addFloorSuccess) {
+                            session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Floor Success|edit-floor");
+                        } else {
+                            session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Floor Fail|edit-floor");
+                        }
                     }
                     response.sendRedirect("room-control");
                     break;
+                    
                 case "Update":
                     String[] updateFloorsNames = request.getParameterValues("floorName");
                     String[] updateFloorsIdStrs = request.getParameterValues("floorId");
+                    
                     List<Floor> updateFloors = new ArrayList<>();
                     for (int i = 0; i < updateFloorsIdStrs.length; i++) {
                         Floor updateFloor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
                         updateFloor.setFloorName(updateFloorsNames[i]);
                         updateFloors.add(updateFloor);
-                    } 
+                    }
+                    
                     boolean updateFloorsSuccess = floorService.updateFloors(updateFloors);
                     if (updateFloorsSuccess) {
                         session.setAttribute("messageUpdate", "success|APAMAN Notification|Update Floor Success|edit-floor");
