@@ -16,6 +16,6 @@ import lombok.ToString;
 public class Floor {
     private int floorId;
     private int apartmentId;
-    private String floorName;
+    private int floorName;
     private int floorRoomQuantity;
 }

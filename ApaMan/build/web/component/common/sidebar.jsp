@@ -25,7 +25,7 @@
                     <a href="room-control" class="dropdown-item">Controls</a>
                     <a href="roomtype" class="dropdown-item">Room Type</a>
                     <c:forEach items="${requestScope.sidebarFloors}" var="floor">
-                        <a href="floor.html" class="dropdown-item">${floor.floorName}</a>
+                        <a href="floor.html" class="dropdown-item">floor ${floor.floorName}</a>
                     </c:forEach>
                 </div>
             </div>

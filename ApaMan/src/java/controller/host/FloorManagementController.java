@@ -116,13 +116,13 @@ public class FloorManagementController extends HttpServlet {
             String submitType = request.getParameter("submitType");
             switch (submitType) {
                 case "Add":
-                    String floorName = request.getParameter("floorName");
+                    int floorName = Integer.parseInt(request.getParameter("floorName")) ;
                     List<Floor> floors = floorService.getAll(apartmentId);
 
                     //Check floor name already exist
                     boolean floorNameExist = false;
                     for (Floor obj : floors) {
-                        if (floorName.equals(obj.getFloorName())) {
+                        if (floorName == obj.getFloorName()) {
                             floorNameExist = true;
                         }
                     }
@@ -151,7 +151,7 @@ public class FloorManagementController extends HttpServlet {
                     List<Floor> updateFloors = new ArrayList<>();
                     for (int i = 0; i < updateFloorsIdStrs.length; i++) {
                         Floor updateFloor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
-                        updateFloor.setFloorName(updateFloorsNames[i]);
+                        updateFloor.setFloorName(Integer.parseInt(updateFloorsNames[i]));
                         updateFloors.add(updateFloor);
                     }
 
