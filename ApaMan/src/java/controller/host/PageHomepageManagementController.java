@@ -98,7 +98,6 @@ public class PageHomepageManagementController extends HttpServlet {
             Apartment apartment = apartmentService.getOne(apartmentId);
             List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(apartmentId);
 
-            boolean updateSuccess = false;
             String editType = request.getParameter("editType");
             switch (editType) {
                 case "editIntroduction":
@@ -114,7 +113,7 @@ public class PageHomepageManagementController extends HttpServlet {
                     apartment.setApartmentContentRecruitment(request.getParameter("editRecruitmentContent"));
                     break;
             }
-            updateSuccess = apartmentService.update(apartment, apartmentId);
+            boolean updateSuccess = apartmentService.update(apartment, apartmentId);
             if (updateSuccess) {
                 apartment = apartmentService.getOne(apartmentId);
                 request.setAttribute("apartment", apartment);
