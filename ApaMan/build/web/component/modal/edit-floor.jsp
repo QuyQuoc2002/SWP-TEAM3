@@ -15,7 +15,7 @@
                         <input id="add-floor-name" type="text" name="floorName" class="form-control bg-dark text-white w-75" placeholder="Add Floor">
                         <div class="text-white d-flex aligns-items-center justify-content-center align-items-center w-25">
                             <input type="hidden" name="submitType" value="Add">
-                            <button type="submit" class=" btn btn-danger px-4">Add</button>
+                            <button onclick="validateAddFloorName()" type="button" class=" btn btn-danger px-4">Add</button>
                         </div>
                     </div>
                 </form>

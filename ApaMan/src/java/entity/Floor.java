@@ -17,4 +17,5 @@ public class Floor {
     private int floorId;
     private int apartmentId;
     private String floorName;
+    private int floorRoomQuantity;
 }

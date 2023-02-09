@@ -75,11 +75,16 @@ public class FloorManagementController extends HttpServlet {
             switch (submitType) {
                 case "Delete":
                     int floorId = Integer.parseInt(request.getParameter("floorId"));
-                    boolean deleteFloorSuccess = floorService.delete(floorId, apartmentId);
-                    if (deleteFloorSuccess) {
-                        session.setAttribute("messageUpdate", "success|Delete|Delete Floor Success|edit-floor");
+                    Floor floor = floorService.getOne(floorId);
+                    if (floor.getFloorRoomQuantity() != 0) {
+                        session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Floor Fail, some room exist in this floor|edit-floor");
                     } else {
-                        session.setAttribute("messageUpdate", "error|Delete|Delete Floor Fail Somthing went wrong|edit-floor");
+                        boolean deleteFloorSuccess = floorService.delete(floorId, apartmentId);
+                        if (deleteFloorSuccess) {
+                            session.setAttribute("messageUpdate", "success|APAMAN Notification|Delete Floor Success|edit-floor");
+                        } else {
+                            session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Floor Fail Somthing went wrong|edit-floor");
+                        }
                     }
                     response.sendRedirect("room-control");
                     break;
@@ -138,18 +143,18 @@ public class FloorManagementController extends HttpServlet {
                     }
                     response.sendRedirect("room-control");
                     break;
-                    
+
                 case "Update":
                     String[] updateFloorsNames = request.getParameterValues("floorName");
                     String[] updateFloorsIdStrs = request.getParameterValues("floorId");
-                    
+
                     List<Floor> updateFloors = new ArrayList<>();
                     for (int i = 0; i < updateFloorsIdStrs.length; i++) {
                         Floor updateFloor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
                         updateFloor.setFloorName(updateFloorsNames[i]);
                         updateFloors.add(updateFloor);
                     }
-                    
+
                     boolean updateFloorsSuccess = floorService.updateFloors(updateFloors);
                     if (updateFloorsSuccess) {
                         session.setAttribute("messageUpdate", "success|APAMAN Notification|Update Floor Success|edit-floor");

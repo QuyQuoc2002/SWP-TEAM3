@@ -33,6 +33,7 @@ public class FloorDAO {
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .floorName(rs.getString("floor_name"))
+                        .floorRoomQuantity(rs.getInt("floor_room_quantity"))
                         .build();
                 list.add(obj);
             }
@@ -54,6 +55,7 @@ public class FloorDAO {
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .floorName(rs.getString("floor_name"))
+                        .floorRoomQuantity(rs.getInt("floor_room_quantity"))
                         .build();
                 return obj;
             }
