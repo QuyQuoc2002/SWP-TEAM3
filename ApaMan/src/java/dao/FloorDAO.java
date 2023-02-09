@@ -67,11 +67,12 @@ public class FloorDAO {
 
     public boolean add(Floor obj) {
         int check = 0;
-        String sql = "INSERT INTO floor(apartment_id, floor_name)"
-                + " VALUES(?, ?)";
+        String sql = "INSERT INTO floor(apartment_id, floor_name, floor_room_quantity)"
+                + " VALUES(?, ?, ?)";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, obj.getApartmentId());
             ps.setObject(2, obj.getFloorName());
+            ps.setObject(3, obj.getFloorRoomQuantity());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

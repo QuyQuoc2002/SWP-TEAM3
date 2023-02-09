@@ -133,6 +133,7 @@ public class FloorManagementController extends HttpServlet {
                         Floor floor = Floor.builder()
                                 .apartmentId(apartmentId)
                                 .floorName(floorName)
+                                .floorRoomQuantity(0)
                                 .build();
                         boolean addFloorSuccess = floorService.add(floor);
                         if (addFloorSuccess) {
