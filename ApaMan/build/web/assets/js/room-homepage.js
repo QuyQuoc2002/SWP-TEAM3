@@ -12,13 +12,15 @@ function currentSlide(n) {
 }
 
 function showSlides(n) {
+  var x = document.getElementById("edit-img");
   let i;
-  let slides = document.getElementsByClassName("Slideroom1");
-  let dots = document.getElementsByClassName("slidemini1");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
+  let slides = document.getElementsByClassName("Slideroom");
+  let dots = document.getElementsByClassName("slidemini");
+  if (n > slides.length) {slideIndex = 1;}
+  if (n < 1) {slideIndex = slides.length;}
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
+    x.style.display = "none";
   }
   for (i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");

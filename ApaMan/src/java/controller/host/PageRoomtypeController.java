@@ -6,6 +6,7 @@ package controller.host;
 
 import entity.Account;
 import entity.Roomtype;
+import entity.RoomtypeImgBanner;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import service.RoomtypeImgBannerService;
 import service.RoomtypeService;
 
 /**
@@ -66,13 +68,13 @@ public class PageRoomtypeController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             RoomtypeService roomtypeService = new RoomtypeService();
-            
+
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
-            
+
             List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
-            
+
             request.setAttribute("roomtypes", roomtypes);
             request.getRequestDispatcher("roomtype.jsp").forward(request, response);
         }
@@ -92,15 +94,60 @@ public class PageRoomtypeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PageRoomtypeController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PageRoomtypeController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            RoomtypeService roomtypeService = new RoomtypeService();
+            RoomtypeImgBannerService roomtypeImgBannerService = new RoomtypeImgBannerService();
+
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            int apartmentId = curAccount.getApartmentId();
+
+            String roomtypeName = request.getParameter("roomtypeName");
+            int roomtypeMaxMember = Integer.parseInt(request.getParameter("roomtypeMaxMember"));
+            int roomtypeCost = Integer.parseInt(request.getParameter("roomtypeCost"));
+            String roomtypeArea = request.getParameter("roomtypeArea");
+            int roomtypeRoomQuantity = 0;
+
+            List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
+
+            //Check roomtype name already exist
+            boolean roomtypeNameExist = false;
+            for (Roomtype obj : roomtypes) {
+                if (roomtypeName.equals(obj.getRoomtypeName())) {
+                    roomtypeNameExist = true;
+                }
+            }
+
+            if (roomtypeNameExist) {
+                session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");
+            } else {
+                Roomtype roomtype = Roomtype.builder()
+                        .apartmentId(apartmentId)
+                        .roomtypeName(roomtypeName)
+                        .roomtypeMaxMember(roomtypeMaxMember)
+                        .roomtypeCost(roomtypeCost)
+                        .roomtypeArea(roomtypeArea)
+                        .roomtypeRoomQuantity(roomtypeRoomQuantity)
+                        .build();
+                int addRoomtypeSuccess = roomtypeService.add(roomtype);
+                int roomtypeId = addRoomtypeSuccess;
+
+                String roomtypeImgBannerPath = String.valueOf("assets/system/defaultImgSystem.png");
+                for (int i = 0; i < 6; i++) {
+                    RoomtypeImgBanner roomtypeImgBanner = RoomtypeImgBanner.builder()
+                            .roomtypeId(roomtypeId)
+                            .roomtypeImgBannerPath(roomtypeImgBannerPath)
+                            .build();
+                    int addRoomtypeImgBannerSuccess = roomtypeImgBannerService.add(roomtypeImgBanner);
+                }
+
+                if (addRoomtypeSuccess > 0) {
+                    session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Roomtype Success|edit-roomtype");
+                } else {
+                    session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype");
+                }
+            }
+            response.sendRedirect("roomtype");
+
         }
     }
 

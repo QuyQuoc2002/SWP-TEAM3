@@ -73,7 +73,7 @@ public class UpdateImgAboutusController extends HttpServlet {
         return "";
     }
 
-    public File getFolderUpload() throws IOException {
+    private File getFolderUpload() throws IOException {
         String readPart = getServletContext().getRealPath("/");
         String partUpload = readPart.replace("build\\", "") + "assets\\images";
         File folderUpload = new File(partUpload);

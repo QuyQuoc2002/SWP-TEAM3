@@ -44,31 +44,32 @@
                             <div class="col-3 form-group mb-3">
                                 <fieldset>
                                     <legend>Name</legend>
-                                    <input type="text" class="form-control roomtype-name" name="roomtypeName" required="">
+                                    <input type="text" id="add-roomtype-name" class="form-control roomtype-name" name="roomtypeName" required="">
                                 </fieldset>
                             </div>
                             <div class="col-3 form-group mb-3">
                                 <fieldset>
                                     <legend>Max Member</legend>
-                                    <input type="number" class="form-control" name="roomtypeMaxMember" required="">
+                                    <input type="number" id="add-roomtype-maxmember" class="form-control" name="roomtypeMaxMember" required="">
                                 </fieldset>
                             </div>
                             <div class="col-3 form-group mb-3">
                                 <fieldset>
                                     <legend>Cost ($/month)</legend>
-                                    <input type="number" class="form-control" name="roomtypeCost" required="">
+                                    <input type="number" id="add-roomtype-cost" class="form-control" name="roomtypeCost" required="">
                                 </fieldset>
                             </div>
                             <div class="col-3 form-group mb-3">
                                 <fieldset>
                                     <legend>Area (m<sup>2</sup>)</legend>
-                                    <input type="text" class="form-control" name="roomtypeNameArea" required="">
+                                    <input type="text" id="add-roomtype-area" class="form-control" name="roomtypeArea" required="">
                                 </fieldset>
                             </div>
                         </div>
                         <div class="row col-2" style="margin: 0">
-                            <div class="col-12 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">      
-                                <button type="button" onclick="checkRoomtypeNameExist()" class="btn btn-danger w-75" style="height: 47px">Add</button>
+                            <div class="col-12 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
+                                <input type="hidden" name="submitType" value="Add">
+                                <button type="button" onclick="validateAddRoomtype()" class="btn btn-danger w-75" style="height: 47px">Add</button>
                             </div>
                         </div>
                     </form>
@@ -76,39 +77,43 @@
                 <!-- ------------------------------------VIEW---------------------------------------- -->
                 <c:forEach items="${requestScope.roomtypes}" var="roomtype">
                     <div class="container-fluid pt-4 px-4">
-                        <div class="row panel-form bg-secondary-cus rounded p-2 card-feature">
-                            <div class="row col-10">
-                                <div class="col-3 form-group mb-3">
-                                    <fieldset>
-                                        <legend>Name</legend>
-                                        <input readonly="" type="text" class="form-control roomtype-name" name="accountUsername" value="${roomtype.roomtypeName}">
-                                    </fieldset>
+                        <form action="roomtype-detail" method="get" >                      
+                            <div class="row panel-form bg-secondary-cus rounded p-2 card-feature">
+                                <div class="row col-10">
+                                    <div class="col-3 form-group mb-3">
+                                        <fieldset>
+                                            <legend>Name</legend>
+                                            <input readonly="" type="text" class="form-control roomtype-name" name="roomtypeName" value="${roomtype.roomtypeName}">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-3 form-group mb-3">
+                                        <fieldset>
+                                            <legend>Max Member</legend>
+                                            <input readonly type="text" class="form-control roomtypeMaxMember" name="roomtypeMaxMember" value="${roomtype.roomtypeMaxMember}" >
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-3 form-group mb-3">
+                                        <fieldset>
+                                            <legend>Cost ($/month)</legend>
+                                            <input readonly type="text" class="form-control roomtypeCost" name="roomtypeCost" value="${roomtype.roomtypeCost}" >
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-3 form-group mb-3">
+                                        <fieldset>
+                                            <legend>Area (m<sup>2</sup>)</legend>
+                                            <input readonly type="text" class="form-control roomtypeArea" name="roomtypeArea" value="${roomtype.roomtypeArea}" >
+                                        </fieldset>
+                                    </div>
                                 </div>
-                                <div class="col-3 form-group mb-3">
-                                    <fieldset>
-                                        <legend>Max Member</legend>
-                                        <input readonly type="text" class="form-control" name="accountUsername" value="${roomtype.roomtypeMaxMember}" >
-                                    </fieldset>
-                                </div>
-                                <div class="col-3 form-group mb-3">
-                                    <fieldset>
-                                        <legend>Cost ($/month)</legend>
-                                        <input readonly type="text" class="form-control" name="accountUsername" value="${roomtype.roomtypeCost}" >
-                                    </fieldset>
-                                </div>
-                                <div class="col-3 form-group mb-3">
-                                    <fieldset>
-                                        <legend>Area (m<sup>2</sup>)</legend>
-                                        <input readonly type="text" class="form-control" name="accountUsername" value="${roomtype.roomtypeArea}" >
-                                    </fieldset>
+                                <div class="row col-2" style="margin: 0">
+                                    <div class="col-12 d-flex justify-content-center align-items-center" style="padding-bottom: 8px"> 
+                                        <input type="hidden" value="${roomtype.roomtypeId}" name="roomtypeId">
+                                        <button class="btn btn-primary w-75" type="submit" style="height: 47px">View</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row col-2" style="margin: 0">
-                                <div class="col-12 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">      
-                                    <button class="btn btn-primary w-75" style="height: 47px">View</button>
-                                </div>
-                            </div>
-                        </div>
+
+                        </form>
                     </div>
                 </c:forEach>
             </div>
@@ -118,14 +123,15 @@
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>
         <script src="assets/js/roomtype.js"></script>
+        <script src="assets/js/main.js"></script>
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>
-            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
-            if (messageUpdate !== 'null') {
-                const words = messageUpdate.split("|");
-                showToast(words[0], words[1], words[2]);
-                openModal(words[3]);
-            }
+                                    const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+                                    if (messageUpdate !== 'null') {
+                                        const words = messageUpdate.split("|");
+                                        showToast(words[0], words[1], words[2]);
+                                        openModal(words[3]);
+                                    }
         </script>
 
     </body>

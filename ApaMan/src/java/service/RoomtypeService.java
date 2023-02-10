@@ -19,4 +19,20 @@ public class RoomtypeService {
     public List<Roomtype> getAll(int apartmentId) {
         return roomtypeDAO.getAll(apartmentId);
     }
+    
+    public Roomtype getOne(int roomtypeID) {
+        return roomtypeDAO.getOne(roomtypeID);
+    }
+    
+    public int add(Roomtype obj) {
+        return roomtypeDAO.add(obj);
+    }
+    
+    public boolean updateRoomtype(Roomtype obj) {
+        return roomtypeDAO.updateRoomtype(obj);
+    }
+    
+    public boolean delete(int roomtypeId, int apartmentId) {
+        return roomtypeDAO.delete(roomtypeId, apartmentId);
+    }
 }

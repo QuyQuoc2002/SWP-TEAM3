@@ -177,7 +177,7 @@
                                         <!-- </iframe> -->
                                         <br>
                                         <div style="display: flex;">
-                                            <input type="text" class="form-control latitude" name="apartmentLat" placeholder="Lat" readonly hidden value="${requestScope.apartment.apartmentLat}">
+                                        <input type="text" class="form-control latitude" name="apartmentLat" placeholder="Lat" readonly hidden value="${requestScope.apartment.apartmentLat}">
                                         <input type="text" class="form-control longitude" name="apartmentLong" placeholder="Long" readonly hidden value="${requestScope.apartment.apartmentLon}">
 
                                     </div>
@@ -193,7 +193,8 @@
         <%@include file="component/modal/modal-delete-account-host.jsp"%>
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>   
-        <script src="assets/js/validate.js"></script>          
+        <script src="assets/js/validate.js"></script>
+        <script src="assets/js/main.js"></script>
 
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>

@@ -214,6 +214,7 @@
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>
         <script src="assets/js/validate.js"></script>
+        <script src="assets/js/main.js"></script>
         <script>
                                                 let city = document.getElementById('city');
                                                 let district = document.getElementById('district');

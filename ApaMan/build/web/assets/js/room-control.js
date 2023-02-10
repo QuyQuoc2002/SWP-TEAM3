@@ -1,3 +1,4 @@
+const REGEX_NUMBER = '^[1-9][0-9]{0,9}$';
 document.getElementById('delete-floor-button-block').style.display = 'none';
 
 function openConfirmDeleteFloor(floorId, floorName) {
@@ -24,7 +25,7 @@ function checkFloorNameDuplicate() {
             flagEmpty = true;
             break;
         } 
-        if (floorNames[i].value <= 0) {
+        if (floorNames[i].value.match(REGEX_NUMBER)){
             flagNegative = true;
             break;
         }
@@ -51,7 +52,7 @@ function validateAddFloorName() {
     const floorName = document.getElementById('add-floor-name').value;
     if (floorName.trim() === '') {
         showToast('warning', 'APAMAN Notification', 'Floor\'s name Empty');
-    } else if (floorName <= 0) {
+    } else if (!floorName.match(REGEX_NUMBER)) {
         showToast('warning', 'APAMAN Notification', 'Floor\'s name must be positive number');
     } else {
         document.getElementById('add-floor-form').submit();

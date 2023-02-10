@@ -1,7 +1,6 @@
 package controller.host;
 
 import entity.Account;
-import entity.Apartment;
 import entity.ApartmentImgBanner;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import service.ApartmentImgBannerService;
-import service.ApartmentService;
 
 @WebServlet(name = "AddImgBannerController", urlPatterns = {"/add-img-banner"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -28,7 +26,6 @@ public class AddImgBannerController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int i = 0;
-        System.out.println("asdds");
         HttpSession session = request.getSession();
         Account curAccount = (Account) session.getAttribute("curAccount");
         int apartmentId = curAccount.getApartmentId();
@@ -68,7 +65,7 @@ public class AddImgBannerController extends HttpServlet {
         return "";
     }
 
-    public File getFolderUpload() throws IOException {
+    private File getFolderUpload() throws IOException {
         String readPart = getServletContext().getRealPath("/");
         String partUpload = readPart.replace("build\\", "") + "assets\\images";
         File folderUpload = new File(partUpload);
