@@ -66,7 +66,7 @@ public class PageIndexController extends HttpServlet {
             List<City> cities = new CityService().getAll();
             List<District> districts = new DistrictService().getAll();
             List<Apartment> apartments = new ApartmentService().getAll(0);
-            
+
             request.setAttribute("apartments", apartments);
             request.setAttribute("cities", cities);
             request.setAttribute("districts", districts);
@@ -88,17 +88,38 @@ public class PageIndexController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            int districtId = Integer.parseInt(request.getParameter("districtId"));
             
+            String searchType = request.getParameter("searchType");
+            
+
             List<City> cities = new CityService().getAll();
             List<District> districts = new DistrictService().getAll();
-            List<Apartment> apartments = new ApartmentService().getAll(districtId);
-            
-            request.setAttribute("districtId", districtId);
-            request.setAttribute("apartments", apartments);
+
             request.setAttribute("cities", cities);
             request.setAttribute("districts", districts);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            
+            switch (searchType) {
+                case "select":
+                    int districtId = Integer.parseInt(request.getParameter("districtId"));
+
+                    List<Apartment> apartments = new ApartmentService().getAll(districtId);
+
+                    request.setAttribute("districtId", districtId);
+                    request.setAttribute("apartments", apartments);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+
+                case "text":
+                    String keyWord = request.getParameter("keyWord");
+                    List<Apartment> listApartment = new ApartmentService().searchKeyword(keyWord);
+                    
+                    request.setAttribute("keyWord", keyWord);
+                    request.setAttribute("apartments", listApartment);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+
+            }
+
         }
     }
 

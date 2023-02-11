@@ -37,12 +37,12 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row">
                     <div class="col-4 mb-4">
-                        <a href="homepage-management.html">
+                        <a href="homepage-management" class="a-none">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
                                 <div class="card-feature-content">
-                                    <i class="fa fa-tachometer-alt text-primary-cus"></i>
+                                    <i class="fa fa-tachometer-alt text-primary-cus "></i>
                                     <div class="card-feature-title">
-                                        <h4 class="text-white">Apartment Info</h4>
+                                        <h4 class="text-white">Apartment Info</h4></a>
                                         <p class="text-white">Update apartment information</p>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                         </a>
                     </div>
                     <div class="col-4 mb-4">
-                        <a href="staff.html">
+                        <a href="staff" class="a-none">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
                                 <div class="card-feature-content">
                                     <i class="fa-solid fa-user-gear text-primary-cus"></i>
@@ -89,7 +89,7 @@
                         </a>
                     </div>
                     <div class="col-4 mb-4">
-                        <a href="room-management.html">
+                        <a href="room-control" class="a-none">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
                                 <div class="card-feature-content">
                                     <i class="fa-solid fa-house text-primary-cus"></i>

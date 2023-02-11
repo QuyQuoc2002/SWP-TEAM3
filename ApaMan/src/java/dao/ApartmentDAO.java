@@ -58,6 +58,43 @@ public class ApartmentDAO {
         return null;
     }
 
+    public List<Apartment> searchKeyword(String keyword) { //31 LOC
+
+        String sql = "SELECT * FROM apartment Where apartment_accessible = true AND deleted = 0 AND apartment_name LIKE ?"; // Query search by district Id
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+
+            ps.setObject(1,"%" + keyword + "%");
+            
+            ResultSet rs = ps.executeQuery();
+            List<Apartment> list = new ArrayList<>();//
+            while (rs.next()) {
+                Apartment obj = Apartment.builder()
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .apartmentName(rs.getString("apartment_name"))
+                        .hostName(rs.getString("host_name"))
+                        .hostMobile(rs.getString("host_mobile"))
+                        .districtId(rs.getInt("district_id"))
+                        .apartmentAddress(rs.getString("apartment_address"))
+                        .apartmentIntro(rs.getString("apartment_intro"))
+                        .apartmentLat(rs.getString("apartment_lat"))
+                        .apartmentLon(rs.getString("apartment_lon"))
+                        .apartmentImgAboutus(rs.getString("apartment_img_aboutus"))
+                        .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
+                        .apartmentContentService(rs.getString("apartment_content_service"))
+                        .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentCreateTime(rs.getLong("apartment_create_time"))
+                        .apartmentAccessible(rs.getBoolean("apartment_accessible"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
     public List<Apartment> getAll() { //31 LOC
 
         String sql = "SELECT * FROM apartment WHERE deleted = 0 ORDER BY apartment_create_time DESC";

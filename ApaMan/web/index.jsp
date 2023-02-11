@@ -24,31 +24,57 @@
         <a href=""><img src="assets/images/logo.png"></a>
     </div>
 
-    <div class="s01">
 
-        <form action="#review" method="post">
-            <div class="inner-form">
-                <div class="input-select">
-                    <select id="city" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrDistrict(value);">
-                        <option selected="selected" value="0">Choose one city</option>
-                        <c:forEach items="${requestScope.cities}" var="city">
-                            <option <c:if test="${city.cityId eq requestScope.districtId}">selected="selected"</c:if> value="${city.cityId}">${city.cityName}</option>
-                        </c:forEach>
-                    </select>
+    <div id="change-search-select">
+        <div class="s01" >
+            <form action="#review" method="post">
+                <div class="inner-form">
+                    <div class="input-select">
+                        <select id="city" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrDistrict(value);">
+                            <option selected="selected" value="0" hidden>Choose one city</option>
+
+                            <c:forEach items="${requestScope.cities}" var="city">
+                                <option <c:forEach items="${requestScope.districts}" var="district">
+                                        <c:if test="${city.cityId eq district.cityId}">
+                                            <c:if test="${district.districtId eq requestScope.districtId}">selected="selected"</c:if> </c:if>
+                                    </c:forEach>
+                                    value="${city.cityId}">${city.cityName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="input-select">
+                        <select id="district" name="districtId" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrBtnSearch(value);">
+                            <option selected="selected" value="0" hidden>Choose one district</option>
+                            <c:forEach items="${requestScope.districts}" var="district">
+                                <option <c:if test="${district.districtId eq requestScope.districtId}">selected="selected"</c:if> data-cityId="${district.cityId}" value="${district.districtId}">${district.districtName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <input hidden name="searchType" value="select"  />
+                    <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
+                    <span onclick="changeFunction()" style="color: #0d6efd"><i class="fa-solid fa-arrows-rotate fs-3"></i></a></span>
                 </div>
-                <div class="input-select">
-                    <select id="district" name="districtId" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrBtnSearch(value);">
-                        <option selected="selected" value="0">Choose one district</option>
-                        <c:forEach items="${requestScope.districts}" var="district">
-                            <option <c:if test="${district.districtId eq requestScope.districtId}">selected="selected"</c:if> data-cityId="${district.cityId}" value="${district.districtId}">${district.districtName}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
-                <a href=""><i class="fa-solid fa-arrows-rotate fs-3"></i></a>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+
+
+    <div id="change-search-text" style="display: none">
+        <div class="s01" >
+            <form action="#review" method="post">
+                <div class="inner-form">
+                    <div class="input-select">
+                        <input size="80" type="text" placeholder="Enter Keywords?" class="form-control" name="keyWord" value="${requestScope.keyWord}"/>
+                    </div>
+                    <input hidden name="searchType" value="text"  />
+                    <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
+                    <span onclick="changeFunction()" style="color: #0d6efd"><i class="fa-solid fa-arrows-rotate fs-3"></i></span>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
     <div id="review" class="blog">
         <div class="container">
             <div class="row">
@@ -101,9 +127,9 @@
             setAttrBtnSearch(district.options[0].value);
             showDistrictByCity(cityValue);
         }
-        
+
         function showDistrictByCity(cityValue) {
-             for (let i = 0; i < district.length; i++) {
+            for (let i = 0; i < district.length; i++) {
                 district.options[i].style.display = district.options[i].dataset.cityid === cityValue ? "block" : "none";
             }
         }
@@ -112,6 +138,22 @@
             btnSearch.disabled = Number(districtValue) === 0 ? true : false;
         }
     </script>
+
+    <!---------------------------------------------CHANGE---------------------------------------------------------->
+    <script>
+        function changeFunction() {
+            var x = document.getElementById("change-search-select");
+            var y = document.getElementById("change-search-text");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                y.style.display = "block";
+            } else {
+                x.style.display = "block";
+                y.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
 
 </html>

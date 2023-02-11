@@ -126,7 +126,7 @@
                             </a>
                         </div>
                         <div class="col-4 mb-4">
-                            <a class="a-none" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#edit-room-type">
+                            <a class="a-none" href="roomtype" >
                                 <div class="bg-secondary-cus rounded p-2 card-feature">
                                     <div class="card-feature-content">
                                         <i class="fa-solid fa-circle-plus text-primary-cus"></i>

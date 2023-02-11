@@ -119,11 +119,11 @@
                             <c:forEach items="${requestScope.roomtypeImgBanner}" var="roomtypeImgBanner" varStatus="i">
                                 <div class="mySlides Slideroom">
                                     <div style="display: flex;">
-                                        <div class="numbertext" style="color: black">${i.count}/ 6</div>
-                                        <div class="icon-edit"><span id="button">
+                                        <div class="numbertext" style="color: wheat; font-size: 18pt">${i.count}/6</div>
+                                        <div class="icon-edit" style="color: wheat"><span id="button">
                                                 <span onclick="hiddenFunction(${roomtypeImgBanner.roomtypeImgBannerId},${roomtypeImgBanner.roomtypeId})"><i
                                                         class="fa-solid fa-pen-to-square"></i></span></div>
-                                        <div class="icon-delete">
+                                        <div class="icon-delete" style="color: #dc3545">
                                             <span onclick="deleteImgFunction(${roomtypeImgBanner.roomtypeImgBannerId},${roomtypeImgBanner.roomtypeId})">
                                                 <i class="fa-solid fa-xmark"></i></span></div>
                                     </div>
@@ -134,8 +134,8 @@
 
 
                             <!-- Next and previous buttons -->
-                            <a class="prev-btn" onclick="plusSlides(-1)">&#10094;</a>
-                            <a class="next-btn" onclick="plusSlides(1)">&#10095;</a>
+                            <a class="prev-btn a-none" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next-btn a-none" onclick="plusSlides(1)">&#10095;</a>
 
                             <!-- Thumbnail images -->
                             <div class="row">

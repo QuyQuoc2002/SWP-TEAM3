@@ -20,6 +20,10 @@ public class ApartmentService {
         return apartmentDAO.getAll(districtId);
     }
     
+    public List<Apartment> searchKeyword(String keyword) {
+        return apartmentDAO.searchKeyword(keyword);
+    }
+    
     public List<Apartment> getAll() {
         return apartmentDAO.getAll();
     }
