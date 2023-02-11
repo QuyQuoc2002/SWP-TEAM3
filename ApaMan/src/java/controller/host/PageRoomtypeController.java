@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import service.RoomtypeImgBannerService;
 import service.RoomtypeService;
@@ -132,19 +131,16 @@ public class PageRoomtypeController extends HttpServlet {
                 int addRoomtypeSuccess = roomtypeService.add(roomtype);
                 int roomtypeId = addRoomtypeSuccess;
 
-                String roomtypeImgBannerPath = "assets/system/defaultImgSystem.png";
-                List<RoomtypeImgBanner> addRoomtypeImgBanners = new ArrayList<>();
-                
+                String roomtypeImgBannerPath = String.valueOf("assets/system/defaultImgSystem.png");
                 for (int i = 0; i < 6; i++) {
                     RoomtypeImgBanner roomtypeImgBanner = RoomtypeImgBanner.builder()
-                        .roomtypeId(roomtypeId)
-                        .roomtypeImgBannerPath(roomtypeImgBannerPath)
-                        .build();
-                    addRoomtypeImgBanners.add(roomtypeImgBanner);
+                            .roomtypeId(roomtypeId)
+                            .roomtypeImgBannerPath(roomtypeImgBannerPath)
+                            .build();
+                    int addRoomtypeImgBannerSuccess = roomtypeImgBannerService.add(roomtypeImgBanner);
                 }
-                boolean addRoomtypeImgBannerSuccess = roomtypeImgBannerService.add(addRoomtypeImgBanners);
 
-                if (addRoomtypeSuccess > 0 && addRoomtypeImgBannerSuccess) {
+                if (addRoomtypeSuccess > 0) {
                     session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Roomtype Success|edit-roomtype");
                 } else {
                     session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype");

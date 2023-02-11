@@ -22,7 +22,7 @@ public class RoomtypeDAO {
 
     public List<Roomtype> getAll(int apartmentId) {
 
-        String sql = "SELECT * FROM roomtype WHERE apartment_id = ? ORDER BY roomtype_name";//
+        String sql = "SELECT * FROM roomtype WHERE apartment_id = ?";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, apartmentId);
@@ -48,13 +48,12 @@ public class RoomtypeDAO {
         return null;
     }
 
-    public Roomtype getOne(int roomtypeId,int apartmentId) {
+    public Roomtype getOne(int roomtypeId) {
 
-        String sql = "SELECT * FROM roomtype WHERE roomtype_id = ? AND apartment_id = ?";//
+        String sql = "SELECT * FROM roomtype WHERE roomtype_id = ?";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, roomtypeId);
-            ps.setObject(2, apartmentId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Roomtype obj = Roomtype.builder()

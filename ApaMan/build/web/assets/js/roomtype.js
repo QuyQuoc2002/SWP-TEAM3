@@ -1,6 +1,6 @@
 const REGEX_ROOMTYPE_NAME = '^[A-Z]{2}[0-9]{3}$';
-const REGEX_NUMBER = '^[1-9][0-9]{0,6}$';
-const REGEX_AREA = '^[1-9][0-9,. ]{0,6}$';
+const REGEX_NUMBER = '^[1-9][0-9]{0,9}$';
+const REGEX_AREA = '^[1-9][0-9,. ]{0,9}$';
 
 function validateAddRoomtype() {
     

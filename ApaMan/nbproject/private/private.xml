@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/UpdateImgRoomtypeController.java</file>
             <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/roomtype-detail.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/room-control.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/component/modal/edit-floor.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/component/modal/add-room.jsp</file>
             <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/RoomtypeManagementController.java</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/PageRoomtypeController.java</file>
             <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/homepage-management.jsp</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/UpdateImgAboutusController.java</file>
         </group>
     </open-files>
 </project-private>

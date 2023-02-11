@@ -62,24 +62,24 @@ public class RoomtypeImgBannerDAO {
         return null;
     }
 
-    public boolean add(List<RoomtypeImgBanner> list) { 
-        int[] arr = {};
+    public int add(RoomtypeImgBanner obj) { //11 loc
+        int check = 0;
         String sql = "INSERT INTO roomtype_img_banner(roomtype_id, roomtype_img_banner_path)"
                 + " VALUES(?, ?)";
 
-        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
-            if (ps != null) {
-                for (RoomtypeImgBanner obj : list) {
-                    ps.setObject(1, obj.getRoomtypeId());
-                    ps.setObject(2, obj.getRoomtypeImgBannerPath());
-                    ps.addBatch();
-                }
-                arr = ps.executeBatch();
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS) : null;) {
+            ps.setObject(1, obj.getRoomtypeId());
+            ps.setObject(2, obj.getRoomtypeImgBannerPath());
+            check = ps.executeUpdate();
+            if (check > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-        return arr.length > 0;
+        return 0;
     }
     
      public boolean update(RoomtypeImgBanner obj, int roomtypeImgBannerId) { //13Loc
