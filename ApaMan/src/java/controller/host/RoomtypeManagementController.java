@@ -74,10 +74,9 @@ public class RoomtypeManagementController extends HttpServlet {
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
             int roomtypeId = Integer.parseInt(request.getParameter("roomtypeId"));
-            Roomtype roomtype = roomtypeService.getOne(roomtypeId);
+            Roomtype roomtype = roomtypeService.getOne(roomtypeId, apartmentId);
             
             List<RoomtypeImgBanner> roomtypeImgBanners = roomtypeImgBannerService.getAll(roomtypeId);
-            
 
             request.setAttribute("roomtype", roomtype);
             request.setAttribute("roomtypeImgBanner", roomtypeImgBanners);
@@ -118,7 +117,7 @@ public class RoomtypeManagementController extends HttpServlet {
                     int roomtypeCost = Integer.parseInt(request.getParameter("roomtypeCost"));
                     String roomtypeArea = request.getParameter("roomtypeArea");
                     
-                    Roomtype roomtypeCheck = roomtypeService.getOne(roomtypeId);
+                    Roomtype roomtypeCheck = roomtypeService.getOne(roomtypeId,apartmentId);
                     
                     //Check roomtype name have change
                     boolean roomtypeNameChange = true;
@@ -140,7 +139,7 @@ public class RoomtypeManagementController extends HttpServlet {
                         session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");
                     } else {
 
-                        Roomtype roomtype = roomtypeService.getOne(roomtypeId);
+                        Roomtype roomtype = roomtypeService.getOne(roomtypeId,apartmentId);
                         roomtype.setRoomtypeName(roomtypeName);
                         roomtype.setRoomtypeMaxMember(roomtypeMaxMember);
                         roomtype.setRoomtypeCost(roomtypeCost);
@@ -157,14 +156,14 @@ public class RoomtypeManagementController extends HttpServlet {
                     break;
 
                 case "Delete":
-                    Roomtype roomtypedel = roomtypeService.getOne(roomtypeId);
+                    Roomtype roomtypedel = roomtypeService.getOne(roomtypeId,apartmentId);
                     if (roomtypedel.getRoomtypeRoomQuantity() != 0) {
                         session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Roomtype Fail, some room exist in this roomtype|edit-roomtype");
                     } else {
                         
                         boolean deleteRoomtypeImgBannerSuccess = roomtypeImgBannerService.deleteAllRoomtype(roomtypeId);
                         boolean deleteRoomtypeSuccess = roomtypeService.delete(roomtypeId, apartmentId);
-                        if (deleteRoomtypeSuccess) {
+                        if (deleteRoomtypeSuccess && deleteRoomtypeImgBannerSuccess) {
                             session.setAttribute("messageUpdate", "success|APAMAN Notification|Delete Roomtype Success|edit-roomtype");
                             response.sendRedirect("roomtype?apartmentId=" + apartmentId);
                         } else {

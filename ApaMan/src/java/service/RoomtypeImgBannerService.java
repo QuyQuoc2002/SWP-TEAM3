@@ -24,8 +24,8 @@ public class RoomtypeImgBannerService {
         return roomtypeImgBannerDAO.getOne(roomtypeImgBannerId);
     }
     
-    public int add(RoomtypeImgBanner obj) {
-        return roomtypeImgBannerDAO.add(obj);
+    public boolean add(List<RoomtypeImgBanner> list) {
+        return roomtypeImgBannerDAO.add(list);
     }
     
     public boolean update(RoomtypeImgBanner obj, int roomtypeImgBannerId) {

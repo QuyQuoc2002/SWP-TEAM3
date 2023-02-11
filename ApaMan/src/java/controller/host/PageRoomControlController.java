@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import service.FloorService;
+import service.RoomtypeService;
 
 /**
  *
@@ -39,6 +40,7 @@ public class PageRoomControlController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             FloorService floorService = new FloorService();
+            RoomtypeService roomtypeService = new RoomtypeService();
             
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
