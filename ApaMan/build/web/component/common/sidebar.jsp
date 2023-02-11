@@ -9,8 +9,8 @@
                 <img class="rounded-circle" src="assets/images/1.png" alt="" style="width: 40px; height: 40px;">
             </div>
             <div class="ms-2 text-white">
-                <h6 class="mb-0">Quy Quoc</h6>
-                <span>Admin</span>
+                <h6 class="mb-0">${sessionScope.curAccount.accountUsername}</h6>
+                <span>${sessionScope.curAccount.role.roleName}</span>
             </div>
         </div>
         <div class="navbar-nav w-100">
@@ -25,7 +25,7 @@
                     <a href="room-control" class="dropdown-item">Controls</a>
                     <a href="roomtype" class="dropdown-item">Room Type</a>
                     <c:forEach items="${requestScope.sidebarFloors}" var="floor">
-                        <a href="floor.html" class="dropdown-item">floor ${floor.floorName}</a>
+                        <a href="floor-room?floorId=${floor.floorId}" class="dropdown-item">floor ${floor.floorName}</a>
                     </c:forEach>
                 </div>
             </div>

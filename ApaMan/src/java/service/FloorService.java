@@ -32,6 +32,10 @@ public class FloorService {
         return floorDAO.updateFloors(list);
     }
     
+    public boolean updateFloor(Floor obj) {
+        return floorDAO.updateFloor(obj);
+    }
+    
     public boolean delete(int floorId, int apartmentId) {
         return floorDAO.delete(floorId, apartmentId);
     }

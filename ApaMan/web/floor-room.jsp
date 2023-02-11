@@ -16,7 +16,7 @@
         <link rel="icon" type="image/x-icon" href="assets/system/icons8-home-pulsar-color-32.png">
         <link rel="stylesheet" href="assets/bootstrap-5.2.3-dist/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="assets/css/common.css">
         <link rel="stylesheet" type="text/css" href="assets/css/floor.css"> 
 
@@ -35,121 +35,123 @@
                 <!-- Navbar Start -->
                 <%@include file="component/common/navbar.jsp" %>
                 <!-- Navbar End -->
+
                 <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">APARTMENT ROOM CONTROL</div>
-                <div class="container-fluid position-relative d-flex p-0">
-                    <div class="content">
-                        <div class="container-fluid pt-4 px-4">
-                            <button class="btn btn-dark-cus mb-3">
-                                Tiến Hành lấy số điện, số nước
-                            </button>
-                            <div class="bg-secondary-cus rounded p-4">
-                                <table id="example" class="display" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>Tên Phòng</th>
-                                            <th>Loại Phòng</th>
-                                            <th>Trạng thái</th>
-                                            <th>Thanh Toán</th>
-                                            <th>Thao tác</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#00001</td>
-                                            <td><a href="room-member.html">101</a></td>
-                                            <td>1</td>
-                                            <td>2 người ở</td>
-                                            <td><a class="text-warning" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#confirm-modal">Cần thanh toán</a></td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00002</td>
-                                            <td><a href="room-member.html">102</a></td>
-                                            <td>2</td>
-                                            <td>2 người ở</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#we-modal">Điện,
-                                                    Nước</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00003</td>
-                                            <td><a href="room-member.html">103</a></td>
-                                            <td>3</td>
-                                            <td>3 người ở</td>
-                                            <td><a class="text-danger" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#payment-modal">Tính tiền</a></td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00004</td>
-                                            <td><a href="room-member.html">104</a></td>
-                                            <td>4</td>
-                                            <td>đang cọc</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00005</td>
-                                            <td><a href="room-member.html">105</a></td>
-                                            <td>4</td>
-                                            <td>đang cọc</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00006</td>
-                                            <td><a href="room-member.html">106</a></td>
-                                            <td>4</td>
-                                            <td>đang trống</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00007</td>
-                                            <td><a href="room-member.html">107</a></td>
-                                            <td>1</td>
-                                            <td>1 người ở</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00008</td>
-                                            <td><a href="room-member.html">108</a></td>
-                                            <td>2</td>
-                                            <td>2 người ở</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00009</td>
-                                            <td><a href="room-member.html">109</a></td>
-                                            <td>4</td>
-                                            <td>đang cọc</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00010</td>
-                                            <td><a href="room-member.html">110</a></td>
-                                            <td>4</td>
-                                            <td>đang cọc</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>#00011</td>
-                                            <td><a href="room-member.html">111</a></td>
-                                            <td>4</td>
-                                            <td>đang cọc</td>
-                                            <td>Đã thanh toán</td>
-                                            <td><a href="#">Xóa</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+
+
+                <div class="container-fluid pt-4 px-4">
+                    <button class="btn btn-dark-cus mb-3">
+                        Tiến Hành lấy số điện, số nước
+                    </button>
+                    <div class="bg-secondary-cus rounded p-4" style="margin-bottom: 70px">
+                        <table id="example" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên Phòng</th>
+                                    <th>Loại Phòng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thanh Toán</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#00001</td>
+                                    <td><a href="room-member.html">101</a></td>
+                                    <td>1</td>
+                                    <td>2 người ở</td>
+                                    <td><a class="text-warning" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#confirm-modal">Cần thanh toán</a></td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00002</td>
+                                    <td><a href="room-member.html">102</a></td>
+                                    <td>2</td>
+                                    <td>2 người ở</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#we-modal">Điện,
+                                            Nước</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00003</td>
+                                    <td><a href="room-member.html">103</a></td>
+                                    <td>3</td>
+                                    <td>3 người ở</td>
+                                    <td><a class="text-danger" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#payment-modal">Tính tiền</a></td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00004</td>
+                                    <td><a href="room-member.html">104</a></td>
+                                    <td>4</td>
+                                    <td>đang cọc</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00005</td>
+                                    <td><a href="room-member.html">105</a></td>
+                                    <td>4</td>
+                                    <td>đang cọc</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00006</td>
+                                    <td><a href="room-member.html">106</a></td>
+                                    <td>4</td>
+                                    <td>đang trống</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00007</td>
+                                    <td><a href="room-member.html">107</a></td>
+                                    <td>1</td>
+                                    <td>1 người ở</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00008</td>
+                                    <td><a href="room-member.html">108</a></td>
+                                    <td>2</td>
+                                    <td>2 người ở</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00009</td>
+                                    <td><a href="room-member.html">109</a></td>
+                                    <td>4</td>
+                                    <td>đang cọc</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00010</td>
+                                    <td><a href="room-member.html">110</a></td>
+                                    <td>4</td>
+                                    <td>đang cọc</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#00011</td>
+                                    <td><a href="room-member.html">111</a></td>
+                                    <td>4</td>
+                                    <td>đang cọc</td>
+                                    <td>Đã thanh toán</td>
+                                    <td><a href="#">Xóa</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
+
                 <!-- #region confirm modal-->
                 <div class="modal fade" id="confirm-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                      aria-hidden="true" style="margin-top: 50px;">
