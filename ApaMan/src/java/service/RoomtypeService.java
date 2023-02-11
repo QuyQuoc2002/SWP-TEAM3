@@ -20,8 +20,8 @@ public class RoomtypeService {
         return roomtypeDAO.getAll(apartmentId);
     }
     
-    public Roomtype getOne(int roomtypeID) {
-        return roomtypeDAO.getOne(roomtypeID);
+    public Roomtype getOne(int roomtypeID,int apartmentId) {
+        return roomtypeDAO.getOne(roomtypeID,apartmentId);
     }
     
     public int add(Roomtype obj) {

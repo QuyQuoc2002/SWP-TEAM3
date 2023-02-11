@@ -1,4 +1,4 @@
-const REGEX_NUMBER = '^[1-9][0-9]{0,9}$';
+const REGEX_NUMBER = '^[1-9][0-9]{0,6}$';
 document.getElementById('delete-floor-button-block').style.display = 'none';
 
 function openConfirmDeleteFloor(floorId, floorName) {
@@ -19,14 +19,14 @@ function checkFloorNameDuplicate() {
     let floorNames = document.querySelectorAll('.floor-name');
     let flagExist = false;
     let flagEmpty = false;
-    let flagNegative = false;
+    let flagNegative = true;
     for (let i = 0; i < floorNames.length - 1; ++i) {
         if (floorNames[i].value.trim() === '') {
             flagEmpty = true;
             break;
         } 
-        if (floorNames[i].value.match(REGEX_NUMBER)){
-            flagNegative = true;
+        if (!floorNames[i].value.match(REGEX_NUMBER)){
+            flagNegative = false;
             break;
         }
         for (let j = i + 1; j < floorNames.length; ++j) {
@@ -39,7 +39,7 @@ function checkFloorNameDuplicate() {
     }
     if (flagEmpty) {
         showToast('warning', 'APAMAN Notification', 'Floor\'s name Empty');
-    } else if (flagNegative) {
+    } else if (!flagNegative) {
         showToast('warning', 'APAMAN Notification', 'Floor\'s name must be positive number');
     } else if (flagExist) {
         showToast('warning', 'APAMAN Notification', 'Floor\'s name must be unique');
