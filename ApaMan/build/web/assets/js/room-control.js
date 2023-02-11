@@ -1,4 +1,5 @@
 const REGEX_NUMBER = '^[1-9][0-9]{0,6}$';
+const REGEX_NAME = '^[a-zA-Z0-9,.]+$';
 document.getElementById('delete-floor-button-block').style.display = 'none';
 
 function openConfirmDeleteFloor(floorId, floorName) {
@@ -56,6 +57,17 @@ function validateAddFloorName() {
         showToast('warning', 'APAMAN Notification', 'Floor\'s name must be positive number');
     } else {
         document.getElementById('add-floor-form').submit();
+    }
+}
+
+function validateAddRoomName() {
+    const roomName = document.getElementById('add-name-room').value;
+    if (roomName.trim() === '') {
+        showToast('warning', 'APAMAN Notification', 'Room\'s name Empty');
+    } else if (!roomName.match(REGEX_NAME)) {
+        showToast('warning', 'APAMAN Notification', 'Room\'s name invalid ');
+    } else {
+        document.getElementById('add-room-form').submit();
     }
 }
 

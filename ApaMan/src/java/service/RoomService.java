@@ -20,8 +20,12 @@ public class RoomService {
         return roomDAO.getAll(floorId,apartmentId);
     }
     
-    public Room getOne(int roomId) {
-        return roomDAO.getOne(roomId);
+    public List<Room> getAll( int apartmentId) {
+        return roomDAO.getAll(apartmentId);
+    }
+    
+    public Room getOne(int roomId, int apartmentId) {
+        return roomDAO.getOne(roomId,apartmentId);
     }
     
     public boolean add(Room obj) {

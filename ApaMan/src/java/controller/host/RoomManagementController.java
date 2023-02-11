@@ -178,7 +178,7 @@ public class RoomManagementController extends HttpServlet {
 
                     List<Room> updateRooms = new ArrayList<>();
                     for (int i = 0; i < updateRoomsIdStrs.length; i++) {
-                        Room updateRoom = roomService.getOne(Integer.parseInt(updateRoomsIdStrs[i]));
+                        Room updateRoom = roomService.getOne(Integer.parseInt(updateRoomsIdStrs[i]),apartmentId);
                         updateRoom.setRoomName(updateRoomsNames[i]);
                         updateRoom.setRoomtypeId(Integer.parseInt(updateRoomtypeIdStrs[i]));
                         updateRoom.setFloorId(Integer.parseInt(updateFloorIdStrs[i]));

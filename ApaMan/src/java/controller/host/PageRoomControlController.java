@@ -6,6 +6,7 @@ package controller.host;
 
 import entity.Account;
 import entity.Floor;
+import entity.Roomtype;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -48,6 +49,10 @@ public class PageRoomControlController extends HttpServlet {
             
             List<Floor> floors = floorService.getAll(apartmentId);
             request.setAttribute("floors", floors);
+            
+            List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
+            request.setAttribute("roomtypes", roomtypes);
+            
             request.getRequestDispatcher("room-control.jsp").forward(request, response);
         }
     }

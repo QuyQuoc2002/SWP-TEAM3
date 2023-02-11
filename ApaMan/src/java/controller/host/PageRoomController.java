@@ -26,7 +26,7 @@ import service.RoomtypeService;
  *
  * @author DELL
  */
-@WebServlet(name = "PageRoomtypeController", urlPatterns = {"/floor-room"})
+@WebServlet(name = "PageRoomController", urlPatterns = {"/floor-room"})
 public class PageRoomController extends HttpServlet {
 
     /**
@@ -71,6 +71,7 @@ public class PageRoomController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             RoomService roomService = new RoomService();
+            RoomtypeService roomtypeService = new RoomtypeService();
 
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
@@ -79,8 +80,10 @@ public class PageRoomController extends HttpServlet {
             int floorId = Integer.parseInt(request.getParameter("floorId"));
 
             List<Room> rooms = roomService.getAll(floorId,apartmentId);
+            List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
 
             request.setAttribute("rooms", rooms);
+            request.setAttribute("roomtypes", roomtypes);
             request.getRequestDispatcher("floor-room.jsp").forward(request, response);
         }
     }
@@ -100,61 +103,44 @@ public class PageRoomController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            RoomtypeService roomtypeService = new RoomtypeService();
-            RoomtypeImgBannerService roomtypeImgBannerService = new RoomtypeImgBannerService();
+            RoomService roomService = new RoomService();
 
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
 
-            String roomtypeName = request.getParameter("roomtypeName");
-            int roomtypeMaxMember = Integer.parseInt(request.getParameter("roomtypeMaxMember"));
-            int roomtypeCost = Integer.parseInt(request.getParameter("roomtypeCost"));
-            String roomtypeArea = request.getParameter("roomtypeArea");
-            int roomtypeRoomQuantity = 0;
+            String roomName = request.getParameter("roomName");
+            int roomtypeId = Integer.parseInt(request.getParameter("roomtypeId"));
+            int floorId = Integer.parseInt(request.getParameter("floorId"));
 
-            List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
+            List<Room> rooms = roomService.getAll(apartmentId);
 
-            //Check roomtype name already exist
-            boolean roomtypeNameExist = false;
-            for (Roomtype obj : roomtypes) {
-                if (roomtypeName.equals(obj.getRoomtypeName())) {
-                    roomtypeNameExist = true;
+            //Check roomNameExist already exist
+            boolean roomNameExist = false;
+            for (Room obj : rooms) {
+                if (roomName.equals(obj.getRoomName())) {
+                    roomNameExist = true;
                 }
             }
 
-            if (roomtypeNameExist) {
-                session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");
+            if (roomNameExist) {
+                session.setAttribute("messageUpdate", "warning|APAMAN Notification|Room Name Exist, Add Fail|edit-room");
             } else {
-                Roomtype roomtype = Roomtype.builder()
-                        .apartmentId(apartmentId)
-                        .roomtypeName(roomtypeName)
-                        .roomtypeMaxMember(roomtypeMaxMember)
-                        .roomtypeCost(roomtypeCost)
-                        .roomtypeArea(roomtypeArea)
-                        .roomtypeRoomQuantity(roomtypeRoomQuantity)
-                        .build();
-                int addRoomtypeSuccess = roomtypeService.add(roomtype);
-                int roomtypeId = addRoomtypeSuccess;
-
-                String roomtypeImgBannerPath = "assets/system/defaultImgSystem.png";
-                List<RoomtypeImgBanner> addRoomtypeImgBanners = new ArrayList<>();
-                
-                for (int i = 0; i < 6; i++) {
-                    RoomtypeImgBanner roomtypeImgBanner = RoomtypeImgBanner.builder()
+                Room room = Room.builder()
+                        .roomName(roomName)
                         .roomtypeId(roomtypeId)
-                        .roomtypeImgBannerPath(roomtypeImgBannerPath)
+                        .floorId(floorId)
+                        .apartmentId(apartmentId)
                         .build();
-                    addRoomtypeImgBanners.add(roomtypeImgBanner);
-                }
-                boolean addRoomtypeImgBannerSuccess = roomtypeImgBannerService.add(addRoomtypeImgBanners);
+                boolean addRoomSuccess = roomService.add(room);
+                
 
-                if (addRoomtypeSuccess > 0 && addRoomtypeImgBannerSuccess) {
-                    session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Roomtype Success|edit-roomtype");
+                if (addRoomSuccess ) {
+                    session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Room Success|edit-room");
                 } else {
-                    session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype");
+                    session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Room Fail|edit-room");
                 }
             }
-            response.sendRedirect("roomtype");
+            response.sendRedirect("room-control");
 
         }
     }

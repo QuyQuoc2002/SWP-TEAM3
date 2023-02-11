@@ -21,7 +21,7 @@ public class RoomDAO {
     
     public List<Room> getAll(int floorId, int apartmentId) {
 
-        String sql = "SELECT * FROM room WHERE floor_id = ? AND apartment_id";//
+        String sql = "SELECT * FROM room WHERE floor_id = ? AND apartment_id = ?";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, floorId);
@@ -47,11 +47,39 @@ public class RoomDAO {
         return null;
     }
     
-    public Room getOne(int roomId) {
-        String sql = "SELECT * FROM room WHERE room_id = ?";
+    public List<Room> getAll(int apartmentId) {
+
+        String sql = "SELECT * FROM room WHERE apartment_id = ?";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+
+            List<Room> list = new ArrayList<>();//
+            while (rs.next()) {
+                Room obj = Room.builder()
+                        .roomId(rs.getInt("room_id"))
+                        .roomName(rs.getString("room_name"))
+                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .floorId(rs.getInt("floor_id"))
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .roomStatus(rs.getString("room_status"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
+    public Room getOne(int roomId, int apartmentId) {
+        String sql = "SELECT * FROM room WHERE room_id = ? AND apartment_id = ?";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, roomId);
+            ps.setObject(2, apartmentId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                  Room obj = Room.builder()
@@ -72,7 +100,7 @@ public class RoomDAO {
     
     public boolean add(Room obj) {
         int check = 0;
-        String sql = "INSERT INTO floor(room_name, roomtype_id,floor_id, apartment_id)"
+        String sql = "INSERT INTO room(room_name, roomtype_id,floor_id, apartment_id)"
                 + " VALUES(?, ?, ?, ?)";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, obj.getRoomName());
@@ -87,7 +115,7 @@ public class RoomDAO {
     }
     
     public boolean updateRooms(List<Room> list) {
-        String query = "UPDATE floor Set room_name = ?,roomtype_id = ?, floor_id = ?, apartment_id = ?, room_status = ? WHERE room_id = ?";
+        String query = "UPDATE room Set room_name = ?,roomtype_id = ?, floor_id = ?, apartment_id = ?, room_status = ? WHERE room_id = ?";
         int[] arr = {};
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
             if (ps != null) {
@@ -110,7 +138,7 @@ public class RoomDAO {
 
     public boolean delete(int roomId, int floorId) {
         int check = 0;
-        String sql = "DELETE FROM floor Where room_id = ? AND floor_id = ?";
+        String sql = "DELETE FROM room Where room_id = ? AND floor_id = ?";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, roomId);

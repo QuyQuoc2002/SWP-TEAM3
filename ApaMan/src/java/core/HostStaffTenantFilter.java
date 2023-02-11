@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "HostStaffTenantFilter", urlPatterns = {"/apartment", "/staff"})
+@WebFilter(filterName = "HostStaffTenantFilter", urlPatterns = {"/apartment", "/staff","/roomtype","/floor-room"})
 
 public class HostStaffTenantFilter implements Filter {
 

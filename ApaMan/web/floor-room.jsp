@@ -49,103 +49,28 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên Phòng</th>
-                                    <th>Loại Phòng</th>
-                                    <th>Trạng thái</th>
+                                    <th>Room Name</th>
+                                    <th>Roomtype</th>
+                                    <th>Status</th>
                                     <th>Thanh Toán</th>
-                                    <th>Thao tác</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:forEach items="${requestScope.rooms}" var="room" varStatus="i">
                                 <tr>
-                                    <td>#00001</td>
-                                    <td><a href="room-member.html">101</a></td>
-                                    <td>1</td>
-                                    <td>2 người ở</td>
+                                    <td>${i.count}</td>
+                                    <td><a href="room-member.html">${room.roomName}</a></td>
+                                    <td>
+                                        <c:forEach items="${requestScope.roomtypes}" var="roomtype">
+                                        <c:if test="${room.roomtypeId eq roomtype.roomtypeId}">${roomtype.roomtypeName}</c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td>${room.roomStatus}</td>
                                     <td><a class="text-warning" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#confirm-modal">Cần thanh toán</a></td>
-                                    <td><a href="#">Xóa</a></td>
+                                    <td><a href="#"><i class="fa-solid fa-pen-to-square text-danger"></i></a></td>
                                 </tr>
-                                <tr>
-                                    <td>#00002</td>
-                                    <td><a href="room-member.html">102</a></td>
-                                    <td>2</td>
-                                    <td>2 người ở</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#we-modal">Điện,
-                                            Nước</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00003</td>
-                                    <td><a href="room-member.html">103</a></td>
-                                    <td>3</td>
-                                    <td>3 người ở</td>
-                                    <td><a class="text-danger" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#payment-modal">Tính tiền</a></td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00004</td>
-                                    <td><a href="room-member.html">104</a></td>
-                                    <td>4</td>
-                                    <td>đang cọc</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00005</td>
-                                    <td><a href="room-member.html">105</a></td>
-                                    <td>4</td>
-                                    <td>đang cọc</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00006</td>
-                                    <td><a href="room-member.html">106</a></td>
-                                    <td>4</td>
-                                    <td>đang trống</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00007</td>
-                                    <td><a href="room-member.html">107</a></td>
-                                    <td>1</td>
-                                    <td>1 người ở</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00008</td>
-                                    <td><a href="room-member.html">108</a></td>
-                                    <td>2</td>
-                                    <td>2 người ở</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00009</td>
-                                    <td><a href="room-member.html">109</a></td>
-                                    <td>4</td>
-                                    <td>đang cọc</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00010</td>
-                                    <td><a href="room-member.html">110</a></td>
-                                    <td>4</td>
-                                    <td>đang cọc</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#00011</td>
-                                    <td><a href="room-member.html">111</a></td>
-                                    <td>4</td>
-                                    <td>đang cọc</td>
-                                    <td>Đã thanh toán</td>
-                                    <td><a href="#">Xóa</a></td>
-                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
