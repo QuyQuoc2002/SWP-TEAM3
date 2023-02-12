@@ -169,319 +169,152 @@
                     </div>
                 </div>
                 <div class="row" style="display: block;">
-                    <div style="padding-top: 70px; padding-bottom: 50px; ">
-                        <div class="col-md-12 col-sm-10" style="display: flex;">
-                            <div id="serv_hover" class="room col-md-6">
-                                <div class="room_img">
+                    <c:forEach items="${requestScope.roomtypes}" var="roomtype" varStatus="i">
+                        <c:if test="${i.count % 2 != 0}">
+                            <div style="padding-top: 70px; padding-bottom: 50px; ">
+                                <div class="col-md-12 col-sm-10" style="display: flex;">
+                                    <div id="serv_hover" class="room col-md-6">
+                                        <div class="room_img">
 
-                                    <figure>
-                                        <div class="container">
+                                            <figure>
+                                                <div class="container">
 
-                                            <!-- Full-width images with number text -->
-                                            <div class="mySlides Slideroom1">
-                                                <div class="numbertext">1 / 6</div>
-                                                <img src="assets/images/about.png" style="width:100%">
-                                            </div>
+                                                    <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner" varStatus="y">
+                                                        <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                            <div class="mySlides Slideroom${i.count}">
+                                                                <div class="numbertext">1 / 6</div>
+                                                                <img src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%">
+                                                            </div>
+                                                        </c:if>
+                                                    </c:forEach>
 
-                                            <div class="mySlides Slideroom1">
-                                                <div class="numbertext">2 / 6</div>
-                                                <img src="assets/images/banner1.jpg" style="width:100%">
-                                            </div>
 
-                                            <div class="mySlides Slideroom1">
-                                                <div class="numbertext">3 / 6</div>
-                                                <img src="assets/images/banner2.jpg" style="width:100%">
-                                            </div>
 
-                                            <div class="mySlides Slideroom1">
-                                                <div class="numbertext">4 / 6</div>
-                                                <img src="assets/images/banner3.jpg" style="width:100%">
-                                            </div>
+                                                    <!-- Next and previous buttons -->
+                                                    <a class="prev-btn a-none" onclick="plusSlides${i.count}(-1)">&#10094;</a>
+                                                    <a class="next-btn a-none" onclick="plusSlides${i.count}(1)">&#10095;</a>
 
-                                            <div class="mySlides Slideroom1">
-                                                <div class="numbertext">5 / 6</div>
-                                                <img src="assets/images/blog_bg.jpg" style="width:100%">
-                                            </div>
 
-                                            <div class="mySlides Slideroom1">
-                                                <div class="numbertext">6 / 6</div>
-                                                <img src="assets/images/gallery1.jpg" style="width:100%">
-                                            </div>
 
-                                            <!-- Next and previous buttons -->
-                                            <a class="prev-btn" onclick="plusSlides(-1)">&#10094;</a>
-                                            <a class="next-btn" onclick="plusSlides(1)">&#10095;</a>
+                                                    <!-- Thumbnail images -->
+                                                    <div class="row">
+                                                        <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner" >
+                                                            <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                                <div class="column">
+                                                                    <img class="demo cursor slidemini${i.count}" src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%"
+                                                                         onclick="currentSlide${i.count}(1)" >
+                                                                </div>
+                                                            </c:if>
+                                                        </c:forEach>
 
-                                            <!-- Image text -->
-                                            <div class="caption-container">
-                                                <!-- <p id="caption"></p> -->
-                                            </div>
-
-                                            <!-- Thumbnail images -->
-                                            <div class="row">
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini1" src="assets/images/about.png" style="width:100%"
-                                                         onclick="currentSlide(1)" alt="The Woods">
+                                                    </div>
                                                 </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini1" src="assets/images/banner1.jpg"
-                                                         style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini1" src="assets/images/banner2.jpg"
-                                                         style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini1" src="assets/images/banner3.jpg"
-                                                         style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini1" src="assets/images/blog1.jpg" style="width:100%"
-                                                         onclick="currentSlide(5)" alt="Nature and sunrise">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini1" src="assets/images/blog2.jpg" style="width:100%"
-                                                         onclick="currentSlide(6)" alt="Snowy Mountains">
-                                                </div>
+                                            </figure>
 
-                                            </div>
                                         </div>
-                                    </figure>
 
-                                </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5">
+                                        <div class="detailroom">
+                                            <p style="font-size: 16pt;">
+                                                <b>Roomtype detail</b>
+                                                <br>
+                                                <br>
+                                                Roomtype name: ${roomtype.roomtypeName}
+                                                <br>
+                                                Roomtype max member: ${roomtype.roomtypeMaxMember}
+                                                <br>
+                                                Roomtype area: ${roomtype.roomtypeArea}
+                                                <br> 
+                                                roomtype cost: ${roomtype.roomtypeCost}
+                                            </p>
 
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div class="detailroom">
-                                    <p style="font-size: 16pt;">
-                                        <b>Room detail</b>
-                                        <br>
-                                        <br>
-                                        Room name: A103
-                                        <br>
-                                        Type room: LP1
-                                        <br>
-                                        Room status: full
-                                        <br>
-                                        Room description: ..
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div style="padding-top: 70px; padding-bottom: 50px; ">
-                        <div class="col-md-12 col-sm-10" style="display: flex;">
-
-                            <div class="col-md-5">
-                                <div class="detailroom">
-                                    <p style="font-size: 16pt;">
-                                        <b>Room detail</b>
-                                        <br>
-                                        <br>
-                                        Room name: A101
-                                        <br>
-                                        Type room: 2 people
-                                        <br>
-                                        Room status: Not ordered yet
-                                        <br>
-                                        Room description: ..
-                                    </p>
-
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div id="serv_hover" class="room col-md-6">
-                                <div class="room_img">
-                                    <figure>
-                                        <div class="container">
-
-                                            <!-- Full-width images with number text -->
-                                            <div class="mySlides Slideroom2">
-                                                <div class="numbertext">1 / 6</div>
-                                                <img src="assets/images/about.png" style="width:100%">
-                                            </div>
-
-                                            <div class="mySlides Slideroom2">
-                                                <div class="numbertext">2 / 6</div>
-                                                <img src="assets/images/banner1.jpg" style="width:100%">
-                                            </div>
-
-                                            <div class="mySlides Slideroom2">
-                                                <div class="numbertext">3 / 6</div>
-                                                <img src="assets/images/banner2.jpg" style="width:100%">
-                                            </div>
-
-                                            <div class="mySlides Slideroom2">
-                                                <div class="numbertext">4 / 6</div>
-                                                <img src="assets/images/banner3.jpg" style="width:100%">
-                                            </div>
-
-                                            <div class="mySlides Slideroom2">
-                                                <div class="numbertext">5 / 6</div>
-                                                <img src="assets/images/blog_bg.jpg" style="width:100%">
-                                            </div>
-
-                                            <div class="mySlides Slideroom2">
-                                                <div class="numbertext">6 / 6</div>
-                                                <img src="assets/images/gallery1.jpg" style="width:100%">
-                                            </div>
-
-                                            <!-- Next and previous buttons -->
-                                            <a class="prev-btn" onclick="plusSlides2(-1)">&#10094;</a>
-                                            <a class="next-btn" onclick="plusSlides2(1)">&#10095;</a>
-
-                                            <!-- Image text -->
-                                            <div class="caption-container">
-                                                <!-- <p id="caption"></p> -->
-                                            </div>
-
-                                            <!-- Thumbnail images -->
-                                            <div class="row">
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini2" src="assets/images/about.png" style="width:100%"
-                                                         onclick="currentSlide2(1)" alt="The Woods">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini2" src="assets/images/banner1.jpg"
-                                                         style="width:100%" onclick="currentSlide2(2)" alt="Cinque Terre">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini2" src="assets/images/banner2.jpg"
-                                                         style="width:100%" onclick="currentSlide2(3)" alt="Mountains and fjords">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini2" src="assets/images/banner3.jpg"
-                                                         style="width:100%" onclick="currentSlide2(4)" alt="Northern Lights">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini2" src="assets/images/blog1.jpg" style="width:100%"
-                                                         onclick="currentSlide2(5)" alt="Nature and sunrise">
-                                                </div>
-                                                <div class="column">
-                                                    <img class="demo cursor slidemini2" src="assets/images/blog2.jpg" style="width:100%"
-                                                         onclick="currentSlide2(6)" alt="Snowy Mountains">
-                                                </div>
-                                            </div>
                                         </div>
-                                    </figure>
+                                    </div>
                                 </div>
-
                             </div>
+                        </c:if>
 
-                        </div>
-                    </div>
-                    <br>
+                        <br>
+                        <c:if test="${i.count % 2 == 0}">
+                            <div style="padding-top: 70px; padding-bottom: 50px; ">
+                                <div class="col-md-12 col-sm-10" style="display: flex;">
+
+                                    <div class="col-md-5">
+                                        <div class="detailroom">
+                                            <p style="font-size: 16pt;">
+                                                <b>Roomtype detail</b>
+                                                <br>
+                                                <br>
+                                                Roomtype name: ${roomtype.roomtypeName}
+                                                <br>
+                                                Roomtype max member: ${roomtype.roomtypeMaxMember}
+                                                <br>
+                                                Roomtype area: ${roomtype.roomtypeArea}
+                                                <br> 
+                                                roomtype cost: ${roomtype.roomtypeCost}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div id="serv_hover" class="room col-md-6">
+                                        <div class="room_img">
+                                            <figure>
+                                                <div class="container">
+
+                                                    <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner" varStatus="y">
+                                                        <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                            <div class="mySlides Slideroom${i.count}">
+                                                                <div class="numbertext">${y.count} / 6</div>
+                                                                <img src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%">
+                                                            </div>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    <!-- Next and previous buttons -->
+                                                    <a class="prev-btn a-none" onclick="plusSlides${i.count}(-1)">&#10094;</a>
+                                                    <a class="next-btn a-none" onclick="plusSlides${i.count}(1)">&#10095;</a>
+
+
+                                                    <!-- Thumbnail images -->
+                                                    <div class="row">
+                                                        <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner">
+                                                            <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                                <div class="column">
+                                                                    <img class="demo cursor slidemini${i.count}" src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%"
+                                                                         onclick="currentSlide${i.count}(1)">
+                                                                </div>
+                                                            </c:if>
+
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </figure>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </c:if>
+                        <br>
+
+                    </c:forEach>
+
                     <span id="nothing"></span>
                     <span id="showmore" style="display: none;">
+
                         <div style="padding-top: 70px; padding-bottom: 50px; ">
-                            <div class="col-md-12 col-sm-10" style="display: flex;">
-                                <div id="serv_hover" class="room col-md-6">
-                                    <div class="room_img">
-
-                                        <figure>
-                                            <div class="container">
-
-                                                <!-- Full-width images with number text -->
-                                                <div class="mySlides Slideroom3">
-                                                    <div class="numbertext">1 / 6</div>
-                                                    <img src="assets/images/about.png" style="width:100%">
-                                                </div>
-
-                                                <div class="mySlides Slideroom3">
-                                                    <div class="numbertext">2 / 6</div>
-                                                    <img src="assets/images/banner1.jpg" style="width:100%">
-                                                </div>
-
-                                                <div class="mySlides Slideroom3">
-                                                    <div class="numbertext">3 / 6</div>
-                                                    <img src="assets/images/banner2.jpg" style="width:100%">
-                                                </div>
-
-                                                <div class="mySlides Slideroom3">
-                                                    <div class="numbertext">4 / 6</div>
-                                                    <img src="assets/images/banner3.jpg" style="width:100%">
-                                                </div>
-
-                                                <div class="mySlides Slideroom3">
-                                                    <div class="numbertext">5 / 6</div>
-                                                    <img src="assets/images/blog_bg.jpg" style="width:100%">
-                                                </div>
-
-                                                <div class="mySlides Slideroom3">
-                                                    <div class="numbertext">6 / 6</div>
-                                                    <img src="assets/images/gallery1.jpg" style="width:100%">
-                                                </div>
-
-                                                <!-- Next and previous buttons -->
-                                                <a class="prev-btn" onclick="plusSlides3(-1)">&#10094;</a>
-                                                <a class="next-btn" onclick="plusSlides3(1)">&#10095;</a>
-
-                                                <!-- Image text -->
-                                                <div class="caption-container">
-                                                    <!-- <p id="caption"></p> -->
-                                                </div>
-
-                                                <!-- Thumbnail images -->
-                                                <div class="row">
-                                                    <div class="column">
-                                                        <img class="demo cursor slidemini3" src="assets/images/about.png"
-                                                             style="width:100%" onclick="currentSlide3(1)" alt="The Woods">
-                                                    </div>
-                                                    <div class="column">
-                                                        <img class="demo cursor slidemini3" src="assets/images/banner1.jpg"
-                                                             style="width:100%" onclick="currentSlide3(2)" alt="Cinque Terre">
-                                                    </div>
-                                                    <div class="column">
-                                                        <img class="demo cursor slidemini3" src="assets/images/banner2.jpg"
-                                                             style="width:100%" onclick="currentSlide3(3)" alt="Mountains and fjords">
-                                                    </div>
-                                                    <div class="column">
-                                                        <img class="demo cursor slidemini3" src="assets/images/banner3.jpg"
-                                                             style="width:100%" onclick="currentSlide3(4)" alt="Northern Lights">
-                                                    </div>
-                                                    <div class="column">
-                                                        <img class="demo cursor slidemini3" src="assets/images/blog1.jpg"
-                                                             style="width:100%" onclick="currentSlide3(5)" alt="Nature and sunrise">
-                                                    </div>
-                                                    <div class="column">
-                                                        <img class="demo cursor slidemini3" src="assets/images/blog2.jpg"
-                                                             style="width:100%" onclick="currentSlide3(6)" alt="Snowy Mountains">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </figure>
-
-                                    </div>
-
-                                </div>
-                                <div class="col-md-1"></div>
-                                <div class="col-md-5">
-                                    <div class="detailroom">
-                                        <p style="font-size: 16pt;">
-                                            <b>Room detail</b>
-                                            <br>
-                                            <br>
-                                            Room name: A103
-                                            <br>
-                                            Type room: 1
-                                            <br>
-                                            Room status: full
-                                            <br>
-                                            Room description: ..
-                                        </p>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <h1>Hello</h1>
                         </div>
+
                     </span>
 
 
                     <div style="text-align: center; margin-bottom: 50px;">
-                        <a class="read_more " onclick="viewNoreRoom()" id="buttonviewmoreroom"> Read more</a>
+                        <a class="read_more a-none" onclick="viewNoreRoom()" id="buttonviewmoreroom"> Read more</a>
                     </div>
 
                 </div>
@@ -929,9 +762,44 @@
         <!--EndRoom-->
         <!-- end footer -->
         <!-- Javascript files-->
-        <script src="assets/js/room-homepage.js"></script>
-        <script src="assets/js/room-homepage2.js"></script>
-        <script src="assets/js/room-homepage3.js"></script>
+        <c:forEach items="${requestScope.roomtypes}" var="roomtype" varStatus="i">
+            <script >
+                let slideIndex${i.count} = 1;
+                showSlides${i.count}(slideIndex${i.count});
+
+                // Next/previous controls
+                function plusSlides${i.count}(n) {
+                    showSlides${i.count}(slideIndex${i.count} += n);
+                }
+
+                // Thumbnail image controls
+                function currentSlide${i.count}(n) {
+                    showSlides${i.count}(slideIndex${i.count} = n);
+                }
+
+                function showSlides${i.count}(n) {
+                    let i;
+                    let slides = document.getElementsByClassName("Slideroom${i.count}");
+                    let dots = document.getElementsByClassName("slidemini${i.count}");
+                    if (n > slides.length) {
+                        slideIndex${i.count} = 1;
+                    }
+                    if (n < 1) {
+                        slideIndex${i.count} = slides.length;
+                    }
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex${i.count} - 1].style.display = "block";
+                    dots[slideIndex${i.count} - 1].className += " active";
+                }
+
+
+            </script>
+        </c:forEach>
         <script src="assets/js/viewmore-room-hompage.js"></script>
         <script src="assets/js/review-homepage.js"></script>
 
@@ -940,8 +808,8 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script>$(document).ready(function () {
-                                $('#example').DataTable();
-                            });</script>
+                    $('#example').DataTable();
+                });</script>
     </body>
 
 </html>

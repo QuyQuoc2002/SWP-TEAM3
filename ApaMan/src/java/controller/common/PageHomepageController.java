@@ -6,6 +6,8 @@ package controller.common;
 
 import entity.Apartment;
 import entity.ApartmentImgBanner;
+import entity.Roomtype;
+import entity.RoomtypeImgBanner;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,9 +15,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import service.ApartmentImgBannerService;
 import service.ApartmentService;
+import service.RoomtypeImgBannerService;
+import service.RoomtypeService;
 
 /**
  *
@@ -37,12 +42,33 @@ public class PageHomepageController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            ApartmentService apartmentService = new ApartmentService();
+            ApartmentImgBannerService apartmentImgBannerService = new ApartmentImgBannerService();
+            RoomtypeService roomtypeService = new RoomtypeService();
+            RoomtypeImgBannerService roomtypeImgBannerService = new RoomtypeImgBannerService();
+
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
-            Apartment apartment = new ApartmentService().getOne(apartmentId, true);
-            List<ApartmentImgBanner> apartmentImgBanners = new ApartmentImgBannerService().getAll(apartmentId);
-            
+            Apartment apartment = apartmentService.getOne(apartmentId, true);
+
+            List<ApartmentImgBanner> apartmentImgBanners = apartmentImgBannerService.getAll(apartmentId);
+            List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
+
+            List<RoomtypeImgBanner> allRoomtypeImgBanner = new ArrayList<>();
+
+            for (Roomtype roomtype : roomtypes) {
+                List<RoomtypeImgBanner> roomtypeImgBanners = roomtypeImgBannerService.getAll(roomtype.getRoomtypeId());
+                for (RoomtypeImgBanner roomtypeImg : roomtypeImgBanners) {
+                    allRoomtypeImgBanner.add(roomtypeImg);
+                }
+            }
+            System.out.println(allRoomtypeImgBanner);
+
             request.setAttribute("apartment", apartment);
             request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+
+            request.setAttribute("roomtypes", roomtypes);
+            request.setAttribute("roomtypeImgBanners", allRoomtypeImgBanner);
+
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
         }
     }

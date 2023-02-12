@@ -50,7 +50,7 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <input hidden name="searchType" value="select"  />
+                    <input hidden name="searchType" value="select" />
                     <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
                     <span onclick="changeFunction()" style="color: #0d6efd"><i class="fa-solid fa-arrows-rotate fs-3"></i></a></span>
                 </div>
@@ -64,7 +64,7 @@
             <form action="#review" method="post">
                 <div class="inner-form">
                     <div class="input-select">
-                        <input size="80" type="text" placeholder="Enter Keywords?" class="form-control" name="keyWord" value="${requestScope.keyWord}"/>
+                        <input size="80" type="text" placeholder="Enter Keywords?" class="form-control" id="keyWord" name="keyWord" value="${requestScope.keyWord}" required/>
                     </div>
                     <input hidden name="searchType" value="text"  />
                     <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
@@ -141,10 +141,11 @@
 
     <!---------------------------------------------CHANGE---------------------------------------------------------->
     <script>
+        
         function changeFunction() {
             var x = document.getElementById("change-search-select");
             var y = document.getElementById("change-search-text");
-            if (x.style.display === "block") {
+            if (y.style.display === "none") {
                 x.style.display = "none";
                 y.style.display = "block";
             } else {
@@ -152,6 +153,7 @@
                 y.style.display = "none";
             }
         }
+        
     </script>
 
 </body>
