@@ -69,6 +69,15 @@ public class PageRoomControlController extends HttpServlet {
             int numberOfStaffs = staffService.numberOfStaffs(apartmentId);
             request.setAttribute("numberOfStaffs", numberOfStaffs);
             
+            int numberOfEmptyRoom = roomService.numberOfStatusRoom(apartmentId, 1);
+            request.setAttribute("numberOfEmptyRoom", numberOfEmptyRoom);
+            
+            int numberOfDepositRoom = roomService.numberOfStatusRoom(apartmentId, 2);
+            request.setAttribute("numberOfDepositRoom", numberOfDepositRoom);
+            
+            int numberOfRentingRoom = roomService.numberOfStatusRoom(apartmentId, 3);
+            request.setAttribute("numberOfRentingRoom", numberOfRentingRoom);
+            
             
             
             List<Floor> floors = floorService.getAll(apartmentId);

@@ -6,6 +6,7 @@ package controller.common;
 
 import constant.IConst;
 import entity.Account;
+import entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -51,9 +52,11 @@ public class SignInController extends HttpServlet {
                 session.setAttribute("curAccount", curAccount);
                 if (curAccount.getRole().getRoleName().equals(IConst.ROLE_ADMIN)) {
                     response.sendRedirect("admin");
-                } else {
+
+                }  else {
                     response.sendRedirect("apartment");
                 }
+                
             }
         }
     }

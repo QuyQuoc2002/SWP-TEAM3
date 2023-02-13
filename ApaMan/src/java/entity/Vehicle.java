@@ -21,8 +21,10 @@ import lombok.ToString;
 
 public class Vehicle {
     private int vehicleId;
-    private int vehicleTypeId;
-    private int tenantId;
+    private int apartmentId;
+    private VehicleType vehicleType;
+    private Tenant tenant;
+    private Room room;
     private String vehicleLicenseaPlate;
     private String vehicleDescription;
 }

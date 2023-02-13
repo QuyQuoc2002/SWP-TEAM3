@@ -20,6 +20,10 @@ public class RoomService {
         return roomDAO.numberOfRooms(apartmentId);
     }
     
+    public int numberOfStatusRoom(int apartmentId, int roomStatusId) {
+        return roomDAO.numberOfStatusRoom(apartmentId,roomStatusId);
+    }
+    
     public List<Room> getAll(int floorId, int apartmentId) {
         return roomDAO.getAll(floorId,apartmentId);
     }

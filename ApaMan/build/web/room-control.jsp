@@ -82,7 +82,7 @@
                                     <i class="fa-regular fa-circle text-primary-cus"></i>
                                     <div class="card-feature-title">
                                         <h4 class="text-white">Empty Room</h4>
-                                        <p class="text-white">25 Rooms</p>
+                                        <p class="text-white">${numberOfEmptyRoom} Rooms</p>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                     <i class="fa-regular fa-circle-check text-primary-cus"></i>
                                     <div class="card-feature-title">
                                         <h4 class="text-white">Deposit Room</h4>
-                                        <p class="text-white">25 Rooms</p>
+                                        <p class="text-white">${numberOfDepositRoom} Rooms</p>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                     <i class="fa-solid fa-circle-check text-primary-cus"></i>
                                     <div class="card-feature-title">
                                         <h4 class="text-white">Renting Room</h4>
-                                        <p class="text-white">50 Rooms</p>
+                                        <p class="text-white">${numberOfRentingRoom} Rooms</p>
                                     </div>
                                 </div>
                             </div>

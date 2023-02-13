@@ -73,7 +73,7 @@
                                             <a class="nav-link" href="#about">About</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#room">Our room</a>
+                                            <a class="nav-link" href="#room">Room</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#service">Service</a>
@@ -86,10 +86,11 @@
                                         </li>
                                         <c:if test="${sessionScope.curAccount == null}">
                                             <li class="nav-item"><a class="nav-link" href="login?apartmentId=${requestScope.apartment.apartmentId}">Sign In</a></li>
-                                            </c:if>
-                                            <c:if test="${sessionScope.curAccount != null}">
+                                        </c:if>
+                                        <c:if test="${sessionScope.curAccount != null}">
                                             <li class="nav-item"><a class="nav-link" href="sign-out">Sign Out</a></li>
-                                            </c:if>
+                                            <c:if test="${sessionScope.curAccount.role.roleId == 1}"><li class="nav-item"><a class="nav-link" href="admin">Menu</a></li></c:if>
+                                        </c:if>
 
                                     </ul>
                                 </div>

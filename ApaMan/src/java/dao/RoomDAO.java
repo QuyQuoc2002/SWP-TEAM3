@@ -40,6 +40,27 @@ public class RoomDAO {
         }
         return 0;
     }
+    
+    public int numberOfStatusRoom (int apartmentId, int roomStatusId) {
+        int numberOfStatusRoom;
+        String sql = "SELECT COUNT(room_id) AS numberOfStatusRoom \n" +
+                     "FROM apamandb.room r \n" +
+                     "Where r.apartment_id = ? AND r.room_status_id = ?;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ps.setObject(2, roomStatusId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfStatusRoom = rs.getInt("numberOfStatusRoom");
+                return numberOfStatusRoom;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public List<Room> getAll(int floorId, int apartmentId) {
 

@@ -4,9 +4,8 @@
  */
 package service;
 
-import dao.StaffDAO;
+
 import dao.TenantDAO;
-import entity.Staff;
 import entity.Tenant;
 import java.util.List;
 
