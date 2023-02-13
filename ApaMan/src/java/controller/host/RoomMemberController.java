@@ -6,6 +6,7 @@ package controller.host;
 
 import entity.Account;
 import entity.Tenant;
+import entity.Vehicle;
 import entity.VehicleType;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import service.AccountService;
 import service.TenantService;
+import service.VehicleService;
 import service.VehicleTypeService;
 
 /**
@@ -71,6 +73,7 @@ public class RoomMemberController extends HttpServlet {
             HttpSession session = request.getSession();
             TenantService tenantService = new TenantService();
             VehicleTypeService vehicleTypeService = new VehicleTypeService();
+            VehicleService vehicleService = new VehicleService();
             
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
@@ -82,6 +85,9 @@ public class RoomMemberController extends HttpServlet {
             
             List<VehicleType> vehicleTypes = vehicleTypeService.getAll();
             request.setAttribute("vehicleTypes", vehicleTypes);
+            
+            List<Vehicle> vehicles = vehicleService.getAll(apartmentId);
+            request.setAttribute("vehicles", vehicles);
             
             request.getRequestDispatcher("room-member.jsp").forward(request, response);
         }

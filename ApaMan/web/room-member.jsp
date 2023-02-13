@@ -126,9 +126,12 @@
                                                         <h5><input class="border-0 bg-secondary-cus text-white" type="text" name="tenantName" id="tenantName${tenant.tenantId}"
                                                                    value="${tenant.tenantName}" placeholder="Name"></h5>
                                                         <div class="tags">
-                                                            <div class="tag">1 xe đạp</div>
-                                                            <div class="tag">1 xe máy</div>
-                                                            <a class="tag a-none" href="javascript:void(0)" data-bs-toggle="modal"
+                                                            <c:forEach items="${vehicles}" var="vehicle">
+                                                                <c:if test="${vehicle.tenant.tenantId eq tenant.tenantId}">
+                                                                    <div class="tag">${vehicle.vehicleType.vehicleTypeName}</div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <a class="tag a-none" onclick="GetTenantId(${tenant.tenantId},${tenant.room.roomId})" data-bs-toggle="modal"
                                                                data-bs-target="#add-vehicle">Thêm</a>
                                                             <a class="tag a-none" href="javascript:void(0)" data-bs-toggle="modal"
                                                                data-bs-target="#delete-vehical">Xóa</a>
@@ -170,14 +173,14 @@
 
         <script>
             <c:forEach items="${tenants}" var="tenant">
-                                                        function resetTenant${tenant.tenantId}() {
-                                                            document.getElementById("tenantCountryside${tenant.tenantId}").value = null;
-                                                            document.getElementById("tenantDob${tenant.tenantId}").value = null;
-                                                            document.getElementById("tenantPhoneNumber${tenant.tenantId}").value = null;
-                                                            document.getElementById("tenantParentPhone${tenant.tenantId}").value = null;
-                                                            document.getElementById("tenantCitizenIdentification${tenant.tenantId}").value = null;
-                                                            document.getElementById("tenantName${tenant.tenantId}").value = null;
-                                                        }
+                                                            function resetTenant${tenant.tenantId}() {
+                                                                document.getElementById("tenantCountryside${tenant.tenantId}").value = null;
+                                                                document.getElementById("tenantDob${tenant.tenantId}").value = null;
+                                                                document.getElementById("tenantPhoneNumber${tenant.tenantId}").value = null;
+                                                                document.getElementById("tenantParentPhone${tenant.tenantId}").value = null;
+                                                                document.getElementById("tenantCitizenIdentification${tenant.tenantId}").value = null;
+                                                                document.getElementById("tenantName${tenant.tenantId}").value = null;
+                                                            }
             </c:forEach>
         </script>
 
@@ -192,7 +195,7 @@
 
 
             <c:forEach items="${tenants}" var="tenant">
-            function validateTenantInfo${tenant.tenantId}(){
+            function validateTenantInfo${tenant.tenantId}() {
                 const password = document.getElementById("password${tenant.tenantId}").value;
                 const tenantCountryside = document.getElementById("tenantCountryside${tenant.tenantId}").value;
                 const tenantMobile = document.getElementById("tenantPhoneNumber${tenant.tenantId}").value;
@@ -205,15 +208,15 @@
                 if (tenantMobile !== '' && !tenantMobile.match(REGEX_MOBILE_TENANT)) {
                     errorStr += '<li>Tenant phone number invalid</li>';
                 }
-                
+
                 if (parentMobile !== '' && !parentMobile.match(REGEX_MOBILE_TENANT)) {
                     errorStr += '<li>Parent phone number invalid</li>';
                 }
-                
+
                 if (tenantCitizenId !== '' && !tenantCitizenId.match(REGEX_CITIZENID_TENANT)) {
                     errorStr += '<li>Tenant CitizenId invalid</li>';
                 }
-                
+
                 if (tenantCountryside !== '' && !tenantCountryside.match(REGEX_ADDRESS_TENANT)) {
                     errorStr += '<li>Tenant countryside invalid</li>';
                 }
@@ -240,6 +243,15 @@
             </c:forEach>
 
         </script>
+
+        <script>
+            function GetTenantId(tenantId, roomId) {
+                document.getElementById("tenantIdVehicle").value = tenantId;
+                document.getElementById("roomIdVehicle").value = roomId;
+            }
+        </script>
+
+
 
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>

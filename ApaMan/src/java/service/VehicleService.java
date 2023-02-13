@@ -20,6 +20,10 @@ public class VehicleService {
         return vehicleDAO.getAll(apartmentId);
     }
     
+    public List<Vehicle> getAll(int tenantId, int apartmentId) {
+        return vehicleDAO.getAll(tenantId,apartmentId);
+    }
+    
     public boolean add(Vehicle obj) {
         return vehicleDAO.add(obj);
     }

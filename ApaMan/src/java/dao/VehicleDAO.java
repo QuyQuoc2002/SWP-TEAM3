@@ -31,6 +31,7 @@ public class VehicleDAO {
                 + "v.tenant_id, "
                 + "v.room_id, "
                 + "v.apartment_id, "
+                + "v.vehicle_img_path, "
                 + "vt.vehicle_type_name \n"
                 + "FROM apamandb.vehicle v Join apamandb.vehicle_type vt ON v.vehicle_type_id = vt.vehicle_type_id  \n"
                 + "Where v.apartment_id = ? ";
@@ -56,6 +57,54 @@ public class VehicleDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .vehicleLicensePlate(rs.getString("vehicle_license_plate"))
                         .vehicleDescription(rs.getString("vehicle_description"))
+                        .vehicleImgPath(rs.getString("vehicle_img_path"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
+    public List<Vehicle> getAll(int tenantId ,int apartmentId) {
+
+        String sql = "SELECT v.vehicle_id, "
+                + "v.vehicle_type_id, "
+                + "v.vehicle_license_plate, "
+                + "v.vehicle_description, "
+                + "v.tenant_id, "
+                + "v.room_id, "
+                + "v.apartment_id, "
+                + "v.vehicle_img_path, "
+                + "vt.vehicle_type_name \n"
+                + "FROM apamandb.vehicle v Join apamandb.vehicle_type vt ON v.vehicle_type_id = vt.vehicle_type_id  \n"
+                + "Where v.tenant_id = ? AND v.apartment_id = ? ";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, tenantId);
+            ps.setObject(2, apartmentId);
+            ResultSet rs = ps.executeQuery();
+
+            List<Vehicle> list = new ArrayList<>();//
+            while (rs.next()) {
+                Vehicle obj = Vehicle.builder()
+                        .vehicleId(rs.getInt("vehicle_id"))
+                        .vehicleType(VehicleType.builder()
+                                .vehicleTypeId(rs.getInt("vehicle_type_id"))
+                                .vehicleTypeName(rs.getString("vehicle_type_name"))
+                                .build())
+                        .tenant(Tenant.builder()
+                                .tenantId(rs.getInt("tenant_id"))
+                                .build())
+                        .room(Room.builder()
+                                .roomId(rs.getInt("room_id"))
+                                .build())
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .vehicleLicensePlate(rs.getString("vehicle_license_plate"))
+                        .vehicleDescription(rs.getString("vehicle_description"))
+                        .vehicleImgPath(rs.getString("vehicle_img_path"))
                         .build();
                 list.add(obj);
             }
@@ -67,7 +116,17 @@ public class VehicleDAO {
     }
 
     public Vehicle getOne(int vehicleId) {
-        String sql = "SELECT * FROM vehicle WHERE vehicle_id = ?";
+        String sql = "SELECT v.vehicle_id, "
+                + "v.vehicle_type_id, "
+                + "v.vehicle_license_plate, "
+                + "v.vehicle_description, "
+                + "v.tenant_id, "
+                + "v.room_id, "
+                + "v.apartment_id, "
+                + "v.vehicle_img_path, "
+                + "vt.vehicle_type_name \n"
+                + "FROM apamandb.vehicle v Join apamandb.vehicle_type vt ON v.vehicle_type_id = vt.vehicle_type_id  \n"
+                + "Where v.vehicle_id = ? ";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, vehicleId);
@@ -88,6 +147,7 @@ public class VehicleDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .vehicleLicensePlate(rs.getString("vehicle_license_plate"))
                         .vehicleDescription(rs.getString("vehicle_description"))
+                        .vehicleImgPath(rs.getString("vehicle_img_path"))
                         .build();
                 return obj;
             }
@@ -99,8 +159,8 @@ public class VehicleDAO {
 
     public boolean add(Vehicle obj) {
         int check = 0;
-        String sql = "INSERT INTO vehicle(vehicle_type_id, vehicle_license_plate, vehicle_description,tenant_id,room_id,apartment_id)"
-                + " VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO vehicle(vehicle_type_id, vehicle_license_plate, vehicle_description,tenant_id,room_id,apartment_id,vehicle_img_path)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?)";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, obj.getVehicleType().getVehicleTypeId());
             ps.setObject(2, obj.getVehicleLicensePlate());
@@ -108,6 +168,7 @@ public class VehicleDAO {
             ps.setObject(4, obj.getTenant().getTenantId());
             ps.setObject(5, obj.getRoom().getRoomId());
             ps.setObject(6, obj.getApartmentId());
+            ps.setObject(7, obj.getVehicleImgPath());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

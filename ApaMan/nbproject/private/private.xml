@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/roomtype-detail.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/common/PageHomepageController.java</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/staff.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/member.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/menu.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/homepage.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/host-apartment-detail.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/common/PageIndexController.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/room-control.jsp</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/service/VehicleService.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/component/modal/add-vehicle.jsp</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/VehicleManagementController.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/entity/Vehicle.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/PageRoomtypeController.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/room-member.jsp</file>
         </group>
     </open-files>
 </project-private>

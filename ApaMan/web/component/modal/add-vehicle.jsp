@@ -16,23 +16,23 @@
                     <a data-bs-dismiss="modal" style="cursor: pointer; font-size: 20px;"><i class="fa-solid fa-xmark"></i></a>
                 </div>
                 <form id="add-vehicle-form" action="vehicle-manage" method="post">
-                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3">
+                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="vehicleTypeId" ">
                         <c:forEach items="${vehicleTypes}" var="vehicleType">
-                            <option value="${vehicleType.vehicleTypeId}">${vehicleType.vehicleTypeName}</option>
+                            <option value="${vehicleType.vehicleTypeId}" >${vehicleType.vehicleTypeName}</option>
                         </c:forEach>
                     </select>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" id="input-name-room">
+                        <input type="text" class="form-control bg-dark" name="vehicleDescription">
                         <label for="floatingInput">Description</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" id="input-name-room">
+                        <input type="text" class="form-control bg-dark" name="vehicleLicensePlate">
                         <label for="floatingInput">License Plate</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" id="input-name-room">
+                        <input type="text" class="form-control bg-dark" name="vehicleImgPath">
                         <label for="floatingInput">Image</label>
                     </div>
 
@@ -43,6 +43,8 @@
                                     data-bs-dismiss="modal">Close</button>
                         </div>
                         <div class="col-6">
+                            <input hidden name="tenantId" id="tenantIdVehicle">
+                            <input hidden name="roomId" id="roomIdVehicle">
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Save</button>
                         </div>
                     </div>
