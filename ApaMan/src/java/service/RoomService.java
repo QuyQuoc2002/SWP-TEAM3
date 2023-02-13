@@ -28,7 +28,7 @@ public class RoomService {
         return roomDAO.getOne(roomId,apartmentId);
     }
     
-    public boolean add(Room obj) {
+    public int add(Room obj) {
         return roomDAO.add(obj);
     }
     

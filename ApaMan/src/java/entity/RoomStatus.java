@@ -19,12 +19,8 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class Room {
-    private int roomId;
-    private String roomName;
-    private int roomtypeId;
-    private int floorId;
-    private int apartmentId;
-    private RoomStatus roomStatus;
+public class RoomStatus {
     
+    int roomStatusId;
+    String roomStatusDescription;
 }

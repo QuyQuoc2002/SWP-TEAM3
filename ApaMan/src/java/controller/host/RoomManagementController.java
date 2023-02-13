@@ -130,46 +130,6 @@ public class RoomManagementController extends HttpServlet {
 
             String submitType = request.getParameter("submitType");
             switch (submitType) {
-                case "Add":
-                    String roomName = request.getParameter("roomName");
-                    List<Room> rooms = roomService.getAll(floorId,apartmentId);
-
-                    //Check room name already exist
-                    boolean roomNameExist = false;
-                    for (Room obj : rooms) {
-                        if (roomName.equals(obj.getRoomName())) {
-                            roomNameExist = true;
-                        }
-                    }
-
-                    if (roomNameExist) {
-                        session.setAttribute("messageUpdate", "warning|APAMAN Notification|Room Name Exist, Add Fail|edit-room");
-                    } else {
-                        Room room = Room.builder()
-                                .roomName(roomName)
-                                .roomtypeId(roomtypeId)
-                                .floorId(floorId)
-                                .build();
-                        boolean addRoomSuccess = roomService.add(room);
-
-                        Floor floor = floorService.getOne(floorId);
-                        int floorRoomQuantity = floor.getFloorRoomQuantity();
-                        int updateFloorRoomQuantity = floorRoomQuantity + 1;
-
-                        Floor updateFloor = floorService.getOne(floorId);
-                        updateFloor.setFloorRoomQuantity(updateFloorRoomQuantity);
-
-                        boolean updateFloorsSuccess = floorService.updateFloor(updateFloor);
-
-                        if (addRoomSuccess) {
-                            session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Room Success|edit-room");
-                        } else {
-                            session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Room Fail|edit-room");
-                        }
-                    }
-                    response.sendRedirect("room-control");
-                    break;
-
                 case "Update":
                     String[] updateRoomsNames = request.getParameterValues("roomName");
                     String[] updateRoomtypeIdStrs = request.getParameterValues("roomtypeId");

@@ -4,10 +4,13 @@
  */
 package controller.host;
 
+import constant.IConst;
 import entity.Account;
+import entity.Role;
 import entity.Room;
 import entity.Roomtype;
 import entity.RoomtypeImgBanner;
+import entity.Tenant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,9 +21,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import service.AccountService;
 import service.RoomService;
 import service.RoomtypeImgBannerService;
 import service.RoomtypeService;
+import service.TenantService;
+import utils.Cypher;
 
 /**
  *
@@ -76,10 +82,10 @@ public class PageRoomController extends HttpServlet {
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
-            
+
             int floorId = Integer.parseInt(request.getParameter("floorId"));
 
-            List<Room> rooms = roomService.getAll(floorId,apartmentId);
+            List<Room> rooms = roomService.getAll(floorId, apartmentId);
             List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
 
             request.setAttribute("rooms", rooms);
@@ -104,6 +110,9 @@ public class PageRoomController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             RoomService roomService = new RoomService();
+            RoomtypeService roomtypeService = new RoomtypeService();
+            AccountService accountService = new AccountService();
+            TenantService tenantService = new TenantService();
 
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
@@ -125,16 +134,51 @@ public class PageRoomController extends HttpServlet {
             if (roomNameExist) {
                 session.setAttribute("messageUpdate", "warning|APAMAN Notification|Room Name Exist, Add Fail|edit-room");
             } else {
+                //create room
                 Room room = Room.builder()
                         .roomName(roomName)
                         .roomtypeId(roomtypeId)
                         .floorId(floorId)
                         .apartmentId(apartmentId)
                         .build();
-                boolean addRoomSuccess = roomService.add(room);
-                
+                int addRoomSuccess = roomService.add(room);
 
-                if (addRoomSuccess ) {
+                int maxMember = roomtypeService.getOne(roomtypeId, apartmentId).getRoomtypeMaxMember();
+                
+                //create tenant
+                List<Tenant> addTenants = new ArrayList<>();
+
+                for (int i = 0; i < maxMember; i++) {
+
+                    String tenantUsername = roomName + "Tenant" + (i+1);
+                    
+                    //create account
+                    Account account = Account.builder()
+                            .apartmentId(apartmentId)
+                            .accountUsername(tenantUsername)
+                            .accountPassword(Cypher.generateData())
+                            .accountAccessible(false)
+                            .role(Role.builder()
+                                    .roleId(IConst.ROLE_TENANT_ID)
+                                    .build()
+                            )
+                            .build();
+                    int accountId = accountService.add(account);
+
+                    Room roomx = Room.builder()
+                            .roomId(addRoomSuccess)
+                            .roomName(roomName)
+                            .build();
+
+                    Tenant tenant = Tenant.builder()
+                            .room(roomx)
+                            .account(Account.builder().accountId(accountId).build())
+                            .build();
+                    addTenants.add(tenant);
+                }
+                boolean addTenantsSuccess = tenantService.add(addTenants);
+
+                if (addTenantsSuccess ) {
                     session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Room Success|edit-room");
                 } else {
                     session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Room Fail|edit-room");

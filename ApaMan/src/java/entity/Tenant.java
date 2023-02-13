@@ -8,7 +8,6 @@ package entity;
  *
  * @author Laputa
  */
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,13 +17,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
-public class Room {
-    private int roomId;
-    private String roomName;
-    private int roomtypeId;
-    private int floorId;
-    private int apartmentId;
-    private RoomStatus roomStatus;
-    
+public class Tenant {
+    private int tenantId;
+    private Account account;
+    private Room room;
+    private String tenantCitizenIdentification;
+    private String tenantName;
+    private String tenantDob;
+    private String tenantPhoneNumber;
+    private String tenantParentPhone;
+    private String tenantCountryside;
 }

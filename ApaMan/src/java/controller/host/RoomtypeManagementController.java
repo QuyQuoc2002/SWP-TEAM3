@@ -133,7 +133,8 @@ public class RoomtypeManagementController extends HttpServlet {
                         if (roomtypeName.equals(obj.getRoomtypeName())) {
                             roomtypeNameExist = true;
                         }
-                    }
+                        
+                   }
 
                     if (roomtypeNameExist && roomtypeNameChange) {
                         session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");

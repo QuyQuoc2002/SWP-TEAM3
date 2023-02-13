@@ -60,14 +60,14 @@
                                 <c:forEach items="${requestScope.rooms}" var="room" varStatus="i">
                                 <tr>
                                     <td>${i.count}</td>
-                                    <td><a href="room-member.html">${room.roomName}</a></td>
+                                    <td><a href="room-member?roomId=${room.roomId}" class="a-none">${room.roomName}</a></td>
                                     <td>
                                         <c:forEach items="${requestScope.roomtypes}" var="roomtype">
                                         <c:if test="${room.roomtypeId eq roomtype.roomtypeId}">${roomtype.roomtypeName}</c:if>
                                         </c:forEach>
                                     </td>
-                                    <td>${room.roomStatus}</td>
-                                    <td><a class="text-warning" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#confirm-modal">Cần thanh toán</a></td>
+                                    <td>${room.roomStatus.roomStatusDescription}</td>
+                                    <td><a class="text-warning a-none" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#confirm-modal">Cần thanh toán</a></td>
                                     <td><a href="#"><i class="fa-solid fa-pen-to-square text-danger"></i></a></td>
                                 </tr>
                                 </c:forEach>
