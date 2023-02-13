@@ -18,6 +18,26 @@ import java.util.List;
  * @author DELL
  */
 public class FloorDAO {
+    
+    public int numberOfFloors (int apartmentId) {
+        int numberOfFloors;
+        String sql = "SELECT COUNT(floor_id) AS numberOfFloors \n" +
+                     "FROM apamandb.floor f \n" +
+                     "Where f.apartment_id = ?;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfFloors = rs.getInt("numberOfFloors");
+                return numberOfFloors;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public List<Floor> getAll(int apartmentId) {
 

@@ -17,6 +17,10 @@ import java.util.List;
 public class TenantService {
 
     private TenantDAO tenantDAO = new TenantDAO();
+    
+    public int numberOfTenants(int apartmentId) {
+        return tenantDAO.numberOfTenants(apartmentId);
+    }
 
     public List<Tenant> getAll(int apartmentId) {
         return tenantDAO.getAll(apartmentId);

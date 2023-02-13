@@ -50,7 +50,7 @@
                         </a>
                     </div>
                     <div class="col-4 mb-4">
-                        <a href="members.html">
+                        <a href="members">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
                                 <div class="card-feature-content">
                                     <i class="fa-solid fa-users text-primary-cus"></i>

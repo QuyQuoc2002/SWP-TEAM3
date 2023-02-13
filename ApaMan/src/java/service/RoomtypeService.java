@@ -16,6 +16,10 @@ public class RoomtypeService {
     
     private RoomtypeDAO roomtypeDAO = new RoomtypeDAO();
     
+    public int numberOfRoomtypes(int apartmentId) {
+        return roomtypeDAO.numberOfRoomtypes(apartmentId);
+    }
+    
     public List<Roomtype> getAll(int apartmentId) {
         return roomtypeDAO.getAll(apartmentId);
     }

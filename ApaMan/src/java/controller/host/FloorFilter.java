@@ -27,7 +27,7 @@ import service.FloorService;
  *
  * @author DELL
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/apartment", "/homepage-management", "/roomtype", "/staff", "/room-control","/roomtype-detail","/floor-room", "/room-member"})
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/apartment", "/homepage-management", "/roomtype", "/staff", "/room-control","/roomtype-detail","/floor-room", "/room-member", "/members"})
 public class FloorFilter implements Filter {
 
     private static final boolean debug = true;

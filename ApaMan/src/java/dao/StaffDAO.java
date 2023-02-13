@@ -21,6 +21,26 @@ import utils.Cypher;
  * @author DELL
  */
 public class StaffDAO {
+    
+    public int numberOfStaffs (int apartmentId) {
+        int numberOfStaffs;
+        String sql = "SELECT COUNT(staff_id) AS numberOfStaffs \n" +
+                     "FROM apamandb.staff s Join apamandb.account a ON s.account_id = a.account_id\n" +
+                     "Where a.apartment_id = ? AND a.account_accessible = true;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfStaffs = rs.getInt("numberOfStaffs");
+                return numberOfStaffs;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public List<Staff> getAll(int apartmentId) {
 

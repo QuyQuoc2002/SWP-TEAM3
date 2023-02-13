@@ -16,6 +16,10 @@ public class FloorService {
     
     private FloorDAO floorDAO = new FloorDAO();
     
+    public int numberOfFloors(int apartmentId) {
+        return floorDAO.numberOfFloors(apartmentId);
+    }
+    
     public List<Floor> getAll(int apartmentId) {
         return floorDAO.getAll(apartmentId);
     }

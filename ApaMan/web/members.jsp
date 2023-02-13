@@ -38,231 +38,63 @@
                 <!-- Navbar End -->
                 <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">MEMBER</div>
                 <div id="member" class="container-fluid pt-4 px-4">
-                <div class="row">
-                    <div class="col-3 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span>Hòa Lạc</span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span>11-09-2002</span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2 mb-2"></i>01232314234</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-solid fa-phone me-2"></i>phone phụ huynh</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span>12312312</span>
-                                    </div>
-                                </div>
-                                <a href="room-member.html">
-                                    <div class="room">
-                                        Phòng 105
-                                    </div>
-                                </a>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5 >Nguyễn Văn A</h5>
-                                            <div class="tags">
-                                                <div class="tag">1 xe đạp</div>
-                                                <div class="tag">1 xe máy</div>
+
+                    <div class="row">
+
+                        <c:if test="${tenants == null}">
+                            <h1>Chưa có khách thuê trọ</h1>
+                        </c:if>
+
+                        <c:if test="${tenants != nul}">
+                            <c:forEach items="${tenants}" var="tenant">
+                                <div class="col-3 mb-4">
+                                    <div class="bg-secondary-cus rounded p-2 card-staff">
+                                        <div class="card-staff-header">
+                                            <div>
+                                                <i class="fa-solid fa-mountain-sun me-1"></i><span>${tenant.tenantCountryside}</span>
+                                            </div>
+                                            <div>
+                                                <i class="fa-regular fa-calendar-days me-1"></i><span>${tenant.tenantDob}</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-staff-body">
+                                            <div class="contact text-white">
+                                                <div class="phone">
+                                                    <i class="fa-solid fa-phone-volume me-2 mb-2"></i>${tenant.tenantPhoneNumber}</span>
+                                                </div>
+                                                <div>
+                                                    <i class="fa-solid fa-phone me-2"></i>${tenant.tenantParentPhone}</span>
+                                                </div>
+                                                <div>
+                                                    <i class="fa-regular fa-id-card me-2"></i><span>${tenant.tenantCitizenIdentification}</span>
+                                                </div>
+                                            </div>
+                                            <a href="room-member?roomId=${tenant.room.roomId}" class="a-none">
+                                                <div class="room">
+                                                    ${tenant.room.roomName}
+                                                </div>
+                                            </a>
+                                            <div class="user mt-4">
+                                                <div class="media d-flex">
+                                                    <a class="circle">
+                                                        <img class="avatar" src="assets/images/avatar.png" alt="">
+                                                    </a>
+                                                    <div class="media-body pt-2">
+                                                        <h5 >${tenant.tenantName}</h5>
+                                                        <div class="tags">
+                                                            <div class="tag">1 xe đạp</div>
+                                                            <div class="tag">1 xe máy</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="action mt-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-primary w-100">Lưu</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-danger w-100">Xóa</button>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span>Hòa Lạc</span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span>11-09-2002</span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2 mb-2"></i>01232314234</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-solid fa-phone me-2"></i>phone phụ huynh</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span>12312312</span>
-                                    </div>
-                                </div>
-                                <div class="room">
-                                    Phòng 105
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5>Nguyễn Văn A</h5>
-                                            <div class="tags">
-                                                <div class="tag">1 xe đạp</div>
-                                                <div class="tag">1 xe máy</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span>Hòa Lạc</span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span>11-09-2002</span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2 mb-2"></i>01232314234</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-solid fa-phone me-2"></i>phone phụ huynh</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span>12312312</span>
-                                    </div>
-                                </div>
-                                <div class="room">
-                                    Phòng 105
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5>Nguyễn Văn A</h5>
-                                            <div class="tags">
-                                                <div class="tag">1 xe đạp</div>
-                                                <div class="tag">1 xe máy</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span>Hòa Lạc</span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span>11-09-2002</span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2 mb-2"></i>01232314234</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-solid fa-phone me-2"></i>phone phụ huynh</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span>12312312</span>
-                                    </div>
-                                </div>
-                                <div class="room">
-                                    Phòng 105
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5>Nguyễn Văn A</h5>
-                                            <div class="tags">
-                                                <div class="tag">1 xe đạp</div>
-                                                <div class="tag">1 xe máy</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 mb-4">
-                        <div class="bg-secondary-cus rounded p-2 card-staff">
-                            <div class="card-staff-header">
-                                <div>
-                                    <i class="fa-solid fa-mountain-sun me-1"></i><span>Hòa Lạc</span>
-                                </div>
-                                <div>
-                                    <i class="fa-regular fa-calendar-days me-1"></i><span>11-09-2002</span>
-                                </div>
-                            </div>
-                            <div class="card-staff-body">
-                                <div class="contact text-white">
-                                    <div class="phone">
-                                        <i class="fa-solid fa-phone-volume me-2 mb-2"></i>01232314234</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-solid fa-phone me-2"></i>phone phụ huynh</span>
-                                    </div>
-                                    <div>
-                                        <i class="fa-regular fa-id-card me-2"></i><span>12312312</span>
-                                    </div>
-                                </div>
-                                <div class="room">
-                                    Phòng 105
-                                </div>
-                                <div class="user mt-4">
-                                    <div class="media d-flex">
-                                        <a class="circle">
-                                            <img class="avatar" src="assets/images/avatar.png" alt="">
-                                        </a>
-                                        <div class="media-body pt-2">
-                                            <h5>Nguyễn Văn A</h5>
-                                            <div class="tags">
-                                                <div class="tag">1 xe đạp</div>
-                                                <div class="tag">1 xe máy</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
 

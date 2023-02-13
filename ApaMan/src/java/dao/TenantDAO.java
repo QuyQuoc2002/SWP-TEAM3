@@ -22,6 +22,26 @@ import utils.Cypher;
  * @author DELL
  */
 public class TenantDAO {
+    
+    public int numberOfTenants (int apartmentId) {
+        int numberOfTenants;
+        String sql = "SELECT COUNT(tenant_id) AS numberOfTenants \n" +
+                     "FROM apamandb.tenant t Join apamandb.account a ON t.account_id = a.account_id\n" +
+                     "Where a.apartment_id = ? AND a.account_accessible = true;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfTenants = rs.getInt("numberOfTenants");
+                return numberOfTenants;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public List<Tenant> getAll(int apartmentId) {
 
@@ -41,7 +61,7 @@ public class TenantDAO {
                 + "a.account_accessible,"
                 + "a.role_id\n"
                 + "FROM apamandb.tenant t Join apamandb.account a ON t.account_id = a.account_id  \n"
-                + "Where a.apartment_id = ?) \n"
+                + "Where a.apartment_id = ? AND a.account_accessible = true) \n"
                 + "\n"
                 + "select te.* , r.room_name\n"
                 + "FROM te JOIN apamandb.room r on te.room_id = r.room_id";//

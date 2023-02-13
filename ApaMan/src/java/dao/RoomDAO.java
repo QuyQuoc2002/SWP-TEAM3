@@ -20,6 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDAO {
+    
+    public int numberOfRooms (int apartmentId) {
+        int numberOfRooms;
+        String sql = "SELECT COUNT(room_id) AS numberOfRooms \n" +
+                     "FROM apamandb.room r \n" +
+                     "Where r.apartment_id = ?;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfRooms = rs.getInt("numberOfRooms");
+                return numberOfRooms;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public List<Room> getAll(int floorId, int apartmentId) {
 

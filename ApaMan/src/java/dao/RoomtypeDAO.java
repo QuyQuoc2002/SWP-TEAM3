@@ -19,6 +19,26 @@ import java.util.List;
  * @author DELL
  */
 public class RoomtypeDAO {
+    
+    public int numberOfRoomtypes (int apartmentId) {
+        int numberOfRoomtypes;
+        String sql = "SELECT COUNT(roomtype_id) AS numberOfRoomtypes \n" +
+                     "FROM apamandb.roomtype r \n" +
+                     "Where r.apartment_id = ?;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfRoomtypes = rs.getInt("numberOfRoomtypes");
+                return numberOfRoomtypes;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public List<Roomtype> getAll(int apartmentId) {
 

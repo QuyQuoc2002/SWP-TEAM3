@@ -16,6 +16,10 @@ import java.util.List;
 public class RoomService {
     private RoomDAO roomDAO = new RoomDAO();
     
+    public int numberOfRooms(int apartmentId) {
+        return roomDAO.numberOfRooms(apartmentId);
+    }
+    
     public List<Room> getAll(int floorId, int apartmentId) {
         return roomDAO.getAll(floorId,apartmentId);
     }

@@ -5,8 +5,7 @@
 package controller.host;
 
 import entity.Account;
-import entity.Floor;
-import entity.Roomtype;
+import entity.Tenant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,18 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import service.FloorService;
-import service.RoomService;
-import service.RoomtypeService;
-import service.StaffService;
 import service.TenantService;
 
 /**
  *
- * @author DELL
+ * @author Laputa
  */
-@WebServlet(name = "PageRoomControlController", urlPatterns = {"/room-control"})
-public class PageRoomControlController extends HttpServlet {
+@WebServlet(name = "PageMemberController", urlPatterns = {"/members"})
+public class PageMemberController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,41 +38,15 @@ public class PageRoomControlController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            FloorService floorService = new FloorService();
-            RoomtypeService roomtypeService = new RoomtypeService();
-            TenantService tenantService = new TenantService();
-            RoomService roomService = new RoomService();
-            StaffService staffService = new StaffService();
-            
-            
-            Account curAccount = (Account) session.getAttribute("curAccount");
-            int apartmentId = curAccount.getApartmentId();
-            
-            int numberOfFloors = floorService.numberOfFloors(apartmentId);
-            request.setAttribute("numberOfFloors", numberOfFloors);
-            
-            int numberOfRooms = roomService.numberOfRooms(apartmentId);
-            request.setAttribute("numberOfRooms", numberOfRooms);
-            
-            int numberOfRoomtypes = roomtypeService.numberOfRoomtypes(apartmentId);
-            request.setAttribute("numberOfRoomtypes", numberOfRoomtypes);
-            
-            int numberOfTenants = tenantService.numberOfTenants(apartmentId);
-            request.setAttribute("numberOfTenants", numberOfTenants);
-            
-            int numberOfStaffs = staffService.numberOfStaffs(apartmentId);
-            request.setAttribute("numberOfStaffs", numberOfStaffs);
-            
-            
-            
-            List<Floor> floors = floorService.getAll(apartmentId);
-            request.setAttribute("floors", floors);
-            
-            List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
-            request.setAttribute("roomtypes", roomtypes);
-            
-            request.getRequestDispatcher("room-control.jsp").forward(request, response);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PageMemberController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet PageMemberController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -93,7 +62,17 @@ public class PageRoomControlController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            int apartmentId = curAccount.getApartmentId();
+            TenantService tenantService = new TenantService();
+
+            List<Tenant> tenants = tenantService.getAll(apartmentId);
+            request.setAttribute("tenants", tenants);
+            request.getRequestDispatcher("members.jsp").forward(request, response);
+        }
     }
 
     /**

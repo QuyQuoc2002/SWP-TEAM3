@@ -15,6 +15,10 @@ import java.util.List;
 public class StaffService {
 
     private StaffDAO staffDAO = new StaffDAO();
+    
+    public int numberOfStaffs(int apartmentId) {
+        return staffDAO.numberOfStaffs(apartmentId);
+    }
 
     public List<Staff> getAll(int apartmentId) {
         return staffDAO.getAll(apartmentId);
