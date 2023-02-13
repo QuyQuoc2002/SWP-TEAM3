@@ -27,4 +27,5 @@ public class Vehicle {
     private Room room;
     private String vehicleLicensePlate;
     private String vehicleDescription;
+    private String vehicleImgPath;
 }

@@ -47,191 +47,28 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Phân loại</th>
-                                    <th>Biển số xe</th>
-                                    <th>chủ sở hữu</th>
-                                    <th>phòng</th>
-                                    <th>Mô tả xe</th>
-                                    <th>Thao tác</th>
+                                    <th>Vehicle Type</th>
+                                    <th>License Plate</th>
+                                    <th>Tenant Name</th>
+                                    <th>Room Name</th>
+                                    <th>Description</th>
+                                    <th>Image</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:forEach items="${vehiclesAll}" var="vehicle" varStatus="i">
                                 <tr>
-                                    <td>#00001</td>
-                                    <td>xe đạp</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
+                                    <td>${i.count}</td>
+                                    <td>${vehicle.vehicleType.vehicleTypeName}</td>
+                                    <td>${vehicle.vehicleLicensePlate}</td>
+                                    <td>${vehicle.tenant.tenantName}</td>
+                                    <td>${vehicle.room.roomName}</td>
+                                    <td>${vehicle.vehicleDescription}</td>
                                     <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
+                                        <a href="${vehicle.vehicleImgPath}">Image</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>#00002</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>xe máy</td>
-                                    <td>35B-34343</td>
-                                    <td>Quý Quốc</td>
-                                    <td>B105</td>
-                                    <td>Honda AirBade Đen Đỏ</td>
-                                    <td class="d-flex justify-content-between">
-                                        <a href="assets/images/banner1.jpg">xem ảnh</a>
-                                    </td>
-                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
