@@ -80,7 +80,7 @@
                                         <div class="action mt-2">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <button onclick="validateNewStaffInfo()();" type="button" class="btn btn-primary w-100">Create</button>
+                                                    <button onclick="validateNewStaffInfo();" type="button" class="btn btn-primary w-100">Create</button>
                                                 </div>
                                                 <div class="col-6">
                                                     <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
