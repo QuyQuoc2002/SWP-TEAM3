@@ -6,6 +6,7 @@ package controller.host;
 
 import entity.Account;
 import entity.Tenant;
+import entity.VehicleType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import service.AccountService;
 import service.TenantService;
+import service.VehicleTypeService;
 
 /**
  *
@@ -67,14 +69,20 @@ public class RoomMemberController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
+            TenantService tenantService = new TenantService();
+            VehicleTypeService vehicleTypeService = new VehicleTypeService();
+            
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
 
             int roomId = Integer.parseInt(request.getParameter("roomId"));
 
-            List<Tenant> tenants = new TenantService().getAll(roomId, apartmentId);
-            System.out.println(tenants);
+            List<Tenant> tenants = tenantService.getAll(roomId, apartmentId);
             request.setAttribute("tenants", tenants);
+            
+            List<VehicleType> vehicleTypes = vehicleTypeService.getAll();
+            request.setAttribute("vehicleTypes", vehicleTypes);
+            
             request.getRequestDispatcher("room-member.jsp").forward(request, response);
         }
     }

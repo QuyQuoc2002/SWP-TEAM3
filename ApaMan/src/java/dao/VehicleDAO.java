@@ -26,7 +26,7 @@ public class VehicleDAO {
 
         String sql = "SELECT v.vehicle_id, "
                 + "v.vehicle_type_id, "
-                + "v.vehicle_licensea_plate, "
+                + "v.vehicle_license_plate, "
                 + "v.vehicle_description, "
                 + "v.tenant_id, "
                 + "v.room_id, "
@@ -54,7 +54,7 @@ public class VehicleDAO {
                                 .roomId(rs.getInt("room_id"))
                                 .build())
                         .apartmentId(rs.getInt("apartment_id"))
-                        .vehicleLicenseaPlate(rs.getString("vehicle_licensea_plate"))
+                        .vehicleLicensePlate(rs.getString("vehicle_license_plate"))
                         .vehicleDescription(rs.getString("vehicle_description"))
                         .build();
                 list.add(obj);
@@ -86,7 +86,7 @@ public class VehicleDAO {
                                 .roomId(rs.getInt("room_id"))
                                 .build())
                         .apartmentId(rs.getInt("apartment_id"))
-                        .vehicleLicenseaPlate(rs.getString("vehicle_licensea_plate"))
+                        .vehicleLicensePlate(rs.getString("vehicle_license_plate"))
                         .vehicleDescription(rs.getString("vehicle_description"))
                         .build();
                 return obj;
@@ -99,11 +99,11 @@ public class VehicleDAO {
 
     public boolean add(Vehicle obj) {
         int check = 0;
-        String sql = "INSERT INTO vehicle(vehicle_type_id, vehicle_licensea_plate, vehicle_description,tenant_id,room_id,apartment_id)"
+        String sql = "INSERT INTO vehicle(vehicle_type_id, vehicle_license_plate, vehicle_description,tenant_id,room_id,apartment_id)"
                 + " VALUES(?, ?, ?, ?, ?, ?)";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, obj.getVehicleType().getVehicleTypeId());
-            ps.setObject(2, obj.getVehicleLicenseaPlate());
+            ps.setObject(2, obj.getVehicleLicensePlate());
             ps.setObject(3, obj.getVehicleDescription());
             ps.setObject(4, obj.getTenant().getTenantId());
             ps.setObject(5, obj.getRoom().getRoomId());
@@ -117,10 +117,10 @@ public class VehicleDAO {
 
     public boolean update(Vehicle obj, int vehicleId) {
         int check = 0;
-        String query = "UPDATE vehicle Set vehicle_licensea_plate = ? WHERE vehicle_id = ?";
+        String query = "UPDATE vehicle Set vehicle_license_plate = ? WHERE vehicle_id = ?";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
 
-            ps.setObject(1, obj.getVehicleLicenseaPlate());
+            ps.setObject(1, obj.getVehicleLicensePlate());
             ps.setObject(3, vehicleId);
             check = ps.executeUpdate();
 

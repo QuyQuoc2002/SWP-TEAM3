@@ -129,7 +129,7 @@
                                                             <div class="tag">1 xe đạp</div>
                                                             <div class="tag">1 xe máy</div>
                                                             <a class="tag a-none" href="javascript:void(0)" data-bs-toggle="modal"
-                                                               data-bs-target="#add-vehical">Thêm</a>
+                                                               data-bs-target="#add-vehicle">Thêm</a>
                                                             <a class="tag a-none" href="javascript:void(0)" data-bs-toggle="modal"
                                                                data-bs-target="#delete-vehical">Xóa</a>
                                                         </div>
@@ -160,7 +160,7 @@
         </div>
 
         <!-------------------------------------------MODAL-------------------------------------------->
-        <%@include file="component/modal/modal-delete-account-staff.jsp"%>
+        <%@include file="component/modal/add-vehicle.jsp"%>
 
         <!-------------------------------------------JS-------------------------------------------->
         <script src="assets/js/bootstrap.bundle.js"></script>

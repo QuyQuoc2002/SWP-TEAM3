@@ -25,6 +25,6 @@ public class Vehicle {
     private VehicleType vehicleType;
     private Tenant tenant;
     private Room room;
-    private String vehicleLicenseaPlate;
+    private String vehicleLicensePlate;
     private String vehicleDescription;
 }
