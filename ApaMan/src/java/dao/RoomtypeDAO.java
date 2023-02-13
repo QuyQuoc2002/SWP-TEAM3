@@ -99,14 +99,16 @@ public class RoomtypeDAO {
 
     public boolean updateRoomtype(Roomtype obj) {
         int check = 0;
-        String query = "UPDATE roomtype Set roomtype_name = ?, roomtype_max_member = ?, roomtype_cost = ?, roomtype_area = ? WHERE roomtype_id = ?";
+        String query = "UPDATE roomtype Set roomtype_name = ?, roomtype_max_member = ?, roomtype_cost = ?, roomtype_area = ?, roomtype_room_quantity = ? WHERE roomtype_id = ?";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
 
             ps.setObject(1, obj.getRoomtypeName());
             ps.setObject(2, obj.getRoomtypeMaxMember());
             ps.setObject(3, obj.getRoomtypeCost());
             ps.setObject(4, obj.getRoomtypeArea());
-            ps.setObject(5, obj.getRoomtypeId());
+            ps.setObject(5, obj.getRoomtypeRoomQuantity());
+            ps.setObject(6, obj.getRoomtypeId());
+            
             check = ps.executeUpdate();
 
         } catch (SQLException e) {

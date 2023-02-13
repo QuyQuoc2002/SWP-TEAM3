@@ -15,7 +15,7 @@
                     <input type="hidden" name="apartmentId" value="${requestScope.roomtype.apartmentId}">
                     <div class="row">
                         <div class="col-6">
-                            <button class="btn btn-primary py-3 w-100 mb-4" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary py-3 w-100 mb-4" data-bs-dismiss="modal">Close</button>
                         </div>
                         <div class="col-6">
                             <input class="btn btn-danger py-3 w-100 mb-4" type="submit" name="submitType" value="Delete">

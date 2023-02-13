@@ -44,11 +44,11 @@ public class FloorDAO {
         return null;
     }
 
-    public Floor getOne(int apartmentId) {
+    public Floor getOne(int floorId) {
         String sql = "SELECT * FROM floor WHERE floor_id = ?";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
-            ps.setObject(1, apartmentId);
+            ps.setObject(1, floorId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Floor obj = Floor.builder()

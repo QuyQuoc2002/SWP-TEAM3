@@ -20,8 +20,8 @@ public class FloorService {
         return floorDAO.getAll(apartmentId);
     }
     
-    public Floor getOne(int apartmentId) {
-        return floorDAO.getOne(apartmentId);
+    public Floor getOne(int floorId) {
+        return floorDAO.getOne(floorId);
     }
     
     public boolean add(Floor obj) {

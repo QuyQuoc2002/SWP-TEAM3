@@ -6,6 +6,7 @@ package controller.host;
 
 import constant.IConst;
 import entity.Account;
+import entity.Floor;
 import entity.Role;
 import entity.Room;
 import entity.Roomtype;
@@ -22,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import service.AccountService;
+import service.FloorService;
 import service.RoomService;
 import service.RoomtypeImgBannerService;
 import service.RoomtypeService;
@@ -113,6 +115,7 @@ public class PageRoomController extends HttpServlet {
             RoomtypeService roomtypeService = new RoomtypeService();
             AccountService accountService = new AccountService();
             TenantService tenantService = new TenantService();
+            FloorService floorService = new FloorService();
 
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
@@ -143,43 +146,56 @@ public class PageRoomController extends HttpServlet {
                         .build();
                 int addRoomSuccess = roomService.add(room);
 
-                int maxMember = roomtypeService.getOne(roomtypeId, apartmentId).getRoomtypeMaxMember();
-                
-                //create tenant
-                List<Tenant> addTenants = new ArrayList<>();
+                Floor floor = floorService.getOne(floorId);
+                floor.setFloorRoomQuantity(floor.getFloorRoomQuantity() + 1);
+                boolean updateFloorSuccess = floorService.updateFloor(floor);
 
-                for (int i = 0; i < maxMember; i++) {
+                Roomtype roomtype = roomtypeService.getOne(roomtypeId, apartmentId);
+                roomtype.setRoomtypeRoomQuantity(roomtype.getRoomtypeRoomQuantity() + 1);
+                boolean updateRoomtypeSuccess = roomtypeService.updateRoomtype(roomtype);
 
-                    String tenantUsername = roomName + "Tenant" + (i+1);
-                    
-                    //create account
-                    Account account = Account.builder()
-                            .apartmentId(apartmentId)
-                            .accountUsername(tenantUsername)
-                            .accountPassword(Cypher.generateData())
-                            .accountAccessible(false)
-                            .role(Role.builder()
-                                    .roleId(IConst.ROLE_TENANT_ID)
-                                    .build()
-                            )
-                            .build();
-                    int accountId = accountService.add(account);
+                if (updateFloorSuccess && updateRoomtypeSuccess) {
 
-                    Room roomx = Room.builder()
-                            .roomId(addRoomSuccess)
-                            .roomName(roomName)
-                            .build();
+                    int maxMember = roomtypeService.getOne(roomtypeId, apartmentId).getRoomtypeMaxMember();
 
-                    Tenant tenant = Tenant.builder()
-                            .room(roomx)
-                            .account(Account.builder().accountId(accountId).build())
-                            .build();
-                    addTenants.add(tenant);
-                }
-                boolean addTenantsSuccess = tenantService.add(addTenants);
+                    //create tenant
+                    List<Tenant> addTenants = new ArrayList<>();
 
-                if (addTenantsSuccess ) {
-                    session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Room Success|edit-room");
+                    for (int i = 0; i < maxMember; i++) {
+
+                        String tenantUsername = roomName + "Tenant" + (i + 1);
+
+                        //create account
+                        Account account = Account.builder()
+                                .apartmentId(apartmentId)
+                                .accountUsername(tenantUsername)
+                                .accountPassword(Cypher.generateData())
+                                .accountAccessible(false)
+                                .role(Role.builder()
+                                        .roleId(IConst.ROLE_TENANT_ID)
+                                        .build()
+                                )
+                                .build();
+                        int accountId = accountService.add(account);
+
+                        Room roomx = Room.builder()
+                                .roomId(addRoomSuccess)
+                                .roomName(roomName)
+                                .build();
+
+                        Tenant tenant = Tenant.builder()
+                                .room(roomx)
+                                .account(Account.builder().accountId(accountId).build())
+                                .build();
+                        addTenants.add(tenant);
+                    }
+                    boolean addTenantsSuccess = tenantService.add(addTenants);
+
+                    if (addTenantsSuccess) {
+                        session.setAttribute("messageUpdate", "success|APAMAN Notification|Add Room Success|edit-room");
+                    } else {
+                        session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Room Fail|edit-room");
+                    }
                 } else {
                     session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Room Fail|edit-room");
                 }

@@ -12,7 +12,7 @@
                 </div>
                 <form id="add-room-form" action="floor-room" method="post">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control bg-dark" id="add-name-room" name="roomName">
+                    <input type="text" class="form-control bg-dark text-white"  id="add-name-room" name="roomName">
                     <label for="floatingInput" >Room Name</label>
                 </div>
                 <!-- <div class="form-floating mb-3"> -->
@@ -29,7 +29,7 @@
                 <!-- </div> -->
                 <div class="row">
                     <div class="col-6">
-                        <button type="submit" class="btn btn-danger py-3 w-100 mb-4"
+                        <button type="button" class="btn btn-danger py-3 w-100 mb-4"
                                 data-bs-dismiss="modal">Close</button>
                     </div>
                     <div class="col-6">

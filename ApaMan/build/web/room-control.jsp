@@ -69,14 +69,11 @@
                 <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">APARTMENT ROOM CONTROL</div>
                 <div id="room" class="container-fluid pt-4 px-4">
                     <div class="d-flex justify-content-around text-uppercase mb-5 info">
-                        <h3>100 Rooms</h3>
                         <h3>4 Floors</h3>
-                        <a class="a-none" href="">
-                            <h3>Add Room</h3>
-                        </a>
-                        <a class="a-none" href="">
-                            <h3>Add Floor</h3>
-                        </a>
+                        <h3>20 Rooms</h3>
+                        <h3>3 Room Type</h3>
+                        <h3>100 Tenant</h3>
+                        <h3>10 Staff</h3>
                     </div>
                     <div class="row">
                         <div class="col-4 mb-4">
