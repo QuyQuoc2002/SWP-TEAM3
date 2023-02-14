@@ -41,6 +41,11 @@
     <!-- body -->
 
     <body class="main-layout">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            </div>
+        </div>
+        
 
         <!-- header -->
         <header>
@@ -105,6 +110,7 @@
         <!-- end header -->
         <!-- banner -->
         <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">${requestScope.apartment.apartmentName}</div>
+        
         <section>
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                 <div class="carousel-inner">
@@ -687,6 +693,17 @@
         </c:forEach>
         <script src="assets/js/viewmore-room-hompage.js"></script>
         <script src="assets/js/review-homepage.js"></script>
+        
+        <script src="assets/js/toast.js"></script>
+        <script src="assets/js/main.js"></script>
+        <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
+        <script>
+                                        const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+                                        if (messageUpdate !== 'null') {
+                                            const words = messageUpdate.split("|");
+                                            showToast(words[0], words[1], words[2]);
+                                        }
+        </script>
 
 
         <script src="assets/js/bootstrap.bundle.js"></script>
@@ -702,5 +719,8 @@
                     $('#example3').DataTable();
                 });</script>
     </body>
+    <%
+            request.getSession().removeAttribute("messageUpdate");
+    %>
 
 </html>
