@@ -25,6 +25,7 @@
         <!-- style css -->
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/common.css">
+        <link rel="stylesheet" href="assets/css/table.css">
         <link rel="stylesheet" href="assets/css/hompage.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <!-- fevicon -->
@@ -157,11 +158,12 @@
                         </div>
                         <div class="controls row">
                             <div class="col-4">
-                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#rooms"
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view-all-room"
                                    class="btn btn-secondary w-100">Tất Cả Các Phòng</a>
                             </div>
                             <div class="col-4">
-                                <a href="javascript:void(0)" class="btn btn-secondary w-100">Các Phòng Còn Trống</a>
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view-empty-room"
+                                   class="btn btn-secondary w-100">Các Phòng Còn Trống</a>
                             </div>
                             <div class="col-4">
                                 <a href="javascript:void(0)" class="btn btn-secondary w-100">Đang Tìm Roommate</a>
@@ -638,119 +640,8 @@
 
         <!--Modal-->
         <!--Room-->
-        <div class="modal fade" id="rooms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-hidden="true" style="margin-top: 5px;">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content bg-secondary-cus">
-                    <div class="rounded my-4 mx-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
-                                <h3 class="text-primary-cus">Phenika Apartment</h3>
-                            </a>
-                            <a data-bs-dismiss="modal" style="cursor: pointer; font-size: 20px;"><i class="fa-solid fa-xmark"></i></a>
-                        </div>
-                        <table id="example" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tầng</th>
-                                    <th>Phòng</th>
-                                    <th>Loại Phòng</th>
-                                    <th>Trạng Thái</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                                <tr>
-                                    <td>#00001</td>
-                                    <td>Tầng 1</td>
-                                    <td>105</td>
-                                    <td>LP2</td>
-                                    <td>Trống</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- </div> -->
-                        <!-- <div class="row">
-                           <div class="col-12">
-                              <button type="submit" class="btn btn-danger py-3 w-100 mb-4" data-bs-dismiss="modal">Đóng</button>
-                           </div>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <%@include file="component/modal/view-all-room.jsp" %>
+        <%@include file="component/modal/view-empty-room.jsp" %>
         <!--EndRoom-->
         <!-- end footer -->
         <!-- Javascript files-->
@@ -801,6 +692,12 @@
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
         <script>$(document).ready(function () {
                     $('#example').DataTable();
+                });</script>
+        <script>$(document).ready(function () {
+                    $('#example2').DataTable();
+                });</script>
+        <script>$(document).ready(function () {
+                    $('#example3').DataTable();
                 });</script>
     </body>
 

@@ -6,6 +6,8 @@ package controller.common;
 
 import entity.Apartment;
 import entity.ApartmentImgBanner;
+import entity.Floor;
+import entity.Room;
 import entity.Roomtype;
 import entity.RoomtypeImgBanner;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import service.ApartmentImgBannerService;
 import service.ApartmentService;
+import service.FloorService;
+import service.RoomService;
 import service.RoomtypeImgBannerService;
 import service.RoomtypeService;
 
@@ -46,13 +50,18 @@ public class PageHomepageController extends HttpServlet {
             ApartmentImgBannerService apartmentImgBannerService = new ApartmentImgBannerService();
             RoomtypeService roomtypeService = new RoomtypeService();
             RoomtypeImgBannerService roomtypeImgBannerService = new RoomtypeImgBannerService();
+            RoomService roomService = new RoomService();
+            FloorService floorService = new FloorService();
 
             int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
             Apartment apartment = apartmentService.getOne(apartmentId, true);
 
             List<ApartmentImgBanner> apartmentImgBanners = apartmentImgBannerService.getAll(apartmentId);
             List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
-
+            
+            List<Room> allRoom = roomService.getAll(apartmentId);
+            List<Floor> allFloor = floorService.getAll(apartmentId);
+            List<Room> emptyRoom = roomService.getAllStatus(apartmentId,1);
             
 
             for (Roomtype roomtype : roomtypes) {
@@ -62,6 +71,11 @@ public class PageHomepageController extends HttpServlet {
 
             request.setAttribute("apartment", apartment);
             request.setAttribute("apartmentImgBanners", apartmentImgBanners);
+            
+            request.setAttribute("allRoom", allRoom);
+            request.setAttribute("emptyRoom", emptyRoom);
+            System.out.println(emptyRoom);
+            request.setAttribute("allFloor", allFloor);
 
             request.setAttribute("roomtypes", roomtypes);
 

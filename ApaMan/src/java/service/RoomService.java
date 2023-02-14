@@ -32,6 +32,10 @@ public class RoomService {
         return roomDAO.getAll(apartmentId);
     }
     
+    public List<Room> getAllStatus( int apartmentId, int roomStatusId) {
+        return roomDAO.getAllStatus(apartmentId,roomStatusId);
+    }
+    
     public Room getOne(int roomId, int apartmentId) {
         return roomDAO.getOne(roomId,apartmentId);
     }
