@@ -42,7 +42,7 @@
 
                 <div class="container-fluid pt-4 px-4">
                     <button class="btn btn-dark-cus mb-3">
-                        Tiến Hành lấy số điện, số nước
+                        Proceed to get electricity, water number
                     </button>
                     <div class="bg-secondary-cus rounded p-4" style="margin-bottom: 70px">
                         <table id="example" class="display" style="width:100%">

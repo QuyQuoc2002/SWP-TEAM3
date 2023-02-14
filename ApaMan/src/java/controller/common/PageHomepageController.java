@@ -74,7 +74,6 @@ public class PageHomepageController extends HttpServlet {
             
             request.setAttribute("allRoom", allRoom);
             request.setAttribute("emptyRoom", emptyRoom);
-            System.out.println(emptyRoom);
             request.setAttribute("allFloor", allFloor);
 
             request.setAttribute("roomtypes", roomtypes);

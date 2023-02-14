@@ -5,6 +5,7 @@
 package controller.host;
 
 import entity.Account;
+import entity.Room;
 import entity.Tenant;
 import entity.Vehicle;
 import entity.VehicleType;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import service.AccountService;
+import service.RoomService;
 import service.TenantService;
 import service.VehicleService;
 import service.VehicleTypeService;
@@ -74,21 +76,25 @@ public class RoomMemberController extends HttpServlet {
             TenantService tenantService = new TenantService();
             VehicleTypeService vehicleTypeService = new VehicleTypeService();
             VehicleService vehicleService = new VehicleService();
-            
+            RoomService roomService = new RoomService();
+
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
 
             int roomId = Integer.parseInt(request.getParameter("roomId"));
 
+            Room room = roomService.getOne(roomId, apartmentId);
+            request.setAttribute("room", room);
+
             List<Tenant> tenants = tenantService.getAll(roomId, apartmentId);
             request.setAttribute("tenants", tenants);
-            
+
             List<VehicleType> vehicleTypes = vehicleTypeService.getAll();
             request.setAttribute("vehicleTypes", vehicleTypes);
-            
+
             List<Vehicle> vehicles = vehicleService.getAll(apartmentId);
             request.setAttribute("vehicles", vehicles);
-            
+
             request.getRequestDispatcher("room-member.jsp").forward(request, response);
         }
     }
@@ -105,18 +111,23 @@ public class RoomMemberController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            HttpSession session = request.getSession();
-            Account curAccount = (Account) session.getAttribute("curAccount");
-            AccountService accountService = new AccountService();
-            TenantService tenantService = new TenantService();
-            
+        HttpSession session = request.getSession();
+        Account curAccount = (Account) session.getAttribute("curAccount");
+        int apartmentId = curAccount.getApartmentId();
+        AccountService accountService = new AccountService();
+        TenantService tenantService = new TenantService();
+        RoomService roomService = new RoomService();
+
+        String submitType = request.getParameter("submitType");
+        if (submitType.equals("UpdateTenant")) {
+
             int tenantId = Integer.parseInt(request.getParameter("tenantId"));
             int accountId = Integer.parseInt(request.getParameter("accountId"));
             int roomId = Integer.parseInt(request.getParameter("roomId"));
 
             String password = request.getParameter("password");
             boolean accountAccessible = request.getParameter("accountAccessible") != null;
-            
+
             String tenantCountryside = request.getParameter("tenantCountryside");
             String tenantDob = request.getParameter("tenantDob");
             String tenantPhoneNumber = request.getParameter("tenantPhoneNumber");
@@ -142,9 +153,26 @@ public class RoomMemberController extends HttpServlet {
                 session.setAttribute("messageUpdate", "success|Update|Update Success");
             } else {
                 session.setAttribute("messageUpdate", "error|Update|Update Fail");
-           }
+            }
+            response.sendRedirect("room-member?roomId=" + roomId);
+        }
 
-            response.sendRedirect("room-member?roomId="+roomId);
+        if (submitType.equals("UpdateRoom")) {
+
+            int roomId = Integer.parseInt(request.getParameter("roomId"));
+            boolean findRoommate = request.getParameter("findRoommate") != null;
+
+            Room room = roomService.getOne(roomId, apartmentId);
+            room.setFindRoommate(findRoommate);
+            boolean updateRoomSuccess = roomService.update(room);
+
+            if (updateRoomSuccess) {
+                session.setAttribute("messageUpdate", "success|Update|Update Success");
+            } else {
+                session.setAttribute("messageUpdate", "error|Update|Update Fail");
+            }
+            response.sendRedirect("room-member?roomId=" + roomId);
+        }
 
     }
 

@@ -39,25 +39,35 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="top-side d-flex justify-content-between">
                         <div>
-                            <div class="btn btn-dark-cus mb-3">Phòng 105</div>
-                            <a href="room-member.html" class="btn btn-dark-cus mb-3 ms-3 select">
-                                Thành viên
+                            <div class="btn btn-dark-cus mb-3">
+                                <a href="floor-room?floorId=${room.floorId}" class="a-none btn-dark-cus select">${room.roomName}</a></div>
+                            <a class="btn btn-dark-cus mb-3 ms-3 select">
+                                Members
                             </a>
                             <a href="room-we-index.html" class="btn btn-dark-cus mb-3 ms-3">
-                                Lịch sử số nước, số điện
+                                History of water and electricity
                             </a>       
                         </div>
-                        <div class="d-flex">
-                            <h4 class="text-wheat">Find Roomate</h4>
-                            <label class="switch ms-3">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
+                            <form action="room-member" method="post">
+                            <div class="d-flex">
+
+                                <h4 class="text-wheat">Find Roomate</h4>
+                                <label class="switch ms-3">
+
+                                    <input type="checkbox" name="findRoommate" <c:if test="${room.findRoommate}"> checked</c:if>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input hidden name="roomId" value="${room.roomId}">
+                                    <input hidden name="submitType" value="UpdateRoom">
+                                    <button class="btn btn-primary w-10" type="submit">Save</button>
+
+                                </div>
+                        </form>
                     </div>
 
 
-                    <div id="cards" class="row">
+                        <div id="cards" class="row">
 
                         <c:forEach items="${tenants}" var="tenant">
                             <div class="col-4 mb-4" id="tenant-infor">
@@ -132,9 +142,9 @@
                                                                 </c:if>
                                                             </c:forEach>
                                                             <a class="tag a-none" onclick="GetTenantId(${tenant.tenantId},${tenant.room.roomId})" data-bs-toggle="modal"
-                                                               data-bs-target="#add-vehicle">Thêm</a>
+                                                               data-bs-target="#add-vehicle">Add</a>
                                                             <a class="tag a-none" href="javascript:void(0)" data-bs-toggle="modal"
-                                                               data-bs-target="#delete-vehical">Xóa</a>
+                                                               data-bs-target="#delete-vehical">Delete</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,6 +153,7 @@
                                             <div class="action mt-2">
                                                 <div class="row">
                                                     <div class="col-6">
+                                                        <input hidden name="submitType" id="submitType">
                                                         <button class="btn btn-primary w-100" onclick="validateTenantInfo${tenant.tenantId}();" type="button">Save</button>
                                                     </div>
                                                     <div class="col-6">
@@ -236,6 +247,7 @@
                 if (errorStr !== '<ol></ol>') {
                     showToast("error", 'Error Validate', errorStr);
                 } else {
+                    document.getElementById("submitType").value='UpdateTenant';
                     document.getElementById("update-tenant-form${tenant.tenantId}").submit();
                 }
             }

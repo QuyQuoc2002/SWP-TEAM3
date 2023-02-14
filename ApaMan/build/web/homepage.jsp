@@ -159,14 +159,15 @@
                         <div class="controls row">
                             <div class="col-4">
                                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view-all-room"
-                                   class="btn btn-secondary w-100">Tất Cả Các Phòng</a>
+                                   class="btn btn-secondary w-100">All Rooms</a>
                             </div>
                             <div class="col-4">
                                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view-empty-room"
-                                   class="btn btn-secondary w-100">Các Phòng Còn Trống</a>
+                                   class="btn btn-secondary w-100">All Empty Rooms</a>
                             </div>
                             <div class="col-4">
-                                <a href="javascript:void(0)" class="btn btn-secondary w-100">Đang Tìm Roommate</a>
+                                <a href="javascript:void(0)" ata-bs-toggle="modal" data-bs-target="#view-find-room"
+                                   class="btn btn-secondary w-100">Find Roommate</a>
                             </div>
                         </div>
                     </div>
@@ -642,6 +643,7 @@
         <!--Room-->
         <%@include file="component/modal/view-all-room.jsp" %>
         <%@include file="component/modal/view-empty-room.jsp" %>
+        <%@include file="component/modal/view-find-room.jsp" %>
         <!--EndRoom-->
         <!-- end footer -->
         <!-- Javascript files-->

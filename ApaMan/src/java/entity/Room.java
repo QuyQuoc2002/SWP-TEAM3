@@ -26,5 +26,6 @@ public class Room {
     private int floorId;
     private int apartmentId;
     private RoomStatus roomStatus;
+    private boolean findRoommate;
     
 }

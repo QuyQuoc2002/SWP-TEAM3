@@ -44,6 +44,10 @@ public class RoomService {
         return roomDAO.add(obj);
     }
     
+    public boolean update(Room obj) {
+        return roomDAO.update(obj);
+    }
+    
     public boolean updateRooms(List<Room> list) {
         return roomDAO.updateRooms(list);
     }
