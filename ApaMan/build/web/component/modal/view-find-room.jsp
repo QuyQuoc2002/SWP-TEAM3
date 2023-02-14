@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${requestScope.emptyRoom}" var="room" varStatus="i">
+                        <c:forEach items="${requestScope.findRoomates}" var="room" varStatus="i">
                             <tr>
                                 <td>${i.count}</td>
                                 

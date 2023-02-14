@@ -36,6 +36,10 @@ public class RoomService {
         return roomDAO.getAllStatus(apartmentId,roomStatusId);
     }
     
+    public List<Room> getFindRoommate( int apartmentId, boolean findRoommate) {
+        return roomDAO.getFindRoommate(apartmentId,findRoommate);
+    }
+    
     public Room getOne(int roomId, int apartmentId) {
         return roomDAO.getOne(roomId,apartmentId);
     }

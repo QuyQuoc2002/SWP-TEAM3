@@ -189,6 +189,49 @@ public class RoomDAO {
         }
         return null;
     }
+    
+    public List<Room> getFindRoommate(int apartmentId, boolean findRoomate) {
+
+        String sql = "SELECT "
+                + "r.room_id,"
+                + "r.room_name,"
+                + "r.roomtype_id,"
+                + "r.floor_id,"
+                + "r.apartment_id,"
+                + "r.room_status_id,"
+                + "r.find_roommate,"
+                + "rs.room_status_description \n"
+                + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "WHERE r.apartment_id = ? AND r.find_roommate = ? ;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ps.setObject(2, findRoomate);
+            ResultSet rs = ps.executeQuery();
+
+            List<Room> list = new ArrayList<>();//
+            while (rs.next()) {
+                Room obj = Room.builder()
+                        .roomId(rs.getInt("room_id"))
+                        .roomName(rs.getString("room_name"))
+                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .floorId(rs.getInt("floor_id"))
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .roomStatus(RoomStatus.builder()
+                                .roomStatusId(rs.getInt("room_status_id"))
+                                .roomStatusDescription(rs.getString("room_status_description"))
+                                .build()
+                        )
+                        .findRoommate(rs.getBoolean("find_roommate"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
 
     public Room getOne(int roomId, int apartmentId) {
         String sql = "SELECT "

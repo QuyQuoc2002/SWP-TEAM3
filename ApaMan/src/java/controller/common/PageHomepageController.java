@@ -17,7 +17,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import service.ApartmentImgBannerService;
 import service.ApartmentService;
@@ -62,6 +61,8 @@ public class PageHomepageController extends HttpServlet {
             List<Room> allRoom = roomService.getAll(apartmentId);
             List<Floor> allFloor = floorService.getAll(apartmentId);
             List<Room> emptyRoom = roomService.getAllStatus(apartmentId,1);
+            List<Room> findRoomates = roomService.getFindRoommate(apartmentId,true);
+            System.out.println(findRoomates);
             
 
             for (Roomtype roomtype : roomtypes) {
@@ -74,6 +75,7 @@ public class PageHomepageController extends HttpServlet {
             
             request.setAttribute("allRoom", allRoom);
             request.setAttribute("emptyRoom", emptyRoom);
+            request.setAttribute("findRoomates", findRoomates);
             request.setAttribute("allFloor", allFloor);
 
             request.setAttribute("roomtypes", roomtypes);
