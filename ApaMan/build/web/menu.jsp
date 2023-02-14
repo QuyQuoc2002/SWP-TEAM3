@@ -76,7 +76,7 @@
                         </a>
                     </div>
                     <div class="col-4 mb-4">
-                        <a href="vehical.html">
+                        <a href="vehicles">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
                                 <div class="card-feature-content">
                                     <i class="fa-solid fa-motorcycle text-primary-cus"></i>

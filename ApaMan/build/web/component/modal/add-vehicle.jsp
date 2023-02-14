@@ -15,7 +15,11 @@
                     <h3 class="text-primary-cus"><i class="fa fa-user-edit me-2"></i>Add Vehicle</h3>
                     <a data-bs-dismiss="modal" style="cursor: pointer; font-size: 20px;"><i class="fa-solid fa-xmark"></i></a>
                 </div>
-                <form id="add-vehicle-form" action="vehicle-manage" method="post">
+                <form id="add-vehicle-form" action="vehicle-manage" method="post" enctype="multipart/form-data">
+                    <!--<div class="form-floating mb-3">-->
+                        <input type="file" name="file" lang="en" class="btn btn-dark-cus" size="60" required="">
+                        <label for="floatingInput">Image</label>
+                    <!--</div>-->
                     <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="vehicleTypeId" ">
                         <c:forEach items="${vehicleTypes}" var="vehicleType">
                             <option value="${vehicleType.vehicleTypeId}" >${vehicleType.vehicleTypeName}</option>
@@ -31,10 +35,7 @@
                         <input type="text" class="form-control bg-dark" name="vehicleLicensePlate">
                         <label for="floatingInput">License Plate</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" name="vehicleImgPath">
-                        <label for="floatingInput">Image</label>
-                    </div>
+
 
 
                     <div class="row">

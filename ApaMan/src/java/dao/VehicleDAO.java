@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,11 +158,11 @@ public class VehicleDAO {
         return null;
     }
 
-    public boolean add(Vehicle obj) {
+    public int add(Vehicle obj) {
         int check = 0;
         String sql = "INSERT INTO vehicle(vehicle_type_id, vehicle_license_plate, vehicle_description,tenant_id,room_id,apartment_id,vehicle_img_path)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?)";
-        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS) : null;) {
             ps.setObject(1, obj.getVehicleType().getVehicleTypeId());
             ps.setObject(2, obj.getVehicleLicensePlate());
             ps.setObject(3, obj.getVehicleDescription());
@@ -170,19 +171,37 @@ public class VehicleDAO {
             ps.setObject(6, obj.getApartmentId());
             ps.setObject(7, obj.getVehicleImgPath());
             check = ps.executeUpdate();
+            if (check > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-        return check > 0;
+        return 0;
     }
 
     public boolean update(Vehicle obj, int vehicleId) {
         int check = 0;
-        String query = "UPDATE vehicle Set vehicle_license_plate = ? WHERE vehicle_id = ?";
+        String query = "UPDATE vehicle Set vehicle_type_id = ?, "
+                + "vehicle_license_plate = ? , "
+                + "vehicle_description = ? ,"
+                + "tenant_id = ? ,"
+                + "room_id = ? ,"
+                + "apartment_id = ?,"
+                + "vehicle_img_path = ?"
+                + "WHERE vehicle_id = ?";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
 
-            ps.setObject(1, obj.getVehicleLicensePlate());
-            ps.setObject(3, vehicleId);
+            ps.setObject(1, obj.getVehicleType().getVehicleTypeId());
+            ps.setObject(2, obj.getVehicleLicensePlate());
+            ps.setObject(3, obj.getVehicleDescription());
+            ps.setObject(4, obj.getTenant().getTenantId());
+            ps.setObject(5, obj.getRoom().getRoomId());
+            ps.setObject(6, obj.getApartmentId());
+            ps.setObject(7, obj.getVehicleImgPath());
+            ps.setObject(8, vehicleId);
             check = ps.executeUpdate();
 
         } catch (SQLException e) {

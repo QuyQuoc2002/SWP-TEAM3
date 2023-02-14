@@ -24,7 +24,7 @@ public class VehicleService {
         return vehicleDAO.getAll(tenantId,apartmentId);
     }
     
-    public boolean add(Vehicle obj) {
+    public int add(Vehicle obj) {
         return vehicleDAO.add(obj);
     }
 
