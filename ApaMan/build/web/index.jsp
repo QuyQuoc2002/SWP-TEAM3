@@ -142,7 +142,7 @@
                                     </figure>
                                 </div>
                                 <div class="blog_room" style="color: black;">
-                                    <a href="homepage.html">
+                                    <a href="homepage?apartmentId=${apartment.apartmentId}">
                                         <h3>${apartment.apartmentName}</h3>
                                     </a>
                                     <span>${apartment.apartmentAddress}</span>

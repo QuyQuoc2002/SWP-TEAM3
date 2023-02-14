@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
     footer {
         bottom: 0;
@@ -174,11 +175,18 @@
             <div class="right section">
                 <h2>Subscribe</h2>
                 <div class="content-footer">
-                    <form action="#">
+                    <form action="subscriber" method="post">
                         <div class="email">
                             <div class="text">Email</div>
                         </div>
-                        <input type="email" required>
+                        <c:if test="${requestScope.apartment.apartmentId != null}">
+                        <input hidden value="${requestScope.apartment.apartmentId}" name="apartmentId">
+                        <input hidden name="page" value="homePage">
+                        </c:if>
+                        <c:if test="${requestScope.apartment.apartmentId == null}">
+                            <input hidden name="page" value="index">
+                        </c:if>
+                        <input type="email" name="subscriberEmail" required>
                         <div class="btn-footer">
                             <button type="submit">SUBSCRIBE</button>
                         </div>
