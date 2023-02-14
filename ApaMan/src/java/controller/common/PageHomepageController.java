@@ -4,8 +4,10 @@
  */
 package controller.common;
 
+import entity.Account;
 import entity.Apartment;
 import entity.ApartmentImgBanner;
+import entity.Contact;
 import entity.Floor;
 import entity.Room;
 import entity.Roomtype;
@@ -17,9 +19,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import service.ApartmentImgBannerService;
 import service.ApartmentService;
+import service.ContactService;
 import service.FloorService;
 import service.RoomService;
 import service.RoomtypeImgBannerService;
@@ -57,13 +61,12 @@ public class PageHomepageController extends HttpServlet {
 
             List<ApartmentImgBanner> apartmentImgBanners = apartmentImgBannerService.getAll(apartmentId);
             List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
-            
+
             List<Room> allRoom = roomService.getAll(apartmentId);
             List<Floor> allFloor = floorService.getAll(apartmentId);
-            List<Room> emptyRoom = roomService.getAllStatus(apartmentId,1);
-            List<Room> findRoomates = roomService.getFindRoommate(apartmentId,true);
+            List<Room> emptyRoom = roomService.getAllStatus(apartmentId, 1);
+            List<Room> findRoomates = roomService.getFindRoommate(apartmentId, true);
             System.out.println(findRoomates);
-            
 
             for (Roomtype roomtype : roomtypes) {
                 List<RoomtypeImgBanner> roomtypeImgBanners = roomtypeImgBannerService.getAll(roomtype.getRoomtypeId());
@@ -72,7 +75,7 @@ public class PageHomepageController extends HttpServlet {
 
             request.setAttribute("apartment", apartment);
             request.setAttribute("apartmentImgBanners", apartmentImgBanners);
-            
+
             request.setAttribute("allRoom", allRoom);
             request.setAttribute("emptyRoom", emptyRoom);
             request.setAttribute("findRoomates", findRoomates);
@@ -111,6 +114,35 @@ public class PageHomepageController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            ContactService contactService = new ContactService();
+
+            int apartmentId = Integer.parseInt(request.getParameter("apartmentId"));
+            String contactName = request.getParameter("contactName");
+            String contactEmail = request.getParameter("contactEmail");
+            String contactPhone = request.getParameter("contactPhone");
+            String contactMessage = request.getParameter("contactMessage");
+
+            Contact contact = Contact.builder()
+                    .apartmentId(apartmentId)
+                    .contactName(contactName)
+                    .contactEmail(contactEmail)
+                    .contactPhone(contactPhone)
+                    .contactMessage(contactMessage)
+                    .build();
+            boolean addContactSuccess = contactService.add(contact);
+
+            if (addContactSuccess) {
+                session.setAttribute("messageUpdate", "success|APAMAN Notification|Send Message Success|edit-contact");
+            } else {
+                session.setAttribute("messageUpdate", "error|APAMAN Notification|Send Message Fail|edit-contact");
+            }
+
+            doGet(request, response);
+
+        }
     }
 
     /**

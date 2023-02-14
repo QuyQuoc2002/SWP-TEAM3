@@ -14,15 +14,14 @@ import java.util.List;
  */
 public class ContactService {
     
-    private ContactDAO CcntactDAO = new ContactDAO();
+    private ContactDAO ContactDAO = new ContactDAO();
     
     public List<Contact> getAll(int apartmentId) {
-        return CcntactDAO.getAll(apartmentId);
+        return ContactDAO.getAll(apartmentId);
     }
     
-    
     public boolean add(Contact obj) {
-        return CcntactDAO.add(obj);
+        return ContactDAO.add(obj);
     }
     
 }
