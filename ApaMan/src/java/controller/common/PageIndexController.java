@@ -65,11 +65,13 @@ public class PageIndexController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             List<City> cities = new CityService().getAll();
             List<District> districts = new DistrictService().getAll();
-            List<Apartment> apartments = new ApartmentService().getAll(0);
+            List<Apartment> apartmentTop = new ApartmentService().getAll(0);
 
-            request.setAttribute("apartments", apartments);
+            request.setAttribute("apartmentTop", apartmentTop);
             request.setAttribute("cities", cities);
             request.setAttribute("districts", districts);
+            request.setAttribute("selectType", false);
+            request.setAttribute("textType", true);
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
@@ -106,6 +108,8 @@ public class PageIndexController extends HttpServlet {
 
                     request.setAttribute("districtId", districtId);
                     request.setAttribute("apartments", apartments);
+                    request.setAttribute("selectType", false);
+                    request.setAttribute("textType", true);
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                     break;
 
@@ -115,6 +119,8 @@ public class PageIndexController extends HttpServlet {
                     
                     request.setAttribute("keyWord", keyWord);
                     request.setAttribute("apartments", listApartment);
+                    request.setAttribute("selectType", true);
+                    request.setAttribute("textType", false);
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                     break;
 
