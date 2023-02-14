@@ -124,6 +124,7 @@ public class RoomMemberController extends HttpServlet {
             int tenantId = Integer.parseInt(request.getParameter("tenantId"));
             int accountId = Integer.parseInt(request.getParameter("accountId"));
             int roomId = Integer.parseInt(request.getParameter("roomId"));
+            System.out.println(roomId);
 
             String password = request.getParameter("password");
             boolean accountAccessible = request.getParameter("accountAccessible") != null;

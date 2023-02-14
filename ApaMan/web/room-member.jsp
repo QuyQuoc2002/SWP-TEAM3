@@ -153,7 +153,7 @@
                                             <div class="action mt-2">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input hidden name="submitType" id="submitType">
+                                                        <input hidden name="submitType" value="UpdateTenant">
                                                         <button class="btn btn-primary w-100" onclick="validateTenantInfo${tenant.tenantId}();" type="button">Save</button>
                                                     </div>
                                                     <div class="col-6">
@@ -247,7 +247,7 @@
                 if (errorStr !== '<ol></ol>') {
                     showToast("error", 'Error Validate', errorStr);
                 } else {
-                    document.getElementById("submitType").value='UpdateTenant';
+                    
                     document.getElementById("update-tenant-form${tenant.tenantId}").submit();
                 }
             }
