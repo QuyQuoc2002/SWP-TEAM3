@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,4 +22,5 @@ public class Roomtype {
     private int roomtypeCost;
     private String roomtypeArea;
     private int roomtypeRoomQuantity;
+    private List<RoomtypeImgBanner> roomtypeImg;
 }

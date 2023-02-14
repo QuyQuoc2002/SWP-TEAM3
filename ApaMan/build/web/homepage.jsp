@@ -180,13 +180,11 @@
                                             <figure>
                                                 <div class="container">
 
-                                                    <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner" varStatus="y">
-                                                        <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                    <c:forEach items="${roomtype.roomtypeImg}" var="roomtypeImg" varStatus="y">
                                                             <div class="mySlides Slideroom${i.count}">
-                                                                <div class="numbertext">1 / 6</div>
-                                                                <img src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%">
+                                                                <div class="numbertext">${y.count} / 6</div>
+                                                                <img src="${roomtypeImg.roomtypeImgBannerPath}" style="width:100%">
                                                             </div>
-                                                        </c:if>
                                                     </c:forEach>
 
 
@@ -199,13 +197,11 @@
 
                                                     <!-- Thumbnail images -->
                                                     <div class="row">
-                                                        <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner" >
-                                                            <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                        <c:forEach items="${roomtype.roomtypeImg}" var="roomtypeImg" varStatus="y">
                                                                 <div class="column">
-                                                                    <img class="demo cursor slidemini${i.count}" src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%"
-                                                                         onclick="currentSlide${i.count}(1)" >
+                                                                    <img class="demo cursor slidemini${i.count}" src="${roomtypeImg.roomtypeImgBannerPath}" style="width:100%"
+                                                                         onclick="currentSlide${i.count}(${y.count})" >
                                                                 </div>
-                                                            </c:if>
                                                         </c:forEach>
 
                                                     </div>
@@ -265,13 +261,11 @@
                                             <figure>
                                                 <div class="container">
 
-                                                    <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner" varStatus="y">
-                                                        <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                    <c:forEach items="${roomtype.roomtypeImg}" var="roomtypeImg" varStatus="y">
                                                             <div class="mySlides Slideroom${i.count}">
                                                                 <div class="numbertext">${y.count} / 6</div>
-                                                                <img src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%">
+                                                                <img src="${roomtypeImg.roomtypeImgBannerPath}" style="width:100%">
                                                             </div>
-                                                        </c:if>
                                                     </c:forEach>
 
                                                     <!-- Next and previous buttons -->
@@ -281,14 +275,11 @@
 
                                                     <!-- Thumbnail images -->
                                                     <div class="row">
-                                                        <c:forEach items="${requestScope.roomtypeImgBanners}" var="roomtypeImgBanner">
-                                                            <c:if test="${roomtypeImgBanner.roomtypeId eq roomtype.roomtypeId}">
+                                                        <c:forEach items="${roomtype.roomtypeImg}" var="roomtypeImg" varStatus="y">
                                                                 <div class="column">
-                                                                    <img class="demo cursor slidemini${i.count}" src="${roomtypeImgBanner.roomtypeImgBannerPath}" style="width:100%"
-                                                                         onclick="currentSlide${i.count}(1)">
+                                                                    <img class="demo cursor slidemini${i.count}" src="${roomtypeImg.roomtypeImgBannerPath}" style="width:100%"
+                                                                         onclick="currentSlide${i.count}(${y.count})">
                                                                 </div>
-                                                            </c:if>
-
                                                         </c:forEach>
                                                     </div>
                                                 </div>
@@ -304,7 +295,7 @@
 
                     </c:forEach>
 
-                    <span id="nothing"></span>
+<!--                    <span id="nothing"></span>
                     <span id="showmore" style="display: none;">
 
                         <div style="padding-top: 70px; padding-bottom: 50px; ">
@@ -316,7 +307,7 @@
 
                     <div style="text-align: center; margin-bottom: 50px;">
                         <a class="read_more a-none" onclick="viewNoreRoom()" id="buttonviewmoreroom"> Read more</a>
-                    </div>
+                    </div>-->
 
                 </div>
             </div>

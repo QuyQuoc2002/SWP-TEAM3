@@ -53,21 +53,17 @@ public class PageHomepageController extends HttpServlet {
             List<ApartmentImgBanner> apartmentImgBanners = apartmentImgBannerService.getAll(apartmentId);
             List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
 
-            List<RoomtypeImgBanner> allRoomtypeImgBanner = new ArrayList<>();
+            
 
             for (Roomtype roomtype : roomtypes) {
                 List<RoomtypeImgBanner> roomtypeImgBanners = roomtypeImgBannerService.getAll(roomtype.getRoomtypeId());
-                for (RoomtypeImgBanner roomtypeImg : roomtypeImgBanners) {
-                    allRoomtypeImgBanner.add(roomtypeImg);
-                }
+                roomtype.setRoomtypeImg(roomtypeImgBanners);
             }
-            System.out.println(allRoomtypeImgBanner);
 
             request.setAttribute("apartment", apartment);
             request.setAttribute("apartmentImgBanners", apartmentImgBanners);
 
             request.setAttribute("roomtypes", roomtypes);
-            request.setAttribute("roomtypeImgBanners", allRoomtypeImgBanner);
 
             request.getRequestDispatcher("homepage.jsp").forward(request, response);
         }
