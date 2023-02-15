@@ -22,5 +22,5 @@ import lombok.ToString;
 public class RoomStatus {
     
     int roomStatusId;
-    String roomStatusDescription;
+    String roomStatusName;
 }

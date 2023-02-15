@@ -1,0 +1,260 @@
+create table if not exists apamandb.account
+(
+    account_id         int auto_increment
+        primary key,
+    apartment_id       int          null,
+    account_username   varchar(100) null,
+    account_password   varchar(100) null,
+    account_accessible tinyint(1)   null,
+    role_id            int          null,
+    deleted            tinyint(1)   null
+);
+
+create table if not exists apamandb.apartment
+(
+    apartment_id                  int auto_increment
+        primary key,
+    apartment_name                varchar(500)  null,
+    host_name                     varchar(500)  null,
+    host_mobile                   varchar(45)   null,
+    district_id                   int           null,
+    apartment_address             varchar(1000) null,
+    apartment_intro               longtext      null,
+    apartment_lat                 varchar(100)  null,
+    apartment_lon                 varchar(100)  null,
+    apartment_img_aboutus         varchar(1000) null,
+    apartment_content_aboutus     longtext      null,
+    apartment_content_service     longtext      null,
+    apartment_content_recruitment longtext      null,
+    apartment_create_time         mediumtext    null,
+    apartment_accessible          tinyint(1)    null,
+    deleted                       tinyint(1)    null
+);
+
+create table if not exists apamandb.apartment_img_banner
+(
+    apartment_img_banner_id   int auto_increment
+        primary key,
+    apartment_id              int          null,
+    apartment_img_banner_path varchar(300) null
+);
+
+create table if not exists apamandb.city
+(
+    city_id   int auto_increment
+        primary key,
+    city_name varchar(100) null
+);
+
+create table if not exists apamandb.contact
+(
+    contact_id      int auto_increment
+        primary key,
+    apartment_id    int          not null,
+    contact_name    varchar(100) null,
+    contact_email   varchar(100) null,
+    contact_phone   varchar(10)  null,
+    contact_message varchar(500) null
+);
+
+create table if not exists apamandb.district
+(
+    district_id   int auto_increment
+        primary key,
+    city_id       int          null,
+    district_name varchar(100) null
+);
+
+create table if not exists apamandb.fee
+(
+    fee_id    int         not null
+        primary key,
+    fee_type  varchar(45) null,
+    fee_key   int         null,
+    fee_value varchar(45) null,
+    fee_cost  float       null
+);
+
+create table if not exists apamandb.floor
+(
+    floor_id            int auto_increment
+        primary key,
+    apartment_id        int not null,
+    floor_name          int null,
+    floor_room_quantity int null
+);
+
+create table if not exists apamandb.payment
+(
+    payment_id                 int          not null
+        primary key,
+    room_id                    int          null,
+    payment_room_unit_fee      int unsigned null,
+    payment_water_index_pre    int          null,
+    payment_electric_index_pre int          null,
+    payment_day_update_pre     mediumtext   null,
+    payment_water_index_cur    int          null,
+    payment_electric_index_cur int          null,
+    payment_day_update_cur     mediumtext   null,
+    payment_water_unit_fee     int          null,
+    payment_water_money        int          null,
+    payment_electric_unit_fee  int          null,
+    payment_electric_money     int          null,
+    payment_car_quantity       int          null,
+    payment_car_unit_fee       int          null,
+    payment_car_money          int          null,
+    payment_motor_quantity     int          null,
+    payment_motor_unit_fee     int          null,
+    payment_motor_money        int          null,
+    payment_bike_quantity      int          null,
+    payment_bike_unit_fee      int          null,
+    payment_bike_money         int          null,
+    payment_total_money        int          null,
+    payment_status_id          int          null
+);
+
+create table if not exists apamandb.payment_status
+(
+    payment_status_id   int         not null
+        primary key,
+    payment_status_name varchar(45) null
+);
+
+create table if not exists apamandb.role
+(
+    role_id   int auto_increment
+        primary key,
+    role_name varchar(45) not null
+);
+
+create table if not exists apamandb.room
+(
+    room_id        int auto_increment
+        primary key,
+    apartment_id   int          not null,
+    roomtype_id    int          not null,
+    floor_id       int          not null,
+    room_name      varchar(100) not null,
+    room_status_id int          not null,
+    find_roommate  tinyint(1)   null
+);
+
+create definer = root@localhost trigger apamandb.after_delete_room
+    after delete
+    on apamandb.room
+    for each row
+BEGIN
+    UPDATE roomtype
+    SET roomtype_room_quantity = (
+        SELECT COUNT(roomtype_id) AS quantity
+        FROM room
+        WHERE roomtype_id = OLD.roomtype_id
+    )
+    WHERE roomtype_id = OLD.roomtype_id;
+
+    UPDATE floor
+    SET floor_room_quantity = (
+        SELECT COUNT(floor_id) AS quantity
+        FROM room
+        WHERE floor_id = OLD.floor_id
+    )
+    WHERE floor_id = OLD.floor_id;
+END;
+
+create definer = root@localhost trigger apamandb.after_insert_room
+    after insert
+    on apamandb.room
+    for each row
+BEGIN
+    UPDATE roomtype
+    SET roomtype_room_quantity = (
+        SELECT COUNT(roomtype_id) AS quantity
+        FROM room
+        WHERE roomtype_id = NEW.roomtype_id
+    )
+    WHERE roomtype_id = NEW.roomtype_id;
+
+    UPDATE floor
+    SET floor_room_quantity = (
+        SELECT COUNT(floor_id) AS quantity
+        FROM room
+        WHERE floor_id = NEW.floor_id
+    )
+    WHERE floor_id = NEW.floor_id;
+END;
+
+create table if not exists apamandb.room_status
+(
+    room_status_id   int auto_increment
+        primary key,
+    room_status_name varchar(100) null
+);
+
+create table if not exists apamandb.roomtype
+(
+    roomtype_id            int auto_increment
+        primary key,
+    apartment_id           int                         not null,
+    roomtype_name          varchar(45) charset utf8mb3 null,
+    roomtype_max_member    int                         null,
+    roomtype_cost          int                         null,
+    roomtype_area          varchar(45) charset utf8mb3 null,
+    roomtype_room_quantity int                         null
+);
+
+create table if not exists apamandb.roomtype_img_banner
+(
+    roomtype_img_banner_id   int auto_increment
+        primary key,
+    roomtype_id              int          null,
+    roomtype_img_banner_path varchar(300) null
+);
+
+create table if not exists apamandb.staff
+(
+    staff_id                     int auto_increment
+        primary key,
+    account_id                   int          null,
+    staff_citizen_identification varchar(200) null,
+    staff_name                   varchar(200) null,
+    staff_dob                    varchar(45)  null,
+    staff_phone_number           varchar(15)  null,
+    staff_countryside            varchar(45)  null,
+    staff_job                    varchar(200) null,
+    staff_salary                 varchar(10)  null
+);
+
+create table if not exists apamandb.subscriber
+(
+    subscriber_id    int auto_increment
+        primary key,
+    subscriber_email varchar(200) not null
+);
+
+create table if not exists apamandb.tenant
+(
+    tenant_id                     int auto_increment
+        primary key,
+    account_id                    int          null,
+    room_id                       int          null,
+    tenant_citizen_identification varchar(200) null,
+    tenant_name                   varchar(200) null,
+    tenant_dob                    varchar(45)  null,
+    tenant_phone_number           varchar(15)  null,
+    tenant_parent_phone           varchar(15)  null,
+    tenant_countryside            varchar(100) null
+);
+
+create table if not exists apamandb.vehicle
+(
+    vehicle_id            int auto_increment
+        primary key,
+    vehicle_type_id       int          null,
+    tenant_id             int          null,
+    room_id               int          null,
+    apartment_id          int          null,
+    vehicle_license_plate varchar(100) null,
+    vehicle_description   varchar(300) null,
+    vehicle_img_path      varchar(300) null
+);
+

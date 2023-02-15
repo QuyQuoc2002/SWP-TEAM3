@@ -66,7 +66,7 @@
                                         <c:if test="${room.roomtypeId eq roomtype.roomtypeId}">${roomtype.roomtypeName}</c:if>
                                         </c:forEach>
                                     </td>
-                                    <td>${room.roomStatus.roomStatusDescription}</td>
+                                    <td>${room.roomStatus.roomStatusName}</td>
                                     <td><a class="text-warning a-none" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#confirm-modal">Cần thanh toán</a></td>
                                     <td><a href="#"><i class="fa-solid fa-pen-to-square text-danger"></i></a></td>
                                 </tr>

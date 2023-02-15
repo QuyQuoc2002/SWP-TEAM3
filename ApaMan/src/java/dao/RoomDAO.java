@@ -72,7 +72,7 @@ public class RoomDAO {
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_description \n"
+                + "rs.room_status_name \n"
                 + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
                 + "WHERE floor_id = ? AND apartment_id = ?";//
 
@@ -91,7 +91,7 @@ public class RoomDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
                                 .roomStatusId(rs.getInt("room_status_id"))
-                                .roomStatusDescription(rs.getString("room_status_description"))
+                                .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
                         .findRoommate(rs.getBoolean("find_roommate"))
@@ -115,7 +115,7 @@ public class RoomDAO {
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_description \n"
+                + "rs.room_status_name \n"
                 + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
                 + "WHERE apartment_id = ?";//
 
@@ -133,7 +133,7 @@ public class RoomDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
                                 .roomStatusId(rs.getInt("room_status_id"))
-                                .roomStatusDescription(rs.getString("room_status_description"))
+                                .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
                         .findRoommate(rs.getBoolean("find_roommate"))
@@ -157,7 +157,7 @@ public class RoomDAO {
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_description \n"
+                + "rs.room_status_name \n"
                 + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
                 + "WHERE r.apartment_id = ? AND r.room_status_id = ? ;";//
 
@@ -176,7 +176,7 @@ public class RoomDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
                                 .roomStatusId(rs.getInt("room_status_id"))
-                                .roomStatusDescription(rs.getString("room_status_description"))
+                                .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
                         .findRoommate(rs.getBoolean("find_roommate"))
@@ -200,7 +200,7 @@ public class RoomDAO {
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_description \n"
+                + "rs.room_status_name \n"
                 + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
                 + "WHERE r.apartment_id = ? AND r.find_roommate = ? ;";//
 
@@ -219,7 +219,7 @@ public class RoomDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
                                 .roomStatusId(rs.getInt("room_status_id"))
-                                .roomStatusDescription(rs.getString("room_status_description"))
+                                .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
                         .findRoommate(rs.getBoolean("find_roommate"))
@@ -242,7 +242,7 @@ public class RoomDAO {
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_description \n"
+                + "rs.room_status_name \n"
                 + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
                 + "WHERE room_id = ? AND apartment_id = ?";
 
@@ -259,7 +259,7 @@ public class RoomDAO {
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
                                 .roomStatusId(rs.getInt("room_status_id"))
-                                .roomStatusDescription(rs.getString("room_status_description"))
+                                .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
                         .findRoommate(rs.getBoolean("find_roommate"))
@@ -356,6 +356,6 @@ public class RoomDAO {
 
     public static void main(String[] args) {
         RoomDAO roomDAO = new RoomDAO();
-        System.out.println(roomDAO.getAll(1));
+        System.out.println(roomDAO.getAll(3));
     }
 }

@@ -21,7 +21,7 @@ public class VehicleTypeDAO {
     
     public List<VehicleType> getAll() {
 
-        String sql = "SELECT * FROM vehicle_type";//
+        String sql = "SELECT fee_key, fee_value FROM fee WHERE fee_type = 'FEE_VEHICAL'";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
@@ -29,8 +29,8 @@ public class VehicleTypeDAO {
             List<VehicleType> list = new ArrayList<>();//
             while (rs.next()) {
                 VehicleType obj = VehicleType.builder()
-                        .vehicleTypeId(rs.getInt("vehicle_type_id"))
-                        .vehicleTypeName(rs.getString("vehicle_type_name"))
+                        .vehicleTypeId(rs.getInt("fee_key"))
+                        .vehicleTypeName(rs.getString("fee_value"))
                         .build();
                 list.add(obj);
             }

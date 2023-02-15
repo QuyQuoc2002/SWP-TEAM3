@@ -75,7 +75,7 @@ public class RoomtypeManagementController extends HttpServlet {
             int apartmentId = curAccount.getApartmentId();
             int roomtypeId = Integer.parseInt(request.getParameter("roomtypeId"));
             Roomtype roomtype = roomtypeService.getOne(roomtypeId, apartmentId);
-            
+
             List<RoomtypeImgBanner> roomtypeImgBanners = roomtypeImgBannerService.getAll(roomtypeId);
 
             request.setAttribute("roomtype", roomtype);
@@ -116,31 +116,31 @@ public class RoomtypeManagementController extends HttpServlet {
                     int roomtypeMaxMember = Integer.parseInt(request.getParameter("roomtypeMaxMember"));
                     int roomtypeCost = Integer.parseInt(request.getParameter("roomtypeCost"));
                     String roomtypeArea = request.getParameter("roomtypeArea");
-                    
-                    Roomtype roomtypeCheck = roomtypeService.getOne(roomtypeId,apartmentId);
-                    
+
+                    Roomtype roomtypeCheck = roomtypeService.getOne(roomtypeId, apartmentId);
+
                     //Check roomtype name have change
                     boolean roomtypeNameChange = true;
                     if (roomtypeName.equals(roomtypeCheck.getRoomtypeName())) {
-                            roomtypeNameChange = false;
-                        }
+                        roomtypeNameChange = false;
+                    }
 
                     List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
-                    
+
                     //Check roomtype name already exist
                     boolean roomtypeNameExist = false;
                     for (Roomtype obj : roomtypes) {
                         if (roomtypeName.equals(obj.getRoomtypeName())) {
                             roomtypeNameExist = true;
                         }
-                        
-                   }
+
+                    }
 
                     if (roomtypeNameExist && roomtypeNameChange) {
                         session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");
                     } else {
 
-                        Roomtype roomtype = roomtypeService.getOne(roomtypeId,apartmentId);
+                        Roomtype roomtype = roomtypeService.getOne(roomtypeId, apartmentId);
                         roomtype.setRoomtypeName(roomtypeName);
                         roomtype.setRoomtypeMaxMember(roomtypeMaxMember);
                         roomtype.setRoomtypeCost(roomtypeCost);
@@ -153,15 +153,14 @@ public class RoomtypeManagementController extends HttpServlet {
                             session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype-detail");
                         }
                     }
-                    response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
                     break;
 
                 case "Delete":
-                    Roomtype roomtypedel = roomtypeService.getOne(roomtypeId,apartmentId);
+                    Roomtype roomtypedel = roomtypeService.getOne(roomtypeId, apartmentId);
                     if (roomtypedel.getRoomtypeRoomQuantity() != 0) {
                         session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Roomtype Fail, some room exist in this roomtype|edit-roomtype");
                     } else {
-                        
+
                         boolean deleteRoomtypeImgBannerSuccess = roomtypeImgBannerService.deleteAllRoomtype(roomtypeId);
                         boolean deleteRoomtypeSuccess = roomtypeService.delete(roomtypeId, apartmentId);
                         if (deleteRoomtypeSuccess && deleteRoomtypeImgBannerSuccess) {
@@ -172,9 +171,9 @@ public class RoomtypeManagementController extends HttpServlet {
                             response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
                         }
                     }
-
                     break;
             }
+            response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
         }
     }
 

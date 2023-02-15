@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-2 form-group mb-3">
                                     <fieldset>
-                                        <legend>Cost ($/month)</legend>
+                                        <legend>Cost ($/m)</legend>
                                         <input required type="text" id="update-roomtype-cost" class="form-control" name="roomtypeCost"
                                                value="${roomtype.roomtypeCost}">
                                     </fieldset>
