@@ -24,6 +24,10 @@ public class RoomService {
         return roomDAO.numberOfStatusRoom(apartmentId,roomStatusId);
     }
     
+    public int numberOfTenantActive(int roomId) {
+        return roomDAO.numberOfTenantActive(roomId);
+    }
+    
     public List<Room> getAll(int floorId, int apartmentId) {
         return roomDAO.getAll(floorId,apartmentId);
     }

@@ -44,6 +44,10 @@ public class AccountService {
         return accountDAO.delete(accountId);
     }
     
+    public boolean delete(List<Account> list) {
+        return accountDAO.delete(list);
+    }
+    
     public String getAccountUsername(int apartmentId, int roleId) {
         return accountDAO.getAccountUsername(apartmentId, roleId);
     }

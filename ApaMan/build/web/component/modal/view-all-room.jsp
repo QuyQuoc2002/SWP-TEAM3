@@ -44,7 +44,7 @@
                                     </c:if>
                                 </c:forEach>
                                         
-                                <td>${room.roomStatus.roomStatusDescription}</td>
+                                <td>${room.roomStatus.roomStatusName}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

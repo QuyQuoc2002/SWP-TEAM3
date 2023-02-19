@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="assets/css/common.css">
         <link rel="stylesheet" type="text/css" href="assets/css/switch-toggle-btn.css">
         <link rel="stylesheet" href="assets/css/room-member.css">
+        <link rel="stylesheet" href="assets/css/admin.css">
     </head>
 
     <body>
@@ -48,7 +49,7 @@
                                 History of water and electricity
                             </a>       
                         </div>
-                            <form action="room-member" method="post">
+                        <form action="room-tenant" method="get">
                             <div class="d-flex">
 
                                 <h4 class="text-wheat">Find Roomate</h4>
@@ -59,15 +60,65 @@
                                     </label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input hidden name="roomId" value="${room.roomId}">
-                                    <input hidden name="submitType" value="UpdateRoom">
-                                    <button class="btn btn-primary w-10" type="submit">Save</button>
 
-                                </div>
+                                <button class="btn btn-primary w-10" type="submit">Save</button>
+
+                            </div>
                         </form>
                     </div>
 
+                    <div class="container-fluid pt-4 px-4">
+                        <form id="room-update" action="room-member" method="post" class="row panel-form bg-secondary-cus rounded p-2 card-feature">
+                            <div class="row col-10">
+                                <div class="col-3 form-group mb-3">
+                                    <fieldset>
+                                        <legend>Name</legend>
+                                        <input type="text" id="update-room-name" class="form-control room-name" name="roomName" value="${room.roomName}" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-3 form-group mb-3 input-select" >
+                                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="floorId" style="margin-top: 10px;padding-bottom: 10px;">
+                                        <c:forEach items="${requestScope.floors}" var="floor">
+                                            <option <c:if test="${requestScope.floorIdUpdate eq floor.floorId}">selected="selected"</c:if>  value="${floor.floorId}">floor ${floor.floorName}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="col-3 form-group mb-3 input-select" >
 
-                        <div id="cards" class="row">
+                                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="roomtypeId" style="margin-top: 10px;padding-bottom: 10px;">
+                                        <c:forEach items="${requestScope.roomtypes}" var="roomtype">
+                                            <option <c:if test="${requestScope.RoomtypeIdUpdate eq roomtype.roomtypeId}">selected="selected"</c:if>  value="${roomtype.roomtypeId}">${roomtype.roomtypeName}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <div class="col-3 form-group mb-3">
+                                    <fieldset>
+                                        <legend>Deposit </legend>
+                                        <input type="text" id="add-roomtype-area" class="form-control" name="Deposit" required="">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row col-2" style="margin: 0">
+                                <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
+                                    <input hidden name="roomId" value="${room.roomId}">
+                                    <input hidden name="submitType" value="UpdateRoom">
+                                    <input type="hidden" id="submitType2" name="submitType2">
+                                    <button type="button" onclick="validateUpdateRoom()" class="btn btn-primary w-10" style="height: 47px">Update</button>
+                                    
+                                </div>
+                                <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
+                                    
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-delete-room" class="btn btn-danger w-10 " style="height: 47px;">Delete</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+
+
+                    <div id="cards" class="row">
 
                         <c:forEach items="${tenants}" var="tenant">
                             <div class="col-4 mb-4" id="tenant-infor">
@@ -175,23 +226,39 @@
 
         <!-------------------------------------------MODAL-------------------------------------------->
         <%@include file="component/modal/add-vehicle.jsp"%>
+        <%@include file="component/modal/modal-delete-room.jsp"%>   
 
         <!-------------------------------------------JS-------------------------------------------->
         <script src="assets/js/bootstrap.bundle.js"></script>
         <script src="assets/js/toast.js"></script>
         <script src="assets/js/validate.js"></script>
         <script src="assets/js/main.js"></script>
+        <script>
+                                                            const REGEX_ROOM_NAME = '^[1-9][0-9]{2}[A-Z]{1}$';
+
+                                                            function validateUpdateRoom() {
+                                                                const roomName = document.getElementById('update-room-name').value;
+                                                                if (roomName.trim() === '') {
+                                                                    showToast('warning', 'APAMAN Notification', 'Room\'s name Empty');
+                                                                } else if (!roomName.match(REGEX_ROOM_NAME)) {
+                                                                    showToast('warning', 'APAMAN Notification', 'Room\'s name is malformed (101A)');
+                                                                } else {
+                                                                    document.getElementById("submitType2").value='Update';
+                                                                    document.getElementById('room-update').submit();
+                                                                }
+                                                            }
+        </script>
 
         <script>
             <c:forEach items="${tenants}" var="tenant">
-                                                            function resetTenant${tenant.tenantId}() {
-                                                                document.getElementById("tenantCountryside${tenant.tenantId}").value = null;
-                                                                document.getElementById("tenantDob${tenant.tenantId}").value = null;
-                                                                document.getElementById("tenantPhoneNumber${tenant.tenantId}").value = null;
-                                                                document.getElementById("tenantParentPhone${tenant.tenantId}").value = null;
-                                                                document.getElementById("tenantCitizenIdentification${tenant.tenantId}").value = null;
-                                                                document.getElementById("tenantName${tenant.tenantId}").value = null;
-                                                            }
+            function resetTenant${tenant.tenantId}() {
+                document.getElementById("tenantCountryside${tenant.tenantId}").value = null;
+                document.getElementById("tenantDob${tenant.tenantId}").value = null;
+                document.getElementById("tenantPhoneNumber${tenant.tenantId}").value = null;
+                document.getElementById("tenantParentPhone${tenant.tenantId}").value = null;
+                document.getElementById("tenantCitizenIdentification${tenant.tenantId}").value = null;
+                document.getElementById("tenantName${tenant.tenantId}").value = null;
+            }
             </c:forEach>
         </script>
 
@@ -247,7 +314,7 @@
                 if (errorStr !== '<ol></ol>') {
                     showToast("error", 'Error Validate', errorStr);
                 } else {
-                    
+
                     document.getElementById("update-tenant-form${tenant.tenantId}").submit();
                 }
             }

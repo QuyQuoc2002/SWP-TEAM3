@@ -62,6 +62,26 @@ public class RoomDAO {
         return 0;
     }
 
+    public int numberOfTenantActive(int roomId) {
+        int numberOfStatusRoom;
+        String sql = "SELECT COUNT(account_accessible) AS numberOfTenantActive  \n"
+                + "FROM apamandb.account a join apamandb.tenant t ON a.account_id = t.account_id\n"
+                + "Where t.room_id = ? AND a.account_accessible = 1;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, roomId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                numberOfStatusRoom = rs.getInt("numberOfTenantActive");
+                return numberOfStatusRoom;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
+
     public List<Room> getAll(int floorId, int apartmentId) {
 
         String sql = "SELECT "
@@ -189,7 +209,7 @@ public class RoomDAO {
         }
         return null;
     }
-    
+
     public List<Room> getFindRoommate(int apartmentId, boolean findRoomate) {
 
         String sql = "SELECT "

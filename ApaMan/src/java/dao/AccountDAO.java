@@ -228,5 +228,22 @@ public class AccountDAO {
         }
         return null;
     }
+    
+    public boolean delete(List<Account> list) {
+        int[] arr = {};
+        String sql = "DELETE FROM account Where account_id = ?";
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            if (ps != null) {
+                for (Account obj : list) {
+                    ps.setObject(1, obj.getAccountId());
+                    ps.addBatch();
+                }
+                arr = ps.executeBatch();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return arr.length > 0;
+    }
 
 }

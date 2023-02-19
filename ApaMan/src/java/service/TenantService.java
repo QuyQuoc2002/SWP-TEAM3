@@ -44,5 +44,9 @@ public class TenantService {
     public boolean delete(int tenantId) {
         return tenantDAO.delete(tenantId);
     }
+    
+    public boolean delete(List<Tenant> tenant) {
+        return tenantDAO.delete(tenant);
+    }
    
 }

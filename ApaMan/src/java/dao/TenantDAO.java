@@ -267,7 +267,7 @@ public class TenantDAO {
 
     public boolean delete(int tenantId) {
         int check = 0;
-        String sql = "DELETE FROM tenant Where tenant_dd = ?";
+        String sql = "DELETE FROM tenant Where tenant_id = ?";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, tenantId);
@@ -276,6 +276,23 @@ public class TenantDAO {
             e.printStackTrace(System.out);
         }
         return check > 0;
+    }
+    
+    public boolean delete(List<Tenant> list) {
+        int[] arr = {};
+        String sql = "DELETE FROM tenant Where tenant_id = ?";
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            if (ps != null) {
+                for (Tenant obj : list) {
+                    ps.setObject(1, obj.getTenantId());
+                    ps.addBatch();
+                }
+                arr = ps.executeBatch();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return arr.length > 0;
     }
 
     public static void main(String[] args) {

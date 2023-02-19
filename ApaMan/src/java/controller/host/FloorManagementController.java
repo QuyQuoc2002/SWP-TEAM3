@@ -116,7 +116,7 @@ public class FloorManagementController extends HttpServlet {
             String submitType = request.getParameter("submitType");
             switch (submitType) {
                 case "Add":
-                    int floorName = Integer.parseInt(request.getParameter("floorName")) ;
+                    int floorName = Integer.parseInt(request.getParameter("floorName"));
                     List<Floor> floors = floorService.getAll(apartmentId);
 
                     //Check floor name already exist
@@ -146,23 +146,32 @@ public class FloorManagementController extends HttpServlet {
                     break;
 
                 case "Update":
+                    String errorStr = "<ol>";
                     String[] updateFloorsNames = request.getParameterValues("floorName");
                     String[] updateFloorsIdStrs = request.getParameterValues("floorId");
 
                     List<Floor> updateFloors = new ArrayList<>();
                     for (int i = 0; i < updateFloorsIdStrs.length; i++) {
-                        Floor updateFloor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
-                        updateFloor.setFloorName(Integer.parseInt(updateFloorsNames[i]));
-                        updateFloors.add(updateFloor);
-                    }
 
+                        Floor floor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
+                        if (floor.getFloorRoomQuantity() != 0 && floor.getFloorName() != Integer.parseInt(updateFloorsNames[i])) {
+                            errorStr += "<li>Update Floor " + floor.getFloorName() + " Fail, some room exist in this floor</li>";
+                        } else {
+                            errorStr += "<li>Update Floor " + floor.getFloorName() + " Success</li>";
+                            Floor updateFloor = floorService.getOne(Integer.parseInt(updateFloorsIdStrs[i]));
+                            updateFloor.setFloorName(Integer.parseInt(updateFloorsNames[i]));
+                            updateFloors.add(updateFloor);
+                        }
+                    }
+                    errorStr += "</ol>";
                     boolean updateFloorsSuccess = floorService.updateFloors(updateFloors);
                     if (updateFloorsSuccess) {
-                        session.setAttribute("messageUpdate", "success|APAMAN Notification|Update Floor Success|edit-floor");
+                        session.setAttribute("messageUpdate", "success|APAMAN Notification|"+errorStr+"|edit-floor");
                     } else {
                         session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Floor Fail|edit-floor");
                     }
                     response.sendRedirect("room-control");
+
                     break;
             }
         }

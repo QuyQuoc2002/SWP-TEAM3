@@ -112,45 +112,51 @@ public class RoomtypeManagementController extends HttpServlet {
 
                 case "Update":
 
-                    String roomtypeName = request.getParameter("roomtypeName");
-                    int roomtypeMaxMember = Integer.parseInt(request.getParameter("roomtypeMaxMember"));
-                    int roomtypeCost = Integer.parseInt(request.getParameter("roomtypeCost"));
-                    String roomtypeArea = request.getParameter("roomtypeArea");
-
-                    Roomtype roomtypeCheck = roomtypeService.getOne(roomtypeId, apartmentId);
-
-                    //Check roomtype name have change
-                    boolean roomtypeNameChange = true;
-                    if (roomtypeName.equals(roomtypeCheck.getRoomtypeName())) {
-                        roomtypeNameChange = false;
-                    }
-
-                    List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
-
-                    //Check roomtype name already exist
-                    boolean roomtypeNameExist = false;
-                    for (Roomtype obj : roomtypes) {
-                        if (roomtypeName.equals(obj.getRoomtypeName())) {
-                            roomtypeNameExist = true;
-                        }
-
-                    }
-
-                    if (roomtypeNameExist && roomtypeNameChange) {
-                        session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");
+                    Roomtype roomtypeupdate = roomtypeService.getOne(roomtypeId, apartmentId);
+                    if (roomtypeupdate.getRoomtypeRoomQuantity() != 0) {
+                        session.setAttribute("messageUpdate", "error|APAMAN Notification|Update Roomtype Fail, some room exist in this roomtype|edit-roomtype");
                     } else {
 
-                        Roomtype roomtype = roomtypeService.getOne(roomtypeId, apartmentId);
-                        roomtype.setRoomtypeName(roomtypeName);
-                        roomtype.setRoomtypeMaxMember(roomtypeMaxMember);
-                        roomtype.setRoomtypeCost(roomtypeCost);
-                        roomtype.setRoomtypeArea(roomtypeArea);
+                        String roomtypeName = request.getParameter("roomtypeName");
+                        int roomtypeMaxMember = Integer.parseInt(request.getParameter("roomtypeMaxMember"));
+                        int roomtypeCost = Integer.parseInt(request.getParameter("roomtypeCost"));
+                        String roomtypeArea = request.getParameter("roomtypeArea");
 
-                        boolean updateRoomtypeSuccess = roomtypeService.updateRoomtype(roomtype);
-                        if (updateRoomtypeSuccess) {
-                            session.setAttribute("messageUpdate", "success|APAMAN Notification|Update Roomtype Success|edit-roomtype-detail");
+                        Roomtype roomtypeCheck = roomtypeService.getOne(roomtypeId, apartmentId);
+
+                        //Check roomtype name have change
+                        boolean roomtypeNameChange = true;
+                        if (roomtypeName.equals(roomtypeCheck.getRoomtypeName())) {
+                            roomtypeNameChange = false;
+                        }
+
+                        List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
+
+                        //Check roomtype name already exist
+                        boolean roomtypeNameExist = false;
+                        for (Roomtype obj : roomtypes) {
+                            if (roomtypeName.equals(obj.getRoomtypeName())) {
+                                roomtypeNameExist = true;
+                            }
+
+                        }
+
+                        if (roomtypeNameExist && roomtypeNameChange) {
+                            session.setAttribute("messageUpdate", "warning|APAMAN Notification|Roomtype Name Exist, Add Fail|edit-roomtype");
                         } else {
-                            session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype-detail");
+
+                            Roomtype roomtype = roomtypeService.getOne(roomtypeId, apartmentId);
+                            roomtype.setRoomtypeName(roomtypeName);
+                            roomtype.setRoomtypeMaxMember(roomtypeMaxMember);
+                            roomtype.setRoomtypeCost(roomtypeCost);
+                            roomtype.setRoomtypeArea(roomtypeArea);
+
+                            boolean updateRoomtypeSuccess = roomtypeService.updateRoomtype(roomtype);
+                            if (updateRoomtypeSuccess) {
+                                session.setAttribute("messageUpdate", "success|APAMAN Notification|Update Roomtype Success|edit-roomtype-detail");
+                            } else {
+                                session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype-detail");
+                            }
                         }
                     }
                     break;
