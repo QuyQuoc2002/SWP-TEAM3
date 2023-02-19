@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
  */
-package controller.host;
+package core;
 
+import constant.IConst;
 import entity.Account;
-import entity.Floor;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -20,30 +20,28 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import service.FloorService;
 
 /**
  *
  * @author DELL
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/apartment", "/homepage-management", "/roomtype", "/staff", "/room-control","/roomtype-detail","/floor-room", "/room-member", "/members", "/vehicle-page"})
-public class FloorFilter implements Filter {
-
+@WebFilter(filterName = "HostStaffFilter", urlPatterns = {"/vehicle-page"})
+public class HostStaffFilter implements Filter {
+    
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-
-    public FloorFilter() {
-    }
-
+    
+    public HostStaffFilter() {
+    }    
+    
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AdminFilter:DoBeforeProcessing");
+            log("HostStaffFilter:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -66,12 +64,12 @@ public class FloorFilter implements Filter {
 	    log(buf.toString());
 	}
          */
-    }
-
+    }    
+    
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AdminFilter:DoAfterProcessing");
+            log("HostStaffFilter:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -105,16 +103,21 @@ public class FloorFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-
+        
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
         HttpSession session = req.getSession();
         Account curAccount = (Account) session.getAttribute("curAccount");
         if (curAccount != null) {
-            List<Floor> floors = new FloorService().getAll(curAccount.getApartmentId());
-            request.setAttribute("sidebarFloors", floors);
-            chain.doFilter(request, response);
+            String curAccountRoleName = curAccount.getRole().getRoleName();
+            if (curAccountRoleName.equals(IConst.ROLE_STAFF)
+                    || curAccountRoleName.equals(IConst.ROLE_HOST)) 
+            {
+                chain.doFilter(request, response);
+            } else {
+                resp.sendRedirect("WEB-INF/error-404.jsp");
+            }
         } else {
             resp.sendRedirect("WEB-INF/error-404.jsp");
         }
@@ -139,17 +142,17 @@ public class FloorFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {
+    public void destroy() {        
     }
 
     /**
      * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) {
+    public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {
-                log("AdminFilter:Initializing filter");
+            if (debug) {                
+                log("HostStaffFilter:Initializing filter");
             }
         }
     }
@@ -160,27 +163,27 @@ public class FloorFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("AdminFilter()");
+            return ("HostStaffFilter()");
         }
-        StringBuffer sb = new StringBuffer("AdminFilter(");
+        StringBuffer sb = new StringBuffer("HostStaffFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
     }
-
+    
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);
-
+        String stackTrace = getStackTrace(t);        
+        
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);
+                PrintWriter pw = new PrintWriter(ps);                
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
 
                 // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
-                pw.print(stackTrace);
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");                
+                pw.print(stackTrace);                
                 pw.print("</pre></body>\n</html>"); //NOI18N
                 pw.close();
                 ps.close();
@@ -197,7 +200,7 @@ public class FloorFilter implements Filter {
             }
         }
     }
-
+    
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -211,9 +214,9 @@ public class FloorFilter implements Filter {
         }
         return stackTrace;
     }
-
+    
     public void log(String msg) {
-        filterConfig.getServletContext().log(msg);
+        filterConfig.getServletContext().log(msg);        
     }
-
+    
 }

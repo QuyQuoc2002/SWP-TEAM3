@@ -56,13 +56,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${vehiclesAll}" var="vehicle" varStatus="i">
+                                <c:forEach items="${vehicles}" var="vehicle" varStatus="i">
                                 <tr>
                                     <td>${i.count}</td>
                                     <td>${vehicle.vehicleType.vehicleTypeName}</td>
                                     <td>${vehicle.vehicleLicensePlate}</td>
                                     <td>${vehicle.tenant.tenantName}</td>
-                                    <td>${vehicle.room.roomName}</td>
+                                    <td><a href="room-member?roomId=${vehicle.room.roomId}">${vehicle.room.roomName}</a></td>
                                     <td>${vehicle.vehicleDescription}</td>
                                     <td class="d-flex justify-content-between">
                                         <a href="${vehicle.vehicleImgPath}" class="a-none">Image</a>

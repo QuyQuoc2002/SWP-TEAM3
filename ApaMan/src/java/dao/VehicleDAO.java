@@ -33,9 +33,14 @@ public class VehicleDAO {
                 + "vehicle.room_id, "
                 + "vehicle.apartment_id, "
                 + "vehicle.vehicle_img_path, "
+                + "tenant.tenant_name, "
+                + "room.room_name, "
                 + "fee.fee_value \n"
                 + "FROM apamandb.vehicle Join apamandb.fee ON vehicle.vehicle_type_id = fee.fee_key AND fee.fee_type = 'FEE_VEHICLE' \n"
-                + "Where vehicle.apartment_id = ? ";
+                + "Join tenant ON vehicle.tenant_id = tenant.tenant_id "
+                + "Join room ON vehicle.room_id = room.room_id "
+                + "JOIN account ON account.account_id = tenant.account_id "
+                + "Where vehicle.apartment_id = ? AND account.account_accessible = true";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, apartmentId);
@@ -51,9 +56,11 @@ public class VehicleDAO {
                                 .build())
                         .tenant(Tenant.builder()
                                 .tenantId(rs.getInt("tenant_id"))
+                                .tenantName(rs.getString("tenant_name"))
                                 .build())
                         .room(Room.builder()
                                 .roomId(rs.getInt("room_id"))
+                                .roomName(rs.getString("room_name"))
                                 .build())
                         .apartmentId(rs.getInt("apartment_id"))
                         .vehicleLicensePlate(rs.getString("vehicle_license_plate"))
@@ -226,6 +233,6 @@ public class VehicleDAO {
     }
 
     public static void main(String[] args) {
-        System.out.println(new VehicleDAO().delete(22, 1));
+        System.out.println(new VehicleDAO().getAll(1));
     }
 }

@@ -18,7 +18,7 @@
             <a href="homepage-management" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Apartment Info</a>
             <a href="members" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Members</a>
             <a href="staff" class="nav-item nav-link"><i class="fa-solid fa-user-gear me-2"></i>Staffs</a>
-            <a href="vehicles" class="nav-item nav-link"><i class="fa-solid fa-motorcycle me-2"></i>Vehicles</a>
+            <a href="vehicle-page" class="nav-item nav-link"><i class="fa-solid fa-motorcycle me-2"></i>Vehicles</a>
             <div class="nav-item dropdown">
                 <a href="room-management.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-house me-2"></i></i>Room Management</a>
                 <div class="dropdown-menu bg-transparent border-0">

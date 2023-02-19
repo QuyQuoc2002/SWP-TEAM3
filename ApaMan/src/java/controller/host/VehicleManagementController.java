@@ -92,8 +92,14 @@ public class VehicleManagementController extends HttpServlet {
                 break;
             case "delete":
                 int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+                Vehicle vehicle = new VehicleService().getOne(vehicleId);
+                String ImgPath = vehicle.getVehicleImgPath();
+                String fileName = ImgPath.replace("assets/images/", "");
+                File storeFile = new File(this.getFolderDelete().getAbsolutePath() + File.separator + fileName);
+                storeFile.delete();
+
                 new VehicleService().delete(vehicleId, apartmentId);
-                
+
                 String content = new Gson().toJson("ok");
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
@@ -200,6 +206,16 @@ public class VehicleManagementController extends HttpServlet {
     }
 
     private File getFolderUpload() throws IOException {
+        String readPart = getServletContext().getRealPath("/");
+        String partUpload = readPart.replace("build\\", "") + "assets\\images";
+        File folderUpload = new File(partUpload);
+        if (!folderUpload.exists()) {
+            folderUpload.mkdirs();
+        }
+        return folderUpload;
+    }
+
+    private File getFolderDelete() throws IOException {
         String readPart = getServletContext().getRealPath("/");
         String partUpload = readPart.replace("build\\", "") + "assets\\images";
         File folderUpload = new File(partUpload);
