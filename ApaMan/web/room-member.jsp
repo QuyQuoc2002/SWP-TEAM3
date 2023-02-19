@@ -105,10 +105,10 @@
                                     <input hidden name="submitType" value="UpdateRoom">
                                     <input type="hidden" id="submitType2" name="submitType2">
                                     <button type="button" onclick="validateUpdateRoom()" class="btn btn-primary w-10" style="height: 47px">Update</button>
-                                    
+
                                 </div>
                                 <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
-                                    
+
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#modal-delete-room" class="btn btn-danger w-10 " style="height: 47px;">Delete</button>
                                 </div>
 
@@ -192,10 +192,10 @@
                                                                     <div class="tag">${vehicle.vehicleType.vehicleTypeName}</div>
                                                                 </c:if>
                                                             </c:forEach>
+                                                            <a class="tag a-none" onclick="getAllVehicleByTenant(${tenant.tenantId})" data-bs-toggle="modal"
+                                                               data-bs-target="#modal-list-vehicle">View List Vehicle</a>
                                                             <a class="tag a-none" onclick="GetTenantId(${tenant.tenantId},${tenant.room.roomId})" data-bs-toggle="modal"
                                                                data-bs-target="#add-vehicle">Add</a>
-                                                            <a class="tag a-none" href="javascript:void(0)" data-bs-toggle="modal"
-                                                               data-bs-target="#delete-vehical">Delete</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -226,6 +226,7 @@
 
         <!-------------------------------------------MODAL-------------------------------------------->
         <%@include file="component/modal/add-vehicle.jsp"%>
+        <%@include file="component/modal/modal-list-vehicle.jsp"%>  
         <%@include file="component/modal/modal-delete-room.jsp"%>   
 
         <!-------------------------------------------JS-------------------------------------------->
@@ -235,7 +236,6 @@
         <script src="assets/js/main.js"></script>
         <script>
                                                             const REGEX_ROOM_NAME = '^[1-9][0-9]{2}[A-Z]{1}$';
-
                                                             function validateUpdateRoom() {
                                                                 const roomName = document.getElementById('update-room-name').value;
                                                                 if (roomName.trim() === '') {
@@ -243,7 +243,7 @@
                                                                 } else if (!roomName.match(REGEX_ROOM_NAME)) {
                                                                     showToast('warning', 'APAMAN Notification', 'Room\'s name is malformed (101A)');
                                                                 } else {
-                                                                    document.getElementById("submitType2").value='Update';
+                                                                    document.getElementById("submitType2").value = 'Update';
                                                                     document.getElementById('room-update').submit();
                                                                 }
                                                             }
@@ -270,8 +270,6 @@
             const REGEX_MOBILE_TENANT = '^[0-9]{10}$';
             const REGEX_CITIZENID_TENANT = '^[0-9]{12}$';
             const REGEX_DATE_TENANT = '(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})';
-
-
             <c:forEach items="${tenants}" var="tenant">
             function validateTenantInfo${tenant.tenantId}() {
                 const password = document.getElementById("password${tenant.tenantId}").value;
@@ -280,9 +278,7 @@
                 const parentMobile = document.getElementById("tenantParentPhone${tenant.tenantId}").value;
                 const tenantName = document.getElementById("tenantName${tenant.tenantId}").value;
                 const tenantCitizenId = document.getElementById("tenantCitizenIdentification${tenant.tenantId}").value;
-
                 let errorStr = '<ol>';
-
                 if (tenantMobile !== '' && !tenantMobile.match(REGEX_MOBILE_TENANT)) {
                     errorStr += '<li>Tenant phone number invalid</li>';
                 }
@@ -310,7 +306,6 @@
                 }
 
                 errorStr += '</ol>';
-
                 if (errorStr !== '<ol></ol>') {
                     showToast("error", 'Error Validate', errorStr);
                 } else {
@@ -329,6 +324,69 @@
                 document.getElementById("roomIdVehicle").value = roomId;
             }
         </script>
+
+        <!--------------------------------------------- Vehicle ------------------------------------------------>
+        <script>
+            function getAllVehicleByTenant(tenantId) {
+                const request = new XMLHttpRequest();
+                request.open("GET", "/ApaMan/vehicle?submitType=getAllByTenant&tenantId=" + tenantId, true);
+                request.onload = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        let listVehicle = '';
+                        const vehicles = JSON.parse(this.responseText);
+                        for (let i = 0; i < vehicles.length; i++) {
+                            listVehicle +=
+                                    '<tr>' +
+                                    '<td>' + vehicles[i].vehicleType.vehicleTypeName + '</td>' +
+                                    '<td>' + vehicles[i].vehicleDescription + '</td>' +
+                                    '<td>' + vehicles[i].vehicleLicensePlate + '</td>' +
+                                    '<td><a href="' + vehicles[i].vehicleImgPath + '">View</a></td>' +
+                                    '<td style="position: relative;"><a onclick="confirmDeleteVehicle(' + vehicles[i].vehicleId + ')" href="javascript:void(0)">Delete</a>' +
+                                    '<i data-vehicleid="' + vehicles[i].vehicleId + '" onclick="deleteVehicle(' + vehicles[i].vehicleId + ',' + vehicles[i].tenant.tenantId + ')" style="display: none; position: absolute; top: 12px; left: 50px; cursor: pointer" class="text-danger ms-3 fa-solid fa-trash"></i></td>' +
+                                    '</tr>';
+                        }
+                        document.getElementById('list-vehicle-by-tenant').innerHTML = listVehicle;
+                    } else {
+                        console.log(2);
+                    }
+                };
+                request.send(null);
+            }
+
+            function confirmDeleteVehicle(vehicleId) {
+                const trashes = document.querySelectorAll('.text-danger.ms-3.fa-solid.fa-trash');
+                for (let i = 0; i < trashes.length; i++) {
+                    trashes[i].style.display = 'none';
+                    if (trashes[i].getAttribute('data-vehicleid') == Number(vehicleId)) {
+                        trashes[i].style.display = 'block';
+                    }
+                }
+
+            }
+
+            function deleteVehicle(vehicleId, tenantId) {
+                showToast("success", "ApamanNotification", "Delete vehicle success");
+                const request = new XMLHttpRequest();
+                request.open("GET", "/ApaMan/vehicle?submitType=delete&vehicleId=" + vehicleId, true);
+                request.onload = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        setTimeout(() => {
+                            getAllVehicleByTenant(tenantId);
+                            showToast("success", "ApamanNotification", "Delete vehicle success");
+                        }, 200);
+                    } else {
+                        setTimeout(() => {
+                            getAllVehicleByTenant(tenantId);
+                            showToast("success", "ApamanNotification", "Delete vehicle success");
+                        }, 200);
+                    }
+                };
+                request.send(null);
+            }
+
+        </script>
+
+
 
 
 

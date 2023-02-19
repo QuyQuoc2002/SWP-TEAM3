@@ -15,7 +15,7 @@
                     <h3 class="text-primary-cus"><i class="fa fa-user-edit me-2"></i>Add Vehicle</h3>
                     <a data-bs-dismiss="modal" style="cursor: pointer; font-size: 20px;"><i class="fa-solid fa-xmark"></i></a>
                 </div>
-                <form id="add-vehicle-form" action="vehicle-manage" method="post" enctype="multipart/form-data">
+                <form id="add-vehicle-form" action="vehicle" method="post" enctype="multipart/form-data">
                     <!--<div class="form-floating mb-3">-->
                         <input type="file" name="file" lang="en" class="btn btn-dark-cus" size="60" required="">
                         <label for="floatingInput">Image</label>
@@ -27,7 +27,7 @@
                     </select>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" name="vehicleDescription">
+                        <input type="text" class="form-control bg-dark" name="vehicleDescription" required="">
                         <label for="floatingInput">Description</label>
                     </div>
 
@@ -46,6 +46,7 @@
                         <div class="col-6">
                             <input hidden name="tenantId" id="tenantIdVehicle">
                             <input hidden name="roomId" id="roomIdVehicle">
+                            <input hidden name="submitType" value="Add">
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Save</button>
                         </div>
                     </div>

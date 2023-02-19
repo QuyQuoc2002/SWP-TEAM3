@@ -25,17 +25,17 @@ public class VehicleDAO {
 
     public List<Vehicle> getAll(int apartmentId) {
 
-        String sql = "SELECT v.vehicle_id, "
-                + "v.vehicle_type_id, "
-                + "v.vehicle_license_plate, "
-                + "v.vehicle_description, "
-                + "v.tenant_id, "
-                + "v.room_id, "
-                + "v.apartment_id, "
-                + "v.vehicle_img_path, "
-                + "vt.vehicle_type_name \n"
-                + "FROM apamandb.vehicle v Join apamandb.vehicle_type vt ON v.vehicle_type_id = vt.vehicle_type_id  \n"
-                + "Where v.apartment_id = ? ";
+        String sql = "SELECT vehicle.vehicle_id, "
+                + "vehicle.vehicle_type_id, "
+                + "vehicle.vehicle_license_plate, "
+                + "vehicle.vehicle_description, "
+                + "vehicle.tenant_id, "
+                + "vehicle.room_id, "
+                + "vehicle.apartment_id, "
+                + "vehicle.vehicle_img_path, "
+                + "fee.fee_value \n"
+                + "FROM apamandb.vehicle Join apamandb.fee ON vehicle.vehicle_type_id = fee.fee_key AND fee.fee_type = 'FEE_VEHICLE' \n"
+                + "Where vehicle.apartment_id = ? ";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, apartmentId);
@@ -47,7 +47,7 @@ public class VehicleDAO {
                         .vehicleId(rs.getInt("vehicle_id"))
                         .vehicleType(VehicleType.builder()
                                 .vehicleTypeId(rs.getInt("vehicle_type_id"))
-                                .vehicleTypeName(rs.getString("vehicle_type_name"))
+                                .vehicleTypeName(rs.getString("fee_value"))
                                 .build())
                         .tenant(Tenant.builder()
                                 .tenantId(rs.getInt("tenant_id"))
@@ -71,17 +71,17 @@ public class VehicleDAO {
     
     public List<Vehicle> getAll(int tenantId ,int apartmentId) {
 
-        String sql = "SELECT v.vehicle_id, "
-                + "v.vehicle_type_id, "
-                + "v.vehicle_license_plate, "
-                + "v.vehicle_description, "
-                + "v.tenant_id, "
-                + "v.room_id, "
-                + "v.apartment_id, "
-                + "v.vehicle_img_path, "
-                + "vt.vehicle_type_name \n"
-                + "FROM apamandb.vehicle v Join apamandb.vehicle_type vt ON v.vehicle_type_id = vt.vehicle_type_id  \n"
-                + "Where v.tenant_id = ? AND v.apartment_id = ? ";
+        String sql = "SELECT vehicle.vehicle_id, "
+                + "vehicle.vehicle_type_id, "
+                + "vehicle.vehicle_license_plate, "
+                + "vehicle.vehicle_description, "
+                + "vehicle.tenant_id, "
+                + "vehicle.room_id, "
+                + "vehicle.apartment_id, "
+                + "vehicle.vehicle_img_path, "
+                + "fee.fee_value \n"
+                + "FROM apamandb.vehicle Join apamandb.fee ON vehicle.vehicle_type_id = fee.fee_key AND fee.fee_type = 'FEE_VEHICLE' \n"
+                + "Where vehicle.tenant_id = ? And vehicle.apartment_id = ? ";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, tenantId);
@@ -94,7 +94,7 @@ public class VehicleDAO {
                         .vehicleId(rs.getInt("vehicle_id"))
                         .vehicleType(VehicleType.builder()
                                 .vehicleTypeId(rs.getInt("vehicle_type_id"))
-                                .vehicleTypeName(rs.getString("vehicle_type_name"))
+                                .vehicleTypeName(rs.getString("fee_value"))
                                 .build())
                         .tenant(Tenant.builder()
                                 .tenantId(rs.getInt("tenant_id"))
@@ -117,17 +117,17 @@ public class VehicleDAO {
     }
 
     public Vehicle getOne(int vehicleId) {
-        String sql = "SELECT v.vehicle_id, "
-                + "v.vehicle_type_id, "
-                + "v.vehicle_license_plate, "
-                + "v.vehicle_description, "
-                + "v.tenant_id, "
-                + "v.room_id, "
-                + "v.apartment_id, "
-                + "v.vehicle_img_path, "
-                + "vt.vehicle_type_name \n"
-                + "FROM apamandb.vehicle v Join apamandb.vehicle_type vt ON v.vehicle_type_id = vt.vehicle_type_id  \n"
-                + "Where v.vehicle_id = ? ";
+        String sql = "SELECT vehicle.vehicle_id, "
+                + "vehicle.vehicle_type_id, "
+                + "vehicle.vehicle_license_plate, "
+                + "vehicle.vehicle_description, "
+                + "vehicle.tenant_id, "
+                + "vehicle.room_id, "
+                + "vehicle.apartment_id, "
+                + "vehicle.vehicle_img_path, "
+                + "fee.fee_value \n"
+                + "FROM apamandb.vehicle Join apamandb.fee ON vehicle.vehicle_type_id = fee.fee_key AND fee.fee_type = 'FEE_VEHICLE' \n"
+                + "Where vehicle.vehicle_id = ? ";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, vehicleId);
@@ -137,7 +137,7 @@ public class VehicleDAO {
                         .vehicleId(rs.getInt("vehicle_id"))
                         .vehicleType(VehicleType.builder()
                                 .vehicleTypeId(rs.getInt("vehicle_type_id"))
-                                .vehicleTypeName(rs.getString("vehicle_type_name"))
+                                .vehicleTypeName(rs.getString("fee_value"))
                                 .build())
                         .tenant(Tenant.builder()
                                 .tenantId(rs.getInt("tenant_id"))
@@ -225,4 +225,7 @@ public class VehicleDAO {
         return check > 0;
     }
 
+    public static void main(String[] args) {
+        System.out.println(new VehicleDAO().delete(22, 1));
+    }
 }

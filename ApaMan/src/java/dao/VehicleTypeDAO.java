@@ -21,7 +21,7 @@ public class VehicleTypeDAO {
     
     public List<VehicleType> getAll() {
 
-        String sql = "SELECT fee_key, fee_value FROM fee WHERE fee_type = 'FEE_VEHICAL'";//
+        String sql = "SELECT fee_key, fee_value FROM fee WHERE fee_type = 'FEE_VEHICLE'";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
