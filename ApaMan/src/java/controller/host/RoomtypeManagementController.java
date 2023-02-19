@@ -157,6 +157,7 @@ public class RoomtypeManagementController extends HttpServlet {
                             } else {
                                 session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype-detail");
                             }
+                            response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
                         }
                     }
                     break;
@@ -165,6 +166,7 @@ public class RoomtypeManagementController extends HttpServlet {
                     Roomtype roomtypedel = roomtypeService.getOne(roomtypeId, apartmentId);
                     if (roomtypedel.getRoomtypeRoomQuantity() != 0) {
                         session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Roomtype Fail, some room exist in this roomtype|edit-roomtype");
+                        response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
                     } else {
 
                         boolean deleteRoomtypeImgBannerSuccess = roomtypeImgBannerService.deleteAllRoomtype(roomtypeId);
@@ -179,7 +181,6 @@ public class RoomtypeManagementController extends HttpServlet {
                     }
                     break;
             }
-            response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
         }
     }
 

@@ -27,12 +27,12 @@
                     </select>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" name="vehicleDescription" required="">
+                        <input type="text" class="form-control bg-dark text-white" name="vehicleDescription" required="">
                         <label for="floatingInput">Description</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control bg-dark" name="vehicleLicensePlate">
+                        <input type="text" class="form-control bg-dark text-white" name="vehicleLicensePlate">
                         <label for="floatingInput">License Plate</label>
                     </div>
 

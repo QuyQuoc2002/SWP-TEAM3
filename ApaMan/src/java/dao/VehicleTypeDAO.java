@@ -21,7 +21,7 @@ public class VehicleTypeDAO {
     
     public List<VehicleType> getAll() {
 
-        String sql = "SELECT fee_key, fee_value FROM fee WHERE fee_type = 'FEE_VEHICLE'";//
+        String sql = "SELECT fee_key, fee_value FROM apamandb.fee WHERE fee_type = 'FEE_VEHICLE';";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ResultSet rs = ps.executeQuery();
@@ -39,6 +39,12 @@ public class VehicleTypeDAO {
             e.printStackTrace(System.out);
         }
         return null;
+    }
+    
+    public static void main(String[] args) {
+        VehicleTypeDAO vehicleTypeDAO = new VehicleTypeDAO();
+        
+        System.out.println(vehicleTypeDAO.getAll());
     }
     
 }

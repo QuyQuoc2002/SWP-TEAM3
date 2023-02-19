@@ -340,8 +340,8 @@
                                     '<td>' + vehicles[i].vehicleType.vehicleTypeName + '</td>' +
                                     '<td>' + vehicles[i].vehicleDescription + '</td>' +
                                     '<td>' + vehicles[i].vehicleLicensePlate + '</td>' +
-                                    '<td><a href="' + vehicles[i].vehicleImgPath + '">View</a></td>' +
-                                    '<td style="position: relative;"><a onclick="confirmDeleteVehicle(' + vehicles[i].vehicleId + ')" href="javascript:void(0)">Delete</a>' +
+                                    '<td><a href="' + vehicles[i].vehicleImgPath + '" class="a-none">View</a></td>' +
+                                    '<td style="position: relative;"><a class="a-none" onclick="confirmDeleteVehicle(' + vehicles[i].vehicleId + ')" href="javascript:void(0)">Delete</a>' +
                                     '<i data-vehicleid="' + vehicles[i].vehicleId + '" onclick="deleteVehicle(' + vehicles[i].vehicleId + ',' + vehicles[i].tenant.tenantId + ')" style="display: none; position: absolute; top: 12px; left: 50px; cursor: pointer" class="text-danger ms-3 fa-solid fa-trash"></i></td>' +
                                     '</tr>';
                         }
