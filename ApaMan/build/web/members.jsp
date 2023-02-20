@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="assets/css/common.css">
         <link rel="stylesheet" type="text/css" href="assets/css/switch-toggle-btn.css">
         <link rel="stylesheet" href="assets/css/members.css">
+        <link rel="stylesheet" href="assets/css/room-member.css">
     </head>
 
     <body>
@@ -82,8 +83,16 @@
                                                     <div class="media-body pt-2">
                                                         <h5 >${tenant.tenantName}</h5>
                                                         <div class="tags">
-                                                            <div class="tag">1 xe đạp</div>
-                                                            <div class="tag">1 xe máy</div>
+
+                                                            <c:forEach items="${vehicles}" var="vehicle">
+                                                                <c:if test="${vehicle.tenant.tenantId eq tenant.tenantId}">
+                                                                    <div class="tag">${vehicle.vehicleType.vehicleTypeName}</div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <a class="tag a-none" onclick="getAllVehicleByTenant(${tenant.tenantId})" data-bs-toggle="modal"
+                                                               data-bs-target="#modal-list-vehicle">View List Vehicle</a>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,6 +109,7 @@
 
         <!-------------------------------------------MODAL-------------------------------------------->
         <%@include file="component/modal/modal-delete-account-staff.jsp"%>
+        <%@include file="component/modal/modal-list-vehicle.jsp"%>  
 
         <!-------------------------------------------JS-------------------------------------------->
         <script src="assets/js/bootstrap.bundle.js"></script>
@@ -107,6 +117,33 @@
         <script src="assets/js/validate.js"></script>
         <script src="assets/js/staff.js"></script>
         <script src="assets/js/main.js"></script>
+
+        <script>
+                                                                function getAllVehicleByTenant(tenantId) {
+                                                                    const request = new XMLHttpRequest();
+                                                                    request.open("GET", "/ApaMan/vehicle?submitType=getAllByTenant&tenantId=" + tenantId, true);
+                                                                    request.onload = function () {
+                                                                        if (this.readyState === 4 && this.status === 200) {
+                                                                            let listVehicle = '';
+                                                                            const vehicles = JSON.parse(this.responseText);
+                                                                            for (let i = 0; i < vehicles.length; i++) {
+                                                                                listVehicle +=
+                                                                                        '<tr>' +
+                                                                                        '<td>' + vehicles[i].vehicleType.vehicleTypeName + '</td>' +
+                                                                                        '<td>' + vehicles[i].vehicleDescription + '</td>' +
+                                                                                        '<td>' + vehicles[i].vehicleLicensePlate + '</td>' +
+                                                                                        '<td><a href="' + vehicles[i].vehicleImgPath + '" class="a-none">View</a></td>' +
+                                                                                        '</tr>';
+                                                                            }
+                                                                            document.getElementById('list-vehicle-by-tenant').innerHTML = listVehicle;
+                                                                        } else {
+                                                                            console.log(2);
+                                                                        }
+                                                                    };
+                                                                    request.send(null);
+                                                                }
+
+        </script>
 
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>

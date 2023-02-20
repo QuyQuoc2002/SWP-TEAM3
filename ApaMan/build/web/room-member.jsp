@@ -102,8 +102,8 @@
                             <div class="row col-2" style="margin: 0">
                                 <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
                                     <input hidden name="roomId" value="${room.roomId}">
-                                    <input hidden name="submitType" value="UpdateRoom">
-                                    <input type="hidden" id="submitType2" name="submitType2">
+                                    
+                                    <input type="hidden" id="submitType" name="submitType">
                                     <button type="button" onclick="validateUpdateRoom()" class="btn btn-primary w-10" style="height: 47px">Update</button>
 
                                 </div>
@@ -122,7 +122,7 @@
 
                         <c:forEach items="${tenants}" var="tenant">
                             <div class="col-4 mb-4" id="tenant-infor">
-                                <form action="room-member" method="post" id="update-tenant-form${tenant.tenantId}">
+                                <form action="member-detail" method="post" id="update-tenant-form${tenant.tenantId}">
                                     <div class="bg-secondary-cus rounded p-2 card-staff">
                                         <div class="row px-3 pt-2">
                                             <div class="col-8 text-wheat">
@@ -204,7 +204,7 @@
                                             <div class="action mt-2">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input hidden name="submitType" value="UpdateTenant">
+                                                        
                                                         <button class="btn btn-primary w-100" onclick="validateTenantInfo${tenant.tenantId}();" type="button">Save</button>
                                                     </div>
                                                     <div class="col-6">
@@ -243,7 +243,7 @@
                                                                 } else if (!roomName.match(REGEX_ROOM_NAME)) {
                                                                     showToast('warning', 'APAMAN Notification', 'Room\'s name is malformed (101A)');
                                                                 } else {
-                                                                    document.getElementById("submitType2").value = 'Update';
+                                                                    document.getElementById("submitType").value = 'Update';
                                                                     document.getElementById('room-update').submit();
                                                                 }
                                                             }

@@ -22,7 +22,7 @@
                             <th>Description</th>
                             <th>License plate</th>
                             <th>View</th>
-                            <th>Delete</th>
+                            
                         </tr>
                     </thead>
                     <tbody id="list-vehicle-by-tenant">

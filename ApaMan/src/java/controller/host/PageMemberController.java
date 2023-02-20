@@ -6,6 +6,7 @@ package controller.host;
 
 import entity.Account;
 import entity.Tenant;
+import entity.VehicleType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import service.TenantService;
+import service.VehicleTypeService;
 
 /**
  *
@@ -68,6 +70,10 @@ public class PageMemberController extends HttpServlet {
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
             TenantService tenantService = new TenantService();
+            VehicleTypeService vehicleTypeService = new VehicleTypeService();
+            
+            List<VehicleType> vehicleTypes = vehicleTypeService.getAll();
+            request.setAttribute("vehicleTypes", vehicleTypes);
 
             List<Tenant> tenants = tenantService.getAll(apartmentId);
             request.setAttribute("tenants", tenants);

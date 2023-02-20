@@ -157,9 +157,10 @@ public class RoomtypeManagementController extends HttpServlet {
                             } else {
                                 session.setAttribute("messageUpdate", "error|APAMAN Notification|Add Roomtype Fail|edit-roomtype-detail");
                             }
-                            response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
+
                         }
                     }
+                    response.sendRedirect("roomtype-detail?roomtypeId=" + roomtypeId);
                     break;
 
                 case "Delete":

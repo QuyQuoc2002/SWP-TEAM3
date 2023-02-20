@@ -28,7 +28,6 @@ import service.FloorService;
 import service.RoomService;
 import service.RoomtypeService;
 import service.TenantService;
-import service.VehicleService;
 import service.VehicleTypeService;
 import utils.Cypher;
 
@@ -85,7 +84,6 @@ public class RoomMemberController extends HttpServlet {
             RoomtypeService roomtypeService = new RoomtypeService();
             TenantService tenantService = new TenantService();
             VehicleTypeService vehicleTypeService = new VehicleTypeService();
-            VehicleService vehicleService = new VehicleService();
             RoomService roomService = new RoomService();
 
             Account curAccount = (Account) session.getAttribute("curAccount");
@@ -137,177 +135,134 @@ public class RoomMemberController extends HttpServlet {
             RoomService roomService = new RoomService();
             RoomtypeService roomtypeService = new RoomtypeService();
 
+            int roomId = Integer.parseInt(request.getParameter("roomId"));
             String submitType = request.getParameter("submitType");
-            if (submitType.equals("UpdateTenant")) {
 
-                int tenantId = Integer.parseInt(request.getParameter("tenantId"));
-                int accountId = Integer.parseInt(request.getParameter("accountId"));
-                int roomId = Integer.parseInt(request.getParameter("roomId"));
+            if (submitType.equals("Update")) {
+                int floorId = Integer.parseInt(request.getParameter("floorId"));
+                int roomtypeId = Integer.parseInt(request.getParameter("roomtypeId"));
+                String roomName = request.getParameter("roomName");
 
-                String password = request.getParameter("password");
-                boolean accountAccessible = request.getParameter("accountAccessible") != null;
-
-                String tenantCountryside = request.getParameter("tenantCountryside");
-                String tenantDob = request.getParameter("tenantDob");
-                String tenantPhoneNumber = request.getParameter("tenantPhoneNumber");
-                String tenantParentPhone = request.getParameter("tenantParentPhone");
-                String tenantCitizenIdentification = request.getParameter("tenantCitizenIdentification");
-                String tenantName = request.getParameter("tenantName");
-
-                Account account = accountService.getOne(accountId);
-                account.setAccountAccessible(accountAccessible);
-                account.setAccountPassword(password);
-                boolean updateAccountSuccess = accountService.update(account, accountId);
-
-                Tenant tenant = tenantService.getOne(tenantId);
-                tenant.setTenantCountryside(tenantCountryside);
-                tenant.setTenantDob(tenantDob);
-                tenant.setTenantPhoneNumber(tenantPhoneNumber);
-                tenant.setTenantParentPhone(tenantParentPhone);
-                tenant.setTenantCitizenIdentification(tenantCitizenIdentification);
-                tenant.setTenantName(tenantName);
-                boolean updateTenantSuccess = tenantService.update(tenant, tenantId);
-
-                if (updateAccountSuccess && updateTenantSuccess) {
-                    session.setAttribute("messageUpdate", "success|Update|Update Success");
+                int numberOfTenantActive = roomService.numberOfTenantActive(roomId);
+                if (numberOfTenantActive != 0) {
+                    session.setAttribute("messageUpdate", "error|APAMAN Notification|Update Room Fail, some tenant exist in this room|edit-room");
+                    response.sendRedirect("room-member?roomId=" + roomId);
                 } else {
-                    session.setAttribute("messageUpdate", "error|Update|Update Fail");
-                }
-                response.sendRedirect("room-member?roomId=" + roomId);
-            }
+                    String errorStr = "<ol>";
+                    Room room = roomService.getOne(roomId, apartmentId);
 
-            if (submitType.equals("UpdateRoom")) {
-
-                int roomId = Integer.parseInt(request.getParameter("roomId"));
-                String submitType2 = request.getParameter("submitType2");
-
-                if (submitType2.equals("Update")) {
-                    int floorId = Integer.parseInt(request.getParameter("floorId"));
-                    int roomtypeId = Integer.parseInt(request.getParameter("roomtypeId"));
-                    String roomName = request.getParameter("roomName");
-
-                    int numberOfTenantActive = roomService.numberOfTenantActive(roomId);
-                    if (numberOfTenantActive != 0) {
-                        session.setAttribute("messageUpdate", "error|APAMAN Notification|Update Room Fail, some tenant exist in this room|edit-room");
-                        response.sendRedirect("room-member?roomId=" + roomId);
+                    List<Room> rooms = roomService.getAll(apartmentId);
+                    //Check roomNameExist already exist
+                    boolean roomNameExist = false;
+                    if (!rooms.isEmpty()) {
+                        for (Room obj : rooms) {
+                            if (roomName.equals(obj.getRoomName())) {
+                                roomNameExist = true;
+                            }
+                        }
+                    }
+                    if (roomNameExist && !roomName.equals(room.getRoomName())) {
+                        errorStr += "<li>Room Name Exist</li>";
                     } else {
-                        String errorStr = "<ol>";
-                        Room room = roomService.getOne(roomId, apartmentId);
+                        errorStr += "<li>Update Room Name Success</li>";
+                        room.setRoomName(roomName);
+                    }
+                    errorStr += "<li>Update Floor Success</li>";
+                    room.setFloorId(floorId);
 
-                        List<Room> rooms = roomService.getAll(apartmentId);
-                        //Check roomNameExist already exist
-                        boolean roomNameExist = false;
-                        if (!rooms.isEmpty()) {
-                            for (Room obj : rooms) {
-                                if (roomName.equals(obj.getRoomName())) {
-                                    roomNameExist = true;
-                                }
-                            }
+                    if (room.getRoomtypeId() != roomtypeId) {
+
+                        List<Tenant> deleteTeants = new ArrayList<>();
+                        List<Account> deleteAccounts = new ArrayList<>();
+
+                        List<Tenant> tenants = tenantService.getAll(roomId, apartmentId);
+                        for (Tenant tenant : tenants) {
+                            deleteTeants.add(tenant);
+                            deleteAccounts.add(tenant.getAccount());
                         }
-                        if (roomNameExist && !roomName.equals(room.getRoomName())) {
-                            errorStr += "<li>Room Name Exist</li>";
-                        } else {
-                            errorStr += "<li>Update Room Name Success</li>";
-                            room.setRoomName(roomName);
-                        }
-                        errorStr += "<li>Update Floor Success</li>";
-                        room.setFloorId(floorId);
+                        boolean deleteTeantSuccess = tenantService.delete(deleteTeants);
+                        boolean deleteAccountSuccess = accountService.delete(deleteAccounts);
 
-                        if (room.getRoomtypeId() != roomtypeId) {
+                        if (deleteTeantSuccess && deleteAccountSuccess) {
+                            int maxMember = roomtypeService.getOne(roomtypeId, apartmentId).getRoomtypeMaxMember();
 
-                            List<Tenant> deleteTeants = new ArrayList<>();
-                            List<Account> deleteAccounts = new ArrayList<>();
+                            //create tenant
+                            List<Tenant> addTenants = new ArrayList<>();
 
-                            List<Tenant> tenants = tenantService.getAll(roomId, apartmentId);
-                            for (Tenant tenant : tenants) {
-                                deleteTeants.add(tenant);
-                                deleteAccounts.add(tenant.getAccount());
+                            for (int i = 0; i < maxMember; i++) {
+                                String tenantUsername = roomName + "Tenant" + (i + 1);
+                                //create account
+                                Account account = Account.builder()
+                                        .apartmentId(apartmentId)
+                                        .accountUsername(tenantUsername)
+                                        .accountPassword(Cypher.generateData())
+                                        .accountAccessible(false)
+                                        .role(Role.builder()
+                                                .roleId(IConst.ROLE_TENANT_ID)
+                                                .build()
+                                        )
+                                        .build();
+                                int accountId = accountService.add(account);
+
+                                Room roomx = Room.builder()
+                                        .roomId(roomId)
+                                        .roomName(roomName)
+                                        .build();
+
+                                Tenant tenant = Tenant.builder()
+                                        .room(roomx)
+                                        .account(Account.builder().accountId(accountId).build())
+                                        .build();
+                                addTenants.add(tenant);
                             }
-                            boolean deleteTeantSuccess = tenantService.delete(deleteTeants);
-                            boolean deleteAccountSuccess = accountService.delete(deleteAccounts);
+                            boolean addTenantsSuccess = tenantService.add(addTenants);
 
-                            if (deleteTeantSuccess && deleteAccountSuccess) {
-                                int maxMember = roomtypeService.getOne(roomtypeId, apartmentId).getRoomtypeMaxMember();
-
-                                //create tenant
-                                List<Tenant> addTenants = new ArrayList<>();
-
-                                for (int i = 0; i < maxMember; i++) {
-                                    String tenantUsername = roomName + "Tenant" + (i + 1);
-                                    //create account
-                                    Account account = Account.builder()
-                                            .apartmentId(apartmentId)
-                                            .accountUsername(tenantUsername)
-                                            .accountPassword(Cypher.generateData())
-                                            .accountAccessible(false)
-                                            .role(Role.builder()
-                                                    .roleId(IConst.ROLE_TENANT_ID)
-                                                    .build()
-                                            )
-                                            .build();
-                                    int accountId = accountService.add(account);
-
-                                    Room roomx = Room.builder()
-                                            .roomId(roomId)
-                                            .roomName(roomName)
-                                            .build();
-
-                                    Tenant tenant = Tenant.builder()
-                                            .room(roomx)
-                                            .account(Account.builder().accountId(accountId).build())
-                                            .build();
-                                    addTenants.add(tenant);
-                                }
-                                boolean addTenantsSuccess = tenantService.add(addTenants);
-
-                                if (addTenantsSuccess) {
-                                    errorStr += "<li>Update Room Type Success</li>";
-                                    room.setRoomtypeId(roomtypeId);
-                                } else {
-                                    errorStr += "<li>Update Room Type Fail</li>";
-                                }
-
+                            if (addTenantsSuccess) {
+                                errorStr += "<li>Update Room Type Success</li>";
+                                room.setRoomtypeId(roomtypeId);
                             } else {
                                 errorStr += "<li>Update Room Type Fail</li>";
                             }
 
                         } else {
-                            errorStr += "<li>Update Room Type Success</li>";
-                            room.setRoomtypeId(roomtypeId);
+                            errorStr += "<li>Update Room Type Fail</li>";
                         }
-                        errorStr += "</ol>";
-                        boolean updateRoomSuccess = roomService.update(room);
 
-                        if (updateRoomSuccess) {
-                            session.setAttribute("messageUpdate", "success|Update|" + errorStr);
-                        } else {
-                            session.setAttribute("messageUpdate", "error|Update|Update Fail");
-                        }
-                        response.sendRedirect("room-member?roomId=" + roomId);
-                    }
-                }
-                if (submitType2.equals("Delete")) {
-                    int floorId = Integer.parseInt(request.getParameter("floorId"));
-                    List<Tenant> deleteTeants = new ArrayList<>();
-                    List<Account> deleteAccounts = new ArrayList<>();
-
-                    List<Tenant> tenants = tenantService.getAll(roomId, apartmentId);
-                    for (Tenant tenant : tenants) {
-                        deleteTeants.add(tenant);
-                        deleteAccounts.add(tenant.getAccount());
-                    }
-                    boolean deleteTeantSuccess = tenantService.delete(deleteTeants);
-                    boolean deleteAccountSuccess = accountService.delete(deleteAccounts);
-                    boolean deleteRoomSuccess = roomService.delete(roomId, floorId);
-
-                    if (deleteTeantSuccess && deleteAccountSuccess && deleteRoomSuccess) {
-                        session.setAttribute("messageUpdate", "success|APAMAN Notification|Delete Room Success|edit-room");
                     } else {
-                        session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Room Fail|edit-room");
+                        errorStr += "<li>Update Room Type Success</li>";
+                        room.setRoomtypeId(roomtypeId);
                     }
-                    response.sendRedirect("floor-room?floorId=" + floorId);
-                }
+                    errorStr += "</ol>";
+                    boolean updateRoomSuccess = roomService.update(room);
 
+                    if (updateRoomSuccess) {
+                        session.setAttribute("messageUpdate", "success|Update|" + errorStr);
+                    } else {
+                        session.setAttribute("messageUpdate", "error|Update|Update Fail");
+                    }
+                    response.sendRedirect("room-member?roomId=" + roomId);
+                }
+            }
+            if (submitType.equals("Delete")) {
+                int floorId = Integer.parseInt(request.getParameter("floorId"));
+                List<Tenant> deleteTeants = new ArrayList<>();
+                List<Account> deleteAccounts = new ArrayList<>();
+
+                List<Tenant> tenants = tenantService.getAll(roomId, apartmentId);
+                for (Tenant tenant : tenants) {
+                    deleteTeants.add(tenant);
+                    deleteAccounts.add(tenant.getAccount());
+                }
+                boolean deleteTeantSuccess = tenantService.delete(deleteTeants);
+                boolean deleteAccountSuccess = accountService.delete(deleteAccounts);
+                boolean deleteRoomSuccess = roomService.delete(roomId, floorId);
+
+                if (deleteTeantSuccess && deleteAccountSuccess && deleteRoomSuccess) {
+                    session.setAttribute("messageUpdate", "success|APAMAN Notification|Delete Room Success|edit-room");
+                } else {
+                    session.setAttribute("messageUpdate", "error|APAMAN Notification|Delete Room Fail|edit-room");
+                }
+                response.sendRedirect("floor-room?floorId=" + floorId);
             }
 
         }

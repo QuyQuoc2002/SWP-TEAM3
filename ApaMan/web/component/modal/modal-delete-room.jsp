@@ -17,8 +17,7 @@
                         </div>
                         <div class="col-6">
                             <input hidden name="floorId" value="${requestScope.room.floorId}">
-                            <input hidden name="submitType" value="UpdateRoom">
-                            <input class="btn btn-danger py-3 w-100 mb-4" type="submit" name="submitType2" value="Delete">
+                            <input class="btn btn-danger py-3 w-100 mb-4" type="submit" name="submitType" value="Delete">
                         </div>
                     </div> 
                 </form>

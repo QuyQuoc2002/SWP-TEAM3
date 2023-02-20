@@ -62,7 +62,7 @@
                                     <td>${vehicle.vehicleType.vehicleTypeName}</td>
                                     <td>${vehicle.vehicleLicensePlate}</td>
                                     <td>${vehicle.tenant.tenantName}</td>
-                                    <td><a href="room-member?roomId=${vehicle.room.roomId}">${vehicle.room.roomName}</a></td>
+                                    <td><a href="room-member?roomId=${vehicle.room.roomId}" class="a-none">${vehicle.room.roomName}</a></td>
                                     <td>${vehicle.vehicleDescription}</td>
                                     <td class="d-flex justify-content-between">
                                         <a href="${vehicle.vehicleImgPath}" class="a-none">Image</a>
