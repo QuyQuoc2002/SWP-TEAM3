@@ -30,4 +30,5 @@ public class Apartment {
     private String apartmentContentRecruitment;
     private long apartmentCreateTime;
     private boolean apartmentAccessible;
+    private double distanceFromDevice;
 }

@@ -90,16 +90,15 @@ public class PageIndexController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
             String searchType = request.getParameter("searchType");
-            
 
             List<City> cities = new CityService().getAll();
             List<District> districts = new DistrictService().getAll();
 
             request.setAttribute("cities", cities);
             request.setAttribute("districts", districts);
-            
+
             switch (searchType) {
                 case "select":
                     int districtId = Integer.parseInt(request.getParameter("districtId"));
@@ -116,12 +115,26 @@ public class PageIndexController extends HttpServlet {
                 case "text":
                     String keyWord = request.getParameter("keyWord");
                     List<Apartment> listApartment = new ApartmentService().searchKeyword(keyWord);
-                    
+
                     request.setAttribute("keyWord", keyWord);
                     request.setAttribute("apartments", listApartment);
                     request.setAttribute("selectType", true);
                     request.setAttribute("textType", false);
                     request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+
+                case "gps":
+                    double latDevice = Double.parseDouble(request.getParameter("latDevice"));
+                    double lonDevice = Double.parseDouble(request.getParameter("lonDevice"));
+                    double radius = Double.parseDouble(request.getParameter("radius"));
+                    
+                    List<Apartment> lstByRadius = new ApartmentService().getAllByRadius(latDevice, lonDevice, radius);
+
+                    request.setAttribute("apartments", lstByRadius);
+                    request.setAttribute("selectType", false);
+                    request.setAttribute("textType", true);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+
                     break;
 
             }

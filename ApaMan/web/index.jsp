@@ -27,12 +27,12 @@
     <div style="padding-bottom: 300px">
 
         <div id="change-search-select" <c:if test="${requestScope.selectType}">style="display: none"</c:if>>
-            <div class="s01" >
-                <form action="#review" method="post">
-                    <div class="inner-form">
-                        <div class="input-select">
-                            <select id="city" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrDistrict(value);">
-                                <option selected="selected" value="0" hidden>Choose one city</option>
+                <div class="s01" >
+                    <form action="#review" method="post">
+                        <div class="inner-form">
+                            <div class="input-select">
+                                <select id="city" class="form-select" aria-label="Default select example" style="width: 330px" onchange="setAttrDistrict(value);">
+                                    <option selected="selected" value="0" hidden>Choose one city</option>
 
                                 <c:forEach items="${requestScope.cities}" var="city">
                                     <option <c:forEach items="${requestScope.districts}" var="district">
@@ -53,108 +53,111 @@
                         </div>
                         <input hidden name="searchType" value="select" />
                         <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
-                        <span onclick="changeFunction()" style="color: #0d6efd"><i class="fa-solid fa-arrows-rotate fs-3"></i></a></span>
+                        <span onclick="changeFunction()" style="color: #0d6efd; cursor: pointer"><i class="fa-solid fa-arrows-rotate fs-3"></i></a></span>
+                        <span onclick="searchDistanceFromDevice();" style="color: #0d6efd; font-size: 18pt; cursor: pointer" title="Search within 10km radius"><i class="fa-solid fa-map-location"></i></span>
                     </div>
                 </form>
             </div>
         </div>
-
-
+                <form id="search-distance-from-device-form" action="#review" method="post" style="display: none">
+            <input name="radius">
+            <input name="latDevice">
+            <input name="lonDevice">
+            <input name="searchType" value="gps">
+        </form>
         <div id="change-search-text" <c:if test="${requestScope.textType}">style="display: none"</c:if>>
-            <div class="s01" >
-                <form action="#review" method="post">
-                    <div class="inner-form">
-                        <div class="input-select">
-                            <input size="80" type="text" placeholder="Enter Keywords?" class="form-control" id="keyWord" name="keyWord" value="${requestScope.keyWord}" required/>
+                <div class="s01" >
+                    <form action="#review" method="post">
+                        <div class="inner-form">
+                            <div class="input-select">
+                                <input size="80" type="text" placeholder="Enter Keywords?" class="form-control" id="keyWord" name="keyWord" value="${requestScope.keyWord}" required/>
                         </div>
                         <input hidden name="searchType" value="text"  />
                         <button type="submit" class="btn btn-primary" id="btn-search">Search</button>
-                        <span onclick="changeFunction()" style="color: #0d6efd"><i class="fa-solid fa-arrows-rotate fs-3"></i></span>
+                        <span onclick="changeFunction()" style="color: #0d6efd; cursor: pointer"><i class="fa-solid fa-arrows-rotate fs-3"></i></span>
                     </div>
-
                 </form>
             </div>
         </div>
-
     </div>
-                        
+
     <c:if test="${requestScope.apartments == null}"> 
         <div style="margin-top: -300px; ">
-        <div id="review" class="blog">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="titlepage">
-                            <h2>TOP APARTMENT</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- comment: List Apartment -->
-                    <c:forEach items="${requestScope.apartmentTop}" var="apartment">
-                        <div class="col-md-4">
-                            <div class="blog_box">
-                                <div class="blog_img">
-                                    <figure>
-                                        <a href="homepage?apartmentId=${apartment.apartmentId}"><img src="${apartment.apartmentImgAboutus}" alt="#" /></a>
-                                    </figure>
-                                </div>
-                                <div class="blog_room" style="color: black;">
-                                    <a href="homepage.html">
-                                        <h3>${apartment.apartmentName}</h3>
-                                    </a>
-                                    <span>${apartment.apartmentAddress}</span>
-                                    <p>${apartment.apartmentIntro}</p>
-                                </div>
+            <div id="review" class="blog">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="titlepage">
+                                <h2>TOP APARTMENT</h2>
                             </div>
                         </div>
-                    </c:forEach>
+                    </div>
+                    <div class="row">
+                        <!-- comment: List Apartment -->
+                        <c:forEach items="${requestScope.apartmentTop}" var="apartment">
+                            <div class="col-md-4">
+                                <div class="blog_box">
+                                    <div class="blog_img">
+                                        <figure>
+                                            <a href="homepage?apartmentId=${apartment.apartmentId}"><img src="${apartment.apartmentImgAboutus}" alt="#" /></a>
+                                        </figure>
+                                    </div>
+                                    <div class="blog_room" style="color: black;">
+                                        <a href="homepage.html">
+                                            <h3>${apartment.apartmentName}</h3>
+                                        </a>
+                                        <span>${apartment.apartmentAddress}</span>
+                                        <p>${apartment.apartmentIntro}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
-            </div>
     </c:if>
 
     <c:if test="${requestScope.apartments != null}"> 
         <div style="margin-top: -300px">
-        <div id="review" class="blog">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="titlepage">
-                            <h2>Result</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <c:if test="${requestScope.apartments.size() eq 0}">
-                        <div class="col-md-12" style="margin-bottom: 100px">
-                            <h1 class="text-info text-uppercase text-center fw-bolder">Not found any Apart in this location</h1>
-                        </div>
-                    </c:if>
-                    <!-- comment: List Apartment -->
-                    <c:forEach items="${requestScope.apartments}" var="apartment">
-                        <div class="col-md-4">
-                            <div class="blog_box">
-                                <div class="blog_img">
-                                    <figure>
-                                        <a href="homepage?apartmentId=${apartment.apartmentId}"><img src="${apartment.apartmentImgAboutus}" alt="#" /></a>
-                                    </figure>
-                                </div>
-                                <div class="blog_room" style="color: black;">
-                                    <a href="homepage?apartmentId=${apartment.apartmentId}">
-                                        <h3>${apartment.apartmentName}</h3>
-                                    </a>
-                                    <span>${apartment.apartmentAddress}</span>
-                                    <p>${apartment.apartmentIntro}</p>
-                                </div>
+            <div id="review" class="blog">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="titlepage">
+                                <h2>Result</h2>
                             </div>
                         </div>
-                    </c:forEach>
+                    </div>
+                    <div class="row">
+                        <c:if test="${requestScope.apartments.size() eq 0}">
+                            <div class="col-md-12" style="margin-bottom: 100px">
+                                <h1 class="text-info text-uppercase text-center fw-bolder">Not found any Apart in this location</h1>
+                            </div>
+                        </c:if>
+                        <!-- comment: List Apartment -->
+                        <c:forEach items="${requestScope.apartments}" var="apartment">
+                            <div class="col-md-4">
+                                <div class="blog_box">
+                                    <div class="blog_img">
+                                        <figure>
+                                            <a href="homepage?apartmentId=${apartment.apartmentId}"><img src="${apartment.apartmentImgAboutus}" alt="#" /></a>
+                                        </figure>
+                                    </div>
+                                    <div class="blog_room" style="color: black;">
+                                        <a href="homepage?apartmentId=${apartment.apartmentId}">
+                                            <h3>${apartment.apartmentName}</h3>
+                                        </a>
+                                        <span>${apartment.apartmentAddress}</span>
+                                        <p>${apartment.apartmentIntro}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
-            </div>
     </c:if>
 
 
@@ -200,6 +203,28 @@
             }
         }
 
+    </script>
+    <!---------------------------------------------Search By GPS---------------------------------------------------------->
+    <script>
+        function searchDistanceFromDevice() {
+            if (navigator.geolocation) { // if browser support geolocation api
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            } else {
+                showToast('info', "Apaman Notification", "Your browser support geolocation");
+            }
+        }
+        
+        function onError(){
+            showToast('warning', "Apaman Notification", "Can not get your location. Try again");
+        }
+        
+        function onSuccess(position) {
+            const { latitude, longitude } = position.coords; // getting lat and lon of the user device
+            document.querySelector('#search-distance-from-device-form input:nth-of-type(1)').value = 10;
+            document.querySelector('#search-distance-from-device-form input:nth-of-type(2)').value = latitude;
+            document.querySelector('#search-distance-from-device-form input:nth-of-type(3)').value = longitude;
+            document.getElementById('search-distance-from-device-form').submit();
+        }
     </script>
 
 </body>
