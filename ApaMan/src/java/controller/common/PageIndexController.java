@@ -4,6 +4,7 @@
  */
 package controller.common;
 
+import constant.IConst;
 import entity.Apartment;
 import entity.City;
 import entity.District;
@@ -14,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import service.ApartmentService;
 import service.CityService;
@@ -65,9 +67,22 @@ public class PageIndexController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             List<City> cities = new CityService().getAll();
             List<District> districts = new DistrictService().getAll();
-            List<Apartment> apartmentTop = new ApartmentService().getAll(0);
-
+            String pageStr = request.getParameter("page");
+            int page = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
+            System.out.println(page);
+            int totalApartment = new ApartmentService().getAll(0).size();
+            int totalPage = (totalApartment % IConst.NUMBER_APARTMENT_PER_PAGE == 0) ?
+                    totalApartment / IConst.NUMBER_APARTMENT_PER_PAGE : totalApartment / IConst.NUMBER_APARTMENT_PER_PAGE + 1;
+            List<Integer> pages = new ArrayList<>();
+            for (int i = 1; i <= totalPage; ++i) {
+                pages.add(i);
+            }
+            
+            List<Apartment> apartmentTop = new ApartmentService().getApartmentPerPage(0, IConst.NUMBER_APARTMENT_PER_PAGE * (page - 1), IConst.NUMBER_APARTMENT_PER_PAGE);
+            
             request.setAttribute("apartmentTop", apartmentTop);
+            request.setAttribute("curPage", page);
+            request.setAttribute("pages", pages);
             request.setAttribute("cities", cities);
             request.setAttribute("districts", districts);
             request.setAttribute("selectType", false);

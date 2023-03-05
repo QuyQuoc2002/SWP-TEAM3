@@ -59,7 +59,7 @@
                 </form>
             </div>
         </div>
-                <form id="search-distance-from-device-form" action="#review" method="post" style="display: none">
+        <form id="search-distance-from-device-form" action="#review" method="post" style="display: none">
             <input name="radius">
             <input name="latDevice">
             <input name="lonDevice">
@@ -113,6 +113,15 @@
                             </div>
                         </c:forEach>
                     </div>
+                    <nav class="d-flex justify-content-end" aria-label="Page navigation exampl">
+                        <ul class="pagination">
+                            <li class="page-item <c:if test="${requestScope.curPage eq 1}">disabled</c:if>"><a class="page-link" href="?page=${requestScope.curPage -1}#review">Previous</a></li>
+                            <c:forEach items="${requestScope.pages}" var="page">
+                                <li class="page-item <c:if test="${requestScope.curPage eq page}">active</c:if>"><a class="page-link " href="?page=${page}#review">${page}</a></li>
+                            </c:forEach>
+                                <li class="page-item <c:if test="${requestScope.curPage eq requestScope.pages.size()}">disabled</c:if>"><a class="page-link" href="?page=${requestScope.curPage + 1}#review">Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -213,13 +222,13 @@
                 showToast('info', "Apaman Notification", "Your browser support geolocation");
             }
         }
-        
-        function onError(){
+
+        function onError() {
             showToast('warning', "Apaman Notification", "Can not get your location. Try again");
         }
-        
+
         function onSuccess(position) {
-            const { latitude, longitude } = position.coords; // getting lat and lon of the user device
+            const {latitude, longitude} = position.coords; // getting lat and lon of the user device
             document.querySelector('#search-distance-from-device-form input:nth-of-type(1)').value = 10;
             document.querySelector('#search-distance-from-device-form input:nth-of-type(2)').value = latitude;
             document.querySelector('#search-distance-from-device-form input:nth-of-type(3)').value = longitude;

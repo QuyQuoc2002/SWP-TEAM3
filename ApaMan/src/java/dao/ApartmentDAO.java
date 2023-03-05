@@ -57,6 +57,50 @@ public class ApartmentDAO {
         }
         return null;
     }
+    
+    public List<Apartment> getApartmentPerPage(int districtId, int apartmentIndex, int numberApartment) { //31 LOC
+
+        String sql = "SELECT * FROM apartment Where apartment_accessible = true AND deleted = 0";
+        sql += districtId != 0 ? " AND district_id = ?" : ""; // Query search by district Id
+        sql += " Limit ?, ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            if (districtId != 0) {
+                ps.setObject(1, districtId);
+                ps.setObject(2, apartmentIndex);
+                ps.setObject(3, numberApartment);
+            } else {
+                ps.setObject(1, apartmentIndex);
+                ps.setObject(2, numberApartment);
+            }
+            ResultSet rs = ps.executeQuery();
+            List<Apartment> list = new ArrayList<>();//
+            while (rs.next()) {
+                Apartment obj = Apartment.builder()
+                        .apartmentId(rs.getInt("apartment_id"))
+                        .apartmentName(rs.getString("apartment_name"))
+                        .hostName(rs.getString("host_name"))
+                        .hostMobile(rs.getString("host_mobile"))
+                        .districtId(rs.getInt("district_id"))
+                        .apartmentAddress(rs.getString("apartment_address"))
+                        .apartmentIntro(rs.getString("apartment_intro"))
+                        .apartmentLat(rs.getString("apartment_lat"))
+                        .apartmentLon(rs.getString("apartment_lon"))
+                        .apartmentImgAboutus(rs.getString("apartment_img_aboutus"))
+                        .apartmentContentAboutus(rs.getString("apartment_content_aboutus"))
+                        .apartmentContentService(rs.getString("apartment_content_service"))
+                        .apartmentContentRecruitment(rs.getString("apartment_content_recruitment"))
+                        .apartmentCreateTime(rs.getLong("apartment_create_time"))
+                        .apartmentAccessible(rs.getBoolean("apartment_accessible"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
 
     public List<Apartment> searchKeyword(String keyword) { //31 LOC
 

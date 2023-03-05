@@ -26,4 +26,6 @@ public interface IConst {
     String ADMIN_EMAIL_PASS = "Shironeko02";
     
     String REGEX_PASSWORD = "^[a-zA-Z0-9!@#$%^&*,.]{8,20}$";
+    
+    int NUMBER_APARTMENT_PER_PAGE = 3;
 }

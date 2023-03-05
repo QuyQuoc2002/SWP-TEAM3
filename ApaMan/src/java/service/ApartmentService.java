@@ -51,6 +51,10 @@ public class ApartmentService {
         }
         return lstByRadius;
     }
+    
+    public List<Apartment> getApartmentPerPage(int districtId, int apartmentIndex, int numberApartment) {
+        return apartmentDAO.getApartmentPerPage(districtId, apartmentIndex, numberApartment);
+    }
 
     public List<Apartment> searchKeyword(String keyword) {
         return apartmentDAO.searchKeyword(keyword);
