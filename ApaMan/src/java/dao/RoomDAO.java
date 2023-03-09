@@ -9,8 +9,10 @@ package dao;
  * @author Laputa
  */
 import connection.MySQLConnection;
+import entity.PaymentStatus;
 import entity.Room;
 import entity.RoomStatus;
+import entity.Roomtype;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,19 +84,51 @@ public class RoomDAO {
         return 0;
     }
 
+    public int countVehicle(int roomId, int vehicaleTypeId) {
+        int countVehicle;
+        String sql = "SELECT COUNT(v.room_id) AS countVehicle \n"
+                + "FROM apamandb.vehicle v \n"
+                + "Join apamandb.fee f ON v.vehicle_type_id = f.fee_key AND f.fee_type = 'FEE_VEHICLE' \n"
+                + "JOIN apamandb.tenant t ON t.tenant_id = v.tenant_id\n"
+                + "JOIN apamandb.account a ON a.account_id = t.account_id\n"
+                + "Where v.room_id = ? AND v.vehicle_type_id = ? AND a.account_accessible = 1; ";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, roomId);
+            ps.setObject(2, vehicaleTypeId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                countVehicle = rs.getInt("countVehicle");
+                return countVehicle;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
+
     public List<Room> getAll(int floorId, int apartmentId) {
 
-        String sql = "SELECT "
-                + "r.room_id,"
+        String sql = "SELECT r.room_id,"
                 + "r.room_name,"
                 + "r.roomtype_id,"
                 + "r.floor_id,"
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_name \n"
-                + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
-                + "WHERE floor_id = ? AND apartment_id = ?";//
+                + "rs.room_status_name, "
+                + "r.room_payment_status_id,"
+                + "ps.payment_status_name,"
+                + "rt.roomtype_name, "
+                + "rt.roomtype_cost, "
+                + "rt.roomtype_max_member, "
+                + "rt.roomtype_area\n"
+                + "FROM apamandb.room r \n"
+                + "JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "JOIN apamandb.roomtype rt ON rt.roomtype_id = r.roomtype_id\n"
+                + "JOIN apamandb.payment_status ps ON r.room_payment_status_id = ps.payment_status_id\n"
+                + "WHERE r.floor_id = ? AND r.apartment_id = ?;";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, floorId);
@@ -106,7 +140,14 @@ public class RoomDAO {
                 Room obj = Room.builder()
                         .roomId(rs.getInt("room_id"))
                         .roomName(rs.getString("room_name"))
-                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .roomtype(Roomtype.builder()
+                                .roomtypeId(rs.getInt("roomtype_id"))
+                                .roomtypeName(rs.getString("roomtype_name"))
+                                .roomtypeCost(rs.getInt("roomtype_cost"))
+                                .roomtypeMaxMember(rs.getInt("roomtype_max_member"))
+                                .roomtypeArea(rs.getString("roomtype_area"))
+                                .build()
+                        )
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
@@ -114,6 +155,10 @@ public class RoomDAO {
                                 .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
+                        .paymentStatus(PaymentStatus.builder()
+                                .paymentStatusId(rs.getInt("room_payment_status_id"))
+                                .paymentStatusName(rs.getString("payment_status_name"))
+                                .build())
                         .findRoommate(rs.getBoolean("find_roommate"))
                         .build();
                 list.add(obj);
@@ -127,17 +172,25 @@ public class RoomDAO {
 
     public List<Room> getAll(int apartmentId) {
 
-        String sql = "SELECT "
-                + "r.room_id,"
+        String sql = "SELECT r.room_id,"
                 + "r.room_name,"
                 + "r.roomtype_id,"
                 + "r.floor_id,"
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_name \n"
-                + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
-                + "WHERE apartment_id = ?";//
+                + "rs.room_status_name, "
+                + "r.room_payment_status_id,"
+                + "ps.payment_status_name,"
+                + "rt.roomtype_name, "
+                + "rt.roomtype_cost, "
+                + "rt.roomtype_max_member, "
+                + "rt.roomtype_area\n"
+                + "FROM apamandb.room r \n"
+                + "JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "JOIN apamandb.roomtype rt ON rt.roomtype_id = r.roomtype_id\n"
+                + "JOIN apamandb.payment_status ps ON r.room_payment_status_id = ps.payment_status_id\n"
+                + "WHERE r.apartment_id = ?;";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, apartmentId);
@@ -148,7 +201,14 @@ public class RoomDAO {
                 Room obj = Room.builder()
                         .roomId(rs.getInt("room_id"))
                         .roomName(rs.getString("room_name"))
-                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .roomtype(Roomtype.builder()
+                                .roomtypeId(rs.getInt("roomtype_id"))
+                                .roomtypeName(rs.getString("roomtype_name"))
+                                .roomtypeCost(rs.getInt("roomtype_cost"))
+                                .roomtypeMaxMember(rs.getInt("roomtype_max_member"))
+                                .roomtypeArea(rs.getString("roomtype_area"))
+                                .build()
+                        )
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
@@ -156,6 +216,10 @@ public class RoomDAO {
                                 .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
+                        .paymentStatus(PaymentStatus.builder()
+                                .paymentStatusId(rs.getInt("room_payment_status_id"))
+                                .paymentStatusName(rs.getString("payment_status_name"))
+                                .build())
                         .findRoommate(rs.getBoolean("find_roommate"))
                         .build();
                 list.add(obj);
@@ -169,16 +233,24 @@ public class RoomDAO {
 
     public List<Room> getAllStatus(int apartmentId, int roomStatusId) {
 
-        String sql = "SELECT "
-                + "r.room_id,"
+        String sql = "SELECT r.room_id,"
                 + "r.room_name,"
                 + "r.roomtype_id,"
                 + "r.floor_id,"
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_name \n"
-                + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "rs.room_status_name, "
+                + "r.room_payment_status_id,"
+                + "ps.payment_status_name,"
+                + "rt.roomtype_name, "
+                + "rt.roomtype_cost, "
+                + "rt.roomtype_max_member, "
+                + "rt.roomtype_area\n"
+                + "FROM apamandb.room r \n"
+                + "JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "JOIN apamandb.roomtype rt ON rt.roomtype_id = r.roomtype_id\n"
+                + "JOIN apamandb.payment_status ps ON r.room_payment_status_id = ps.payment_status_id\n"
                 + "WHERE r.apartment_id = ? AND r.room_status_id = ? ;";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
@@ -191,7 +263,14 @@ public class RoomDAO {
                 Room obj = Room.builder()
                         .roomId(rs.getInt("room_id"))
                         .roomName(rs.getString("room_name"))
-                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .roomtype(Roomtype.builder()
+                                .roomtypeId(rs.getInt("roomtype_id"))
+                                .roomtypeName(rs.getString("roomtype_name"))
+                                .roomtypeCost(rs.getInt("roomtype_cost"))
+                                .roomtypeMaxMember(rs.getInt("roomtype_max_member"))
+                                .roomtypeArea(rs.getString("roomtype_area"))
+                                .build()
+                        )
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
@@ -199,6 +278,10 @@ public class RoomDAO {
                                 .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
+                        .paymentStatus(PaymentStatus.builder()
+                                .paymentStatusId(rs.getInt("room_payment_status_id"))
+                                .paymentStatusName(rs.getString("payment_status_name"))
+                                .build())
                         .findRoommate(rs.getBoolean("find_roommate"))
                         .build();
                 list.add(obj);
@@ -212,16 +295,24 @@ public class RoomDAO {
 
     public List<Room> getFindRoommate(int apartmentId, boolean findRoomate) {
 
-        String sql = "SELECT "
-                + "r.room_id,"
+        String sql = "SELECT r.room_id,"
                 + "r.room_name,"
                 + "r.roomtype_id,"
                 + "r.floor_id,"
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_name \n"
-                + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "rs.room_status_name, "
+                + "r.room_payment_status_id,"
+                + "ps.payment_status_name,"
+                + "rt.roomtype_name, "
+                + "rt.roomtype_cost, "
+                + "rt.roomtype_max_member, "
+                + "rt.roomtype_area\n"
+                + "FROM apamandb.room r \n"
+                + "JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "JOIN apamandb.roomtype rt ON rt.roomtype_id = r.roomtype_id\n"
+                + "JOIN apamandb.payment_status ps ON r.room_payment_status_id = ps.payment_status_id\n"
                 + "WHERE r.apartment_id = ? AND r.find_roommate = ? ;";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
@@ -234,7 +325,14 @@ public class RoomDAO {
                 Room obj = Room.builder()
                         .roomId(rs.getInt("room_id"))
                         .roomName(rs.getString("room_name"))
-                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .roomtype(Roomtype.builder()
+                                .roomtypeId(rs.getInt("roomtype_id"))
+                                .roomtypeName(rs.getString("roomtype_name"))
+                                .roomtypeCost(rs.getInt("roomtype_cost"))
+                                .roomtypeMaxMember(rs.getInt("roomtype_max_member"))
+                                .roomtypeArea(rs.getString("roomtype_area"))
+                                .build()
+                        )
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
@@ -242,6 +340,10 @@ public class RoomDAO {
                                 .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
+                        .paymentStatus(PaymentStatus.builder()
+                                .paymentStatusId(rs.getInt("room_payment_status_id"))
+                                .paymentStatusName(rs.getString("payment_status_name"))
+                                .build())
                         .findRoommate(rs.getBoolean("find_roommate"))
                         .build();
                 list.add(obj);
@@ -254,17 +356,25 @@ public class RoomDAO {
     }
 
     public Room getOne(int roomId, int apartmentId) {
-        String sql = "SELECT "
-                + "r.room_id,"
+        String sql = "SELECT r.room_id,"
                 + "r.room_name,"
                 + "r.roomtype_id,"
                 + "r.floor_id,"
                 + "r.apartment_id,"
                 + "r.room_status_id,"
                 + "r.find_roommate,"
-                + "rs.room_status_name \n"
-                + "FROM apamandb.room r JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
-                + "WHERE room_id = ? AND apartment_id = ?";
+                + "rs.room_status_name, "
+                + "r.room_payment_status_id,"
+                + "ps.payment_status_name,"
+                + "rt.roomtype_name, "
+                + "rt.roomtype_cost, "
+                + "rt.roomtype_max_member, "
+                + "rt.roomtype_area\n"
+                + "FROM apamandb.room r \n"
+                + "JOIN apamandb.room_status rs ON r.room_status_id = rs.room_status_id \n"
+                + "JOIN apamandb.roomtype rt ON rt.roomtype_id = r.roomtype_id\n"
+                + "JOIN apamandb.payment_status ps ON r.room_payment_status_id = ps.payment_status_id\n"
+                + "WHERE r.room_id = ? AND r.apartment_id = ?";
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, roomId);
@@ -274,7 +384,14 @@ public class RoomDAO {
                 Room obj = Room.builder()
                         .roomId(rs.getInt("room_id"))
                         .roomName(rs.getString("room_name"))
-                        .roomtypeId(rs.getInt("roomtype_id"))
+                        .roomtype(Roomtype.builder()
+                                .roomtypeId(rs.getInt("roomtype_id"))
+                                .roomtypeName(rs.getString("roomtype_name"))
+                                .roomtypeCost(rs.getInt("roomtype_cost"))
+                                .roomtypeMaxMember(rs.getInt("roomtype_max_member"))
+                                .roomtypeArea(rs.getString("roomtype_area"))
+                                .build()
+                        )
                         .floorId(rs.getInt("floor_id"))
                         .apartmentId(rs.getInt("apartment_id"))
                         .roomStatus(RoomStatus.builder()
@@ -282,6 +399,10 @@ public class RoomDAO {
                                 .roomStatusName(rs.getString("room_status_name"))
                                 .build()
                         )
+                        .paymentStatus(PaymentStatus.builder()
+                                .paymentStatusId(rs.getInt("room_payment_status_id"))
+                                .paymentStatusName(rs.getString("payment_status_name"))
+                                .build())
                         .findRoommate(rs.getBoolean("find_roommate"))
                         .build();
                 return obj;
@@ -294,15 +415,16 @@ public class RoomDAO {
 
     public int add(Room obj) {
         int check = 0;
-        String sql = "INSERT INTO room(room_name, roomtype_id, floor_id, apartment_id , find_roommate, room_status_id)"
-                + " VALUES(?, ?, ?, ? , ? , ?)";
+        String sql = "INSERT INTO room(room_name, roomtype_id, floor_id, apartment_id , find_roommate, room_status_id, room_payment_status_id)"
+                + " VALUES(?, ?, ?, ? , ? , ?, ?)";
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS) : null;) {
             ps.setObject(1, obj.getRoomName());
-            ps.setObject(2, obj.getRoomtypeId());
+            ps.setObject(2, obj.getRoomtype().getRoomtypeId());
             ps.setObject(3, obj.getFloorId());
             ps.setObject(4, obj.getApartmentId());
             ps.setObject(5, 0);
             ps.setObject(6, 1);
+            ps.setObject(7, 1);
             check = ps.executeUpdate();
             if (check > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
@@ -322,7 +444,7 @@ public class RoomDAO {
             if (ps != null) {
                 for (Room obj : list) {
                     ps.setObject(1, obj.getRoomName());
-                    ps.setObject(2, obj.getRoomtypeId());
+                    ps.setObject(2, obj.getRoomtype().getRoomtypeId());
                     ps.setObject(3, obj.getFloorId());
                     ps.setObject(4, obj.getApartmentId());
                     ps.setObject(5, obj.getRoomStatus().getRoomStatusId());
@@ -345,12 +467,29 @@ public class RoomDAO {
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
             if (ps != null) {
                 ps.setObject(1, obj.getRoomName());
-                ps.setObject(2, obj.getRoomtypeId());
+                ps.setObject(2, obj.getRoomtype().getRoomtypeId());
                 ps.setObject(3, obj.getFloorId());
                 ps.setObject(4, obj.getApartmentId());
                 ps.setObject(5, obj.getRoomStatus().getRoomStatusId());
                 ps.setObject(6, obj.isFindRoommate());
                 ps.setObject(7, obj.getRoomId());
+
+                check = ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+
+    public boolean updateRoomPaymentStatus(int paymentStatusId, int roomId) {
+        int check = 0;
+        String query = "UPDATE room Set room_payment_status_id = ? WHERE room_id = ?";
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = (con != null) ? con.prepareStatement(query) : null;) {
+            if (ps != null) {
+                ps.setObject(1, paymentStatusId);
+                ps.setObject(2, roomId);
 
                 check = ps.executeUpdate();
             }

@@ -22,10 +22,15 @@ import lombok.ToString;
 public class Room {
     private int roomId;
     private String roomName;
-    private int roomtypeId;
+    private Roomtype roomtype;
     private int floorId;
     private int apartmentId;
     private RoomStatus roomStatus;
     private boolean findRoommate;
+    private int countUpdate;
+    private int carQuantity;
+    private int motorQuantity;
+    private int bikeQuantity;
+    private PaymentStatus paymentStatus;
     
 }

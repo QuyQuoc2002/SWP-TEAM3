@@ -27,5 +27,5 @@ public interface IConst {
     
     String REGEX_PASSWORD = "^[a-zA-Z0-9!@#$%^&*,.]{8,20}$";
     
-    int NUMBER_APARTMENT_PER_PAGE = 3;
+    int NUMBER_APARTMENT_PER_PAGE = 6;
 }

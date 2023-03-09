@@ -108,7 +108,7 @@
                                     <div class="col-6 form-group mb-3">
                                         <fieldset>
                                             <legend>Create date</legend>
-                                            <input id="currentDate" type="text" class="form-control" name="apartmentHostPhone" value="asd" readonly="">
+                                            <input id="currentDate" type="text" class="form-control" name="apartmentCreateDate" value="" readonly="">
                                         </fieldset>
                                     </div>
                                     <div class="col-12 form-group mb-3">

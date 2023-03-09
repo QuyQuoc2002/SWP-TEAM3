@@ -38,12 +38,8 @@
                                         
                                 <td>${room.roomName}</td>
                                 
-                                <c:forEach items="${requestScope.roomtypes}" var="roomtypex">
-                                    <c:if test="${room.roomtypeId eq roomtypex.roomtypeId}">
-                                        <td>${roomtypex.roomtypeName}</td>
-                                        <td>${roomtypex.roomtypeCost}</td>
-                                    </c:if>
-                                </c:forEach>
+                                <td>${room.roomtype.roomtypeName}</td>
+                                <td>${room.roomtype.roomtypeCost}</td>
                                         
                                 
                             </tr>

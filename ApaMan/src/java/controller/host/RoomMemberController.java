@@ -94,7 +94,7 @@ public class RoomMemberController extends HttpServlet {
             Room room = roomService.getOne(roomId, apartmentId);
             request.setAttribute("room", room);
             request.setAttribute("floorIdUpdate", room.getFloorId());
-            request.setAttribute("RoomtypeIdUpdate", room.getRoomtypeId());
+            request.setAttribute("RoomtypeIdUpdate", room.getRoomtype().getRoomtypeId());
 
             List<Floor> floors = floorService.getAll(apartmentId);
             request.setAttribute("floors", floors);
@@ -170,7 +170,7 @@ public class RoomMemberController extends HttpServlet {
                     errorStr += "<li>Update Floor Success</li>";
                     room.setFloorId(floorId);
 
-                    if (room.getRoomtypeId() != roomtypeId) {
+                    if (room.getRoomtype().getRoomtypeId() != roomtypeId) {
 
                         List<Tenant> deleteTeants = new ArrayList<>();
                         List<Account> deleteAccounts = new ArrayList<>();
@@ -219,7 +219,14 @@ public class RoomMemberController extends HttpServlet {
 
                             if (addTenantsSuccess) {
                                 errorStr += "<li>Update Room Type Success</li>";
-                                room.setRoomtypeId(roomtypeId);
+                                room.setRoomtype(Roomtype.builder()
+                                        .roomtypeId(roomtypeId)
+                                        .roomtypeName(room.getRoomtype().getRoomtypeName())
+                                        .roomtypeCost(room.getRoomtype().getRoomtypeCost())
+                                        .roomtypeMaxMember(room.getRoomtype().getRoomtypeMaxMember())
+                                        .roomtypeArea(room.getRoomtype().getRoomtypeArea())
+                                        .build()
+                                );
                             } else {
                                 errorStr += "<li>Update Room Type Fail</li>";
                             }
@@ -230,7 +237,14 @@ public class RoomMemberController extends HttpServlet {
 
                     } else {
                         errorStr += "<li>Update Room Type Success</li>";
-                        room.setRoomtypeId(roomtypeId);
+                        room.setRoomtype(Roomtype.builder()
+                                .roomtypeId(roomtypeId)
+                                .roomtypeName(room.getRoomtype().getRoomtypeName())
+                                .roomtypeCost(room.getRoomtype().getRoomtypeCost())
+                                .roomtypeMaxMember(room.getRoomtype().getRoomtypeMaxMember())
+                                .roomtypeArea(room.getRoomtype().getRoomtypeArea())
+                                .build()
+                        );
                     }
                     errorStr += "</ol>";
                     boolean updateRoomSuccess = roomService.update(room);

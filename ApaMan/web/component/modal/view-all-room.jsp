@@ -29,21 +29,17 @@
                         <c:forEach items="${requestScope.allRoom}" var="room" varStatus="i">
                             <tr>
                                 <td>${i.count}</td>
-                                
+
                                 <c:forEach items="${requestScope.allFloor}" var="floor">
                                     <c:if test="${room.floorId eq floor.floorId}">
                                         <td>${floor.floorName}</td>
                                     </c:if>
                                 </c:forEach>
-                                        
+
                                 <td>${room.roomName}</td>
-                                
-                                <c:forEach items="${requestScope.roomtypes}" var="roomtypex">
-                                    <c:if test="${room.roomtypeId eq roomtypex.roomtypeId}">
-                                        <td>${roomtypex.roomtypeName}</td>
-                                    </c:if>
-                                </c:forEach>
-                                        
+
+                                <td>${room.roomtype.roomtypeName}</td>
+
                                 <td>${room.roomStatus.roomStatusName}</td>
                             </tr>
                         </c:forEach>

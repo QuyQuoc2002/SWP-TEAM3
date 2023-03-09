@@ -28,6 +28,11 @@ public class RoomService {
         return roomDAO.numberOfTenantActive(roomId);
     }
     
+    
+    public int countVehicle(int roomId, int vehicaleTypeId) {
+        return roomDAO.countVehicle(roomId, vehicaleTypeId);
+    }
+    
     public List<Room> getAll(int floorId, int apartmentId) {
         return roomDAO.getAll(floorId,apartmentId);
     }
@@ -54,6 +59,10 @@ public class RoomService {
     
     public boolean update(Room obj) {
         return roomDAO.update(obj);
+    }
+    
+    public boolean updateRoomPaymentStatus(int paymentStatusId, int roomId) {
+        return roomDAO.updateRoomPaymentStatus(paymentStatusId, roomId);
     }
     
     public boolean updateRooms(List<Room> list) {

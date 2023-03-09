@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import service.AccountService;
 import service.FloorService;
+import service.PaymentService;
 import service.RoomService;
 import service.RoomtypeService;
 import service.TenantService;
@@ -78,13 +79,13 @@ public class PageFloorRoomController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             RoomService roomService = new RoomService();
             RoomtypeService roomtypeService = new RoomtypeService();
+            PaymentService paymentService = new PaymentService();
 
             HttpSession session = request.getSession();
             Account curAccount = (Account) session.getAttribute("curAccount");
             int apartmentId = curAccount.getApartmentId();
 
             int floorId = Integer.parseInt(request.getParameter("floorId"));
-
             List<Room> rooms = roomService.getAll(floorId, apartmentId);
             List<Roomtype> roomtypes = roomtypeService.getAll(apartmentId);
 
@@ -139,7 +140,10 @@ public class PageFloorRoomController extends HttpServlet {
                 //create room
                 Room room = Room.builder()
                         .roomName(roomName)
-                        .roomtypeId(roomtypeId)
+                        .roomtype(Roomtype.builder()
+                                .roomtypeId(roomtypeId)
+                                .build()
+                        )
                         .floorId(floorId)
                         .apartmentId(apartmentId)
                         .build();
