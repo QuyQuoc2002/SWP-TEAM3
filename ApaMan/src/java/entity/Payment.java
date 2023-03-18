@@ -21,6 +21,7 @@ import lombok.ToString;
 public class Payment {
     
     private int paymentId;
+    private int apartmentId;
     private int roomId;
     private int paymentRoomUnitFee;
     
@@ -52,6 +53,7 @@ public class Payment {
     
     private int paymentTotalMoney;
     private PaymentStatus paymentStatus;
+    private long paymentDoneDate;
     
     
 }

@@ -109,6 +109,7 @@ public class GetElectricWaterController extends HttpServlet {
             throws ServletException, IOException {
         try ( PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
+            int aparmentId = ((Account) session.getAttribute("curAccount")).getApartmentId();
             PaymentService paymentService = new PaymentService();
             FeeService feeService = new FeeService();
             RoomService roomService = new RoomService();
@@ -153,6 +154,7 @@ public class GetElectricWaterController extends HttpServlet {
 
             Payment objPayment = Payment.builder()
                     .roomId(roomId)
+                    .apartmentId(aparmentId)
                     .paymentRoomUnitFee(paymentRoomUnitFee)
                     .paymentWaterIndexPre(paymentWaterIndexPre)
                     .paymentElectricIndexPre(paymentElectricIndexPre)

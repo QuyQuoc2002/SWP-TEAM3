@@ -29,6 +29,7 @@
                     </c:forEach>
                 </div>
             </div>
+            <a href="payment-history" class="nav-item nav-link"><i class="fa-solid fa-money-bill me-2"></i>Payment History</a>
             <a href="contact" class="nav-item nav-link"><i class="fa-solid fa-passport me-2"></i></i>Contact</a>
             <a href="deposit-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-signature me-2"></i>Deposit contract</a>
             <a href="leases-contract.html" class="nav-item nav-link"><i class="fa-solid fa-file-contract me-2"></i>tenancy agreement</a>
