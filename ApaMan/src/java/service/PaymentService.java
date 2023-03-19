@@ -39,5 +39,9 @@ public class PaymentService {
     public List<Payment> getAllHistoryByApartmentId(int apartmentId) {
         return paymentDAO.getAllHistoryByApartmentId(apartmentId);
     }
+    
+    public List<Payment> getAllHistoryMonth(int apartmentId, long firstMonth, long nextMonth) {
+        return paymentDAO.getAllHistoryMonth(apartmentId,firstMonth, nextMonth);
+    }
 
 }

@@ -277,5 +277,57 @@ public class PaymentDAO {
         }
         return null;
     }
+    
+    public List<Payment> getAllHistoryMonth(int apartmentId, long firstMonth, long nextMonth) {
+        String sql = "SELECT * FROM payment "
+                + "WHERE apartment_id = ? AND payment_status_id = 1 "
+                + "AND payment_day_update_cur >= ? AND payment_day_update_cur <= ?";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, apartmentId);
+            ps.setObject(2, firstMonth);
+            ps.setObject(3, nextMonth);
+            ResultSet rs = ps.executeQuery();
+
+            List<Payment> list = new ArrayList<>();//
+            while (rs.next()) {
+                Payment obj = Payment.builder()
+                        .paymentId(rs.getInt("payment_id"))
+                        .roomId(rs.getInt("room_id"))
+                        .paymentRoomUnitFee(rs.getInt("payment_room_unit_fee"))
+                        .paymentWaterIndexPre(rs.getInt("payment_water_index_pre"))
+                        .paymentElectricIndexPre(rs.getInt("payment_electric_index_pre"))
+                        .paymentDayUpdatePre(rs.getLong("payment_day_update_pre"))
+                        .paymentWaterIndexCur(rs.getInt("payment_water_index_cur"))
+                        .paymentElectricIndexCur(rs.getInt("payment_electric_index_cur"))
+                        .paymentDayUpdateCur(rs.getLong("payment_day_update_cur"))
+                        .paymentWaterUnitFee(rs.getInt("payment_water_unit_fee"))
+                        .paymentWaterMoney(rs.getInt("payment_water_money"))
+                        .paymentElectricUnitFee(rs.getInt("payment_electric_unit_fee"))
+                        .paymentElectricMoney(rs.getInt("payment_electric_money"))
+                        .paymentCarQuantity(rs.getInt("payment_car_quantity"))
+                        .paymentCarUnitFee(rs.getInt("payment_car_unit_fee"))
+                        .paymentCarMoney(rs.getInt("payment_car_money"))
+                        .paymentMotorQuantity(rs.getInt("payment_motor_quantity"))
+                        .paymentMotorUnitFee(rs.getInt("payment_motor_unit_fee"))
+                        .paymentMotorMoney(rs.getInt("payment_motor_money"))
+                        .paymentBikeQuantity(rs.getInt("payment_bike_quantity"))
+                        .paymentBikeUnitFee(rs.getInt("payment_bike_unit_fee"))
+                        .paymentBikeMoney(rs.getInt("payment_bike_money"))
+                        .paymentTotalMoney(rs.getInt("payment_total_money"))
+                        .paymentStatus(PaymentStatus.builder()
+                                .paymentStatusId(rs.getInt("payment_status_id"))
+                                .build()
+                        )
+                        .paymentDoneDate(rs.getLong("payment_done_date"))
+                        .build();
+                list.add(obj);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
 
 }

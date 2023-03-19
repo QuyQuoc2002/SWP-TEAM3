@@ -55,5 +55,7 @@ public class Payment {
     private PaymentStatus paymentStatus;
     private long paymentDoneDate;
     
+    private String month;
+    
     
 }

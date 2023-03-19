@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import service.PaymentService;
 import utils.Calendars;
@@ -39,13 +41,7 @@ public class PagePaymentHistoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            Account curAccount = (Account) session.getAttribute("curAccount");
-            PaymentService paymentService = new PaymentService();
-            List<Payment> paymentHistories = paymentService.getAllHistoryByApartmentId(curAccount.getApartmentId());
-            request.setAttribute("paymentHistories", paymentHistories);
-            request.setAttribute("Calenders", new Calendars());
-            request.getRequestDispatcher("payment-history.jsp").forward(request, response);
+
         }
     }
 
@@ -61,7 +57,42 @@ public class PagePaymentHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            Account curAccount = (Account) session.getAttribute("curAccount");
+            PaymentService paymentService = new PaymentService();
+            List<Payment> paymentHistories = paymentService.getAllHistoryByApartmentId(curAccount.getApartmentId());
+            request.setAttribute("paymentHistories", paymentHistories);
+            request.setAttribute("Calenders", new Calendars());
+
+            //char
+            //check now year
+            int yearNow = Calendar.getInstance().get(Calendar.YEAR);
+            long timeNow = Calendars.getCurrentTime();
+            long firstMonth = Calendars.getCurrentTimeYear();
+            long countMonth = (timeNow - firstMonth) / 2592000 + 1;
+            List<Payment> paymentYears = new ArrayList();
+            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            long monthSelect = firstMonth;
+            for (int i = 0; i < countMonth; i++) {
+                int totalMoney = 0;
+                List<Payment> paymentMonth = paymentService.getAllHistoryMonth(curAccount.getApartmentId(), monthSelect, monthSelect + 2592000);
+                for (Payment payment : paymentMonth) {
+                    totalMoney += payment.getPaymentTotalMoney();
+                }
+                Payment monthPayment = Payment.builder()
+                        .paymentTotalMoney(totalMoney)
+                        .month(months[i])
+                        .build();
+
+                paymentYears.add(monthPayment);
+                monthSelect += 2592000;
+            }
+
+            request.setAttribute("paymentYears", paymentYears);
+            request.setAttribute("Year", yearNow);
+            request.getRequestDispatcher("payment-history.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -75,7 +106,9 @@ public class PagePaymentHistoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+
+        }
     }
 
     /**

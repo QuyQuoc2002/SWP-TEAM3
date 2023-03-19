@@ -42,7 +42,12 @@
 
 
                 <div class="container-fluid pt-4 px-4" style="margin-bottom: 80px">
+                    <div>
+                        <a class="btn btn-dark-cus mb-3 ms-3 select" data-bs-toggle="modal" 
+                           data-bs-target="#char-totalpayment-year"><i class="fa-solid fa-chart-simple"></i></a>   
+                    </div>
                     <div class="bg-secondary-cus rounded p-4">
+
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
@@ -58,16 +63,16 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${requestScope.paymentHistories}" var="paymentHistory" varStatus="i">
-                                <tr>
-                                    <td>${i.count}</td>
-                                    <td>${paymentHistory.paymentRoomUnitFee}</td>
-                                    <td>${paymentHistory.paymentWaterMoney}</td>
-                                    <td>${paymentHistory.paymentElectricMoney}</td>
-                                    <td>${paymentHistory.paymentCarMoney + paymentHistory.paymentMotorMoney + paymentHistory.paymentBikeMoney}</td>
-                                    <td>${paymentHistory.paymentRoomUnitFee + paymentHistory.paymentWaterMoney + paymentHistory.paymentElectricMoney +  paymentHistory.paymentCarMoney + paymentHistory.paymentMotorMoney + paymentHistory.paymentBikeMoney}</td>
-                                    <td>${requestScope.Calenders.formatTime("dd/MM/yyyy", paymentHistory.paymentDoneDate)}</td>
-                                    <td><a href="">Detail</a></td>
-                                </tr>
+                                    <tr>
+                                        <td>${i.count}</td>
+                                        <td>${paymentHistory.paymentRoomUnitFee}</td>
+                                        <td>${paymentHistory.paymentWaterMoney}</td>
+                                        <td>${paymentHistory.paymentElectricMoney}</td>
+                                        <td>${paymentHistory.paymentCarMoney + paymentHistory.paymentMotorMoney + paymentHistory.paymentBikeMoney}</td>
+                                        <td>${paymentHistory.paymentRoomUnitFee + paymentHistory.paymentWaterMoney + paymentHistory.paymentElectricMoney +  paymentHistory.paymentCarMoney + paymentHistory.paymentMotorMoney + paymentHistory.paymentBikeMoney}</td>
+                                        <td>${requestScope.Calenders.formatTime("dd/MM/yyyy", paymentHistory.paymentDoneDate)}</td>
+                                        <td><a href="" class="a-none">Detail</a></td>
+                                    </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -79,12 +84,42 @@
         </div>
 
         <!-------------------------MODAL-------------------------------------->
+        <%@include file="component/modal/modal-char-totalpayment-year.jsp"%>
 
 
 
         <!-------------------------END MODAL---------------------------------->
 
         <script src="assets/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <body>
+
+        
+
+        <script>
+            var xValues = [<c:forEach items="${requestScope.paymentYears}" var="paymentYear">"${paymentYear.month}",</c:forEach>];
+            var yValues = [<c:forEach items="${requestScope.paymentYears}" var="paymentYear">"${paymentYear.paymentTotalMoney}",</c:forEach>];
+            var barColors = ["blue", "green", "red", "orange", "brown", "red", "green", "blue", "orange", "brown", "green", "blue" ];
+
+            new Chart("char-payment", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: ""
+                        
+                    }
+                }
+            });
+        </script>
 
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
