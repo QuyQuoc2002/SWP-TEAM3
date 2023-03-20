@@ -281,7 +281,7 @@ public class PaymentDAO {
     public List<Payment> getAllHistoryMonth(int apartmentId, long firstMonth, long nextMonth) {
         String sql = "SELECT * FROM payment "
                 + "WHERE apartment_id = ? AND payment_status_id = 1 "
-                + "AND payment_day_update_cur >= ? AND payment_day_update_cur <= ?";//
+                + "AND payment_done_date >= ? AND payment_done_date <= ?";//
 
         try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, apartmentId);

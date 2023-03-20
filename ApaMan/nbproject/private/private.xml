@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/component/modal/view-all-room.jsp</file>
             <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/PagePaymentHistoryController.java</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/utils/Calendars.java</file>
             <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/component/modal/modal-char-totalpayment-year.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/admin/PageAdminController.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/floor-room.jsp</file>
             <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/payment-history.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/FloorFilter.java</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/FloorManagementController.java</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/web/index.jsp</file>
-            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/PageRoomtypeController.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/service/PaymentService.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/MemberManagementController.java</file>
+            <file>file:/F:/SWP/ProjectSWP/SWP-Team3/ApaMan/src/java/controller/host/RoomMemberController.java</file>
         </group>
     </open-files>
 </project-private>
