@@ -35,18 +35,50 @@ public class Calendars {
      * @return current epoch timestamp
      */
     public static long getCurrentTime() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        return calendar.getTimeInMillis() / 1000;
+    }
+    
+    public static long getTimeLastYear() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        calendar.add(Calendar.YEAR, -1);
         return calendar.getTimeInMillis() / 1000;
     }
 
-    public static long getCurrentTimeYear() {
-        // Choose time zone in which you want to interpret your Date
+    
+    public static long getMonthLastYear() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
-        int year = cal.get(Calendar.YEAR);
-        cal.set(Calendar.YEAR, 2023);
-        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.add(Calendar.YEAR, -1);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         return cal.getTimeInMillis() / 1000;
+    }
+    
+    public static int getYear(long times) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        cal.setTimeInMillis(times*1000);
+        int year = cal.get(Calendar.YEAR);
+        return year;
+    }
+    
+    public static int getDay(long times) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        cal.setTimeInMillis(times*1000);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return day;
+    }
+    
+    public static int getNameMonthLastYear() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        cal.add(Calendar.YEAR, -1);
+        int month = cal.get(Calendar.MONTH) + 2;
+        return month;
+    }
+    
+    public static boolean isLeapYear(int year) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        calendar.set(Calendar.YEAR, year);
+        int daysInYear = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+        return daysInYear > 365;
     }
 
     public static String formatTime(String timeFormat, long millisecond) {

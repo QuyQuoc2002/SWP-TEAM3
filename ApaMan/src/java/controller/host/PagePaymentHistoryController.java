@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import service.PaymentService;
 import utils.Calendars;
@@ -69,24 +70,66 @@ public class PagePaymentHistoryController extends HttpServlet {
             //check now year
             int yearNow = Calendar.getInstance().get(Calendar.YEAR);
             long timeNow = Calendars.getCurrentTime();
-            long firstMonth = Calendars.getCurrentTimeYear();
-            long countMonth = (timeNow - firstMonth) / 2592000 + 1;
+            long lastYear = Calendars.getTimeLastYear();
+            long lastMonth = Calendars.getMonthLastYear();
+            int nameLastMonth = Calendars.getNameMonthLastYear();
             List<Payment> paymentYears = new ArrayList();
-            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-            long monthSelect = firstMonth;
-            for (int i = 0; i < countMonth; i++) {
+
+            HashMap<Integer, String> months = new HashMap<>();
+            months.put(1, "Jan");
+            months.put(2, "Feb");
+            months.put(3, "Mar");
+            months.put(4, "Apr");
+            months.put(5, "May");
+            months.put(6, "Jun");
+            months.put(7, "Jul");
+            months.put(8, "Aug");
+            months.put(9, "Sep");
+            months.put(10, "Oct");
+            months.put(11, "Nov");
+            months.put(12, "Dec");
+
+            long monthSelect = lastMonth;
+            int indexMonth = nameLastMonth;
+            for (int i = 0; i < 12; i++) {
+                boolean isLeap = Calendars.isLeapYear(Calendars.getYear(monthSelect));
                 int totalMoney = 0;
-                List<Payment> paymentMonth = paymentService.getAllHistoryMonth(curAccount.getApartmentId(), monthSelect, monthSelect + 2592000);
-                for (Payment payment : paymentMonth) {
-                    totalMoney += payment.getPaymentTotalMoney();
+                
+                if (i == 11) {
+                    List<Payment> paymentMonth = paymentService.getAllHistoryMonth(curAccount.getApartmentId(), monthSelect, timeNow);
+                    for (Payment payment : paymentMonth) {
+                        totalMoney += payment.getPaymentTotalMoney();
+                    }
+                } else {
+                    List<Payment> paymentMonth = paymentService.getAllHistoryMonth(curAccount.getApartmentId(), monthSelect, monthSelect + 2592000);
+                    for (Payment payment : paymentMonth) {
+                        totalMoney += payment.getPaymentTotalMoney();
+                    }
                 }
+
                 Payment monthPayment = Payment.builder()
                         .paymentTotalMoney(totalMoney)
-                        .month(months[i])
+                        .month(months.get(indexMonth))
                         .build();
 
                 paymentYears.add(monthPayment);
-                monthSelect += 2592000;
+                if (indexMonth == 4 || indexMonth == 6 || indexMonth == 9 || indexMonth == 11) {
+                    monthSelect += 2592000;
+                }
+                if (indexMonth == 1 || indexMonth == 3 || indexMonth == 5 || indexMonth == 7 || indexMonth == 8 || indexMonth == 10 || indexMonth == 12) {
+                    monthSelect += 2678400;
+                }
+                if (indexMonth == 2 && isLeap == false) {
+                    monthSelect += 2419200;
+                }
+                if (indexMonth == 2 && isLeap == true) {
+                    monthSelect += 2505600;
+                }
+
+                indexMonth += 1;
+                if (indexMonth == 13) {
+                    indexMonth = 1;
+                }
             }
 
             request.setAttribute("paymentYears", paymentYears);
