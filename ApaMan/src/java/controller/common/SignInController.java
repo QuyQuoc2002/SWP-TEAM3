@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.AccountService;
+import service.RoomService;
 import utils.Cypher;
 
 /**
@@ -45,6 +46,7 @@ public class SignInController extends HttpServlet {
             String password = request.getParameter("password");
             password = Cypher.encryptData(password, IConst.SHIFT_KEY);
             Account curAccount = new AccountService().login(username, password, apartmentId);
+            
             if (curAccount == null) {
                 session.setAttribute("message", "Wrong Username or Password");
                 response.sendRedirect("login?apartmentId=" + apartmentId);
@@ -52,9 +54,14 @@ public class SignInController extends HttpServlet {
                 session.setAttribute("curAccount", curAccount);
                 if (curAccount.getRole().getRoleName().equals(IConst.ROLE_ADMIN)) {
                     response.sendRedirect("admin");
-
+                
                 }  else {
+                    if(curAccount.getRole().getRoleName().equals(IConst.ROLE_TENANT)){
+                    int myRoomId = new RoomService().getRoomIdByAccountId(curAccount.getAccountId());
+                    session.setAttribute("myRoomId", myRoomId);
+                    }
                     response.sendRedirect("apartment");
+                    
                 }
                 
             }

@@ -39,82 +39,90 @@
                 <!-- Navbar End -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="top-side d-flex justify-content-between">
-                        <div>
-                            <div class="btn btn-dark-cus mb-3">
-                                <a href="floor-room?floorId=${room.floorId}" class="a-none btn-dark-cus select">${room.roomName}</a></div>
-                            <a class="btn btn-dark-cus mb-3 ms-3 select">
-                                Members
-                            </a>
-                            <a href="#" class="btn btn-dark-cus mb-3 ms-3">
-                                History of water and electricity
-                            </a>       
+                        <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST' || sessionScope.curAccount.role.roleName eq 'STAFF'}">
+                            <div>
+                                <div class="btn btn-dark-cus mb-3">
+                                    <a href="floor-room?floorId=${room.floorId}" class="a-none btn-dark-cus select">${room.roomName}</a></div>
+                                <a class="btn btn-dark-cus mb-3 ms-3 select">
+                                    Members
+                                </a>
+                                <a href="#" class="btn btn-dark-cus mb-3 ms-3">
+                                    History of water and electricity
+                                </a>       
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.curAccount.role.roleName eq 'TENANT'}">
+                            <form action="room-tenant" method="get">
+                                <div class="d-flex">
+
+                                    <h4 class="text-wheat">Find Roomate</h4>
+                                    <label class="switch ms-3">
+
+                                        <input type="checkbox" name="findRoommate" <c:if test="${room.findRoommate}"> checked</c:if>>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input hidden name="roomId" value="${room.roomId}">
+
+                                    <button class="btn btn-primary w-10" type="submit">Save</button>
+
+                                </div>
+                            </form>
+                        </c:if>
+                    </div>
+                    <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+
+                        <div class="container-fluid pt-4 px-4">
+                            <form id="room-update" action="room-member" method="post" class="row panel-form bg-secondary-cus rounded p-2 card-feature">
+                                <div class="row col-10">
+                                    <div class="col-3 form-group mb-3">
+                                        <fieldset>
+                                            <legend>Name</legend>
+                                            <input type="text" id="update-room-name" class="form-control room-name" name="roomName" value="${room.roomName}" required="">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-3 form-group mb-3 input-select" >
+                                        <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="floorId" style="margin-top: 10px;padding-bottom: 10px;">
+                                            <c:forEach items="${requestScope.floors}" var="floor">
+                                                <option <c:if test="${requestScope.floorIdUpdate eq floor.floorId}">selected="selected"</c:if>  value="${floor.floorId}">floor ${floor.floorName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 form-group mb-3 input-select" >
+
+                                        <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="roomtypeId" style="margin-top: 10px;padding-bottom: 10px;">
+                                            <c:forEach items="${requestScope.roomtypes}" var="roomtype">
+                                                <option <c:if test="${requestScope.RoomtypeIdUpdate eq roomtype.roomtypeId}">selected="selected"</c:if>  value="${roomtype.roomtypeId}">${roomtype.roomtypeName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3 form-group mb-3">
+                                        <fieldset>
+                                            <legend>Deposit </legend>
+                                            <input type="text" id="add-roomtype-area" class="form-control" name="Deposit" required="">
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row col-2" style="margin: 0">
+                                    <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
+                                        <input hidden name="roomId" value="${room.roomId}">
+
+                                        <input type="hidden" id="submitType" name="submitType">
+                                        <button type="button" onclick="validateUpdateRoom()" class="btn btn-primary w-10" style="height: 47px">Update</button>
+
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
+
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-delete-room" class="btn btn-danger w-10 " style="height: 47px;">Delete</button>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
-                        <form action="room-tenant" method="get">
-                            <div class="d-flex">
+                    </c:if>
 
-                                <h4 class="text-wheat">Find Roomate</h4>
-                                <label class="switch ms-3">
 
-                                    <input type="checkbox" name="findRoommate" <c:if test="${room.findRoommate}"> checked</c:if>>
-                                        <span class="slider round"></span>
-                                    </label>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input hidden name="roomId" value="${room.roomId}">
-
-                                <button class="btn btn-primary w-10" type="submit">Save</button>
-
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="container-fluid pt-4 px-4">
-                        <form id="room-update" action="room-member" method="post" class="row panel-form bg-secondary-cus rounded p-2 card-feature">
-                            <div class="row col-10">
-                                <div class="col-3 form-group mb-3">
-                                    <fieldset>
-                                        <legend>Name</legend>
-                                        <input type="text" id="update-room-name" class="form-control room-name" name="roomName" value="${room.roomName}" required="">
-                                    </fieldset>
-                                </div>
-                                <div class="col-3 form-group mb-3 input-select" >
-                                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="floorId" style="margin-top: 10px;padding-bottom: 10px;">
-                                        <c:forEach items="${requestScope.floors}" var="floor">
-                                            <option <c:if test="${requestScope.floorIdUpdate eq floor.floorId}">selected="selected"</c:if>  value="${floor.floorId}">floor ${floor.floorName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="col-3 form-group mb-3 input-select" >
-
-                                    <select class="form-control bg-dark w-100 text-white fs-5 mb-3" name="roomtypeId" style="margin-top: 10px;padding-bottom: 10px;">
-                                        <c:forEach items="${requestScope.roomtypes}" var="roomtype">
-                                            <option <c:if test="${requestScope.RoomtypeIdUpdate eq roomtype.roomtypeId}">selected="selected"</c:if>  value="${roomtype.roomtypeId}">${roomtype.roomtypeName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-
-                                <div class="col-3 form-group mb-3">
-                                    <fieldset>
-                                        <legend>Deposit </legend>
-                                        <input type="text" id="add-roomtype-area" class="form-control" name="Deposit" required="">
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="row col-2" style="margin: 0">
-                                <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
-                                    <input hidden name="roomId" value="${room.roomId}">
-                                    
-                                    <input type="hidden" id="submitType" name="submitType">
-                                    <button type="button" onclick="validateUpdateRoom()" class="btn btn-primary w-10" style="height: 47px">Update</button>
-
-                                </div>
-                                <div class="col-6 d-flex justify-content-center align-items-center" style="padding-bottom: 8px">
-
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal-delete-room" class="btn btn-danger w-10 " style="height: 47px;">Delete</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
                     <br>
 
 
@@ -124,33 +132,35 @@
                             <div class="col-4 mb-4" id="tenant-infor">
                                 <form action="member-detail" method="post" id="update-tenant-form${tenant.tenantId}">
                                     <div class="bg-secondary-cus rounded p-2 card-staff">
-                                        <div class="row px-3 pt-2">
-                                            <div class="col-8 text-wheat">
-                                                <input hidden name="accountId" value="${tenant.account.accountId}">
-                                                <div style="line-height: 34px; font-size: 20px;">
-                                                    <i class="fa-solid fa-user me-2"></i>${tenant.account.accountUsername}
-                                                </div>
-                                                <div class="d-flex">
-                                                    <i class="fa-solid fa-lock me-2" style="line-height: 34px;"></i>
-                                                    <input id="password${tenant.tenantId}" name="password" class="text-wheat w-100 border-0" style="background: transparent; line-height: 34px; font-size: 20px;" type="text" value="${tenant.account.accountPassword}" >
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="d-flex justify-content-end">
-                                                    <span class="text-secondary">Active</span>
-                                                </div>
-                                                <div class="d-flex justify-content-end">
-                                                    <label class="switch ms-3">
-                                                        <input type="checkbox" name="accountAccessible" <c:if test="${tenant.account.accountAccessible}"> checked</c:if>>
-                                                            <span class="slider round"></span>
-                                                        </label>
+                                        <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                            <div class="row px-3 pt-2">
+                                                <div class="col-8 text-wheat">
+                                                    <input hidden name="accountId" value="${tenant.account.accountId}">
+                                                    <div style="line-height: 34px; font-size: 20px;">
+                                                        <i class="fa-solid fa-user me-2"></i>${tenant.account.accountUsername}
                                                     </div>
-                                                </div>                        
-                                            </div>
-                                            <hr>
-                                            <div class="card-staff-header">
-                                                <div>
-                                                    <i class="fa-solid fa-mountain-sun me-1"></i><span><input name="tenantCountryside" id="tenantCountryside${tenant.tenantId}"
+                                                    <div class="d-flex">
+                                                        <i class="fa-solid fa-lock me-2" style="line-height: 34px;"></i>
+                                                        <input id="password${tenant.tenantId}" name="password" class="text-wheat w-100 border-0" style="background: transparent; line-height: 34px; font-size: 20px;" type="text" value="${tenant.account.accountPassword}" >
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="d-flex justify-content-end">
+                                                        <span class="text-secondary">Active</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <label class="switch ms-3">
+                                                            <input type="checkbox" name="accountAccessible" <c:if test="${tenant.account.accountAccessible}"> checked</c:if>>
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>                        
+                                                </div>
+                                        </c:if>
+                                        <hr>
+                                        <div class="card-staff-header">
+                                            <div>
+                                                <i class="fa-solid fa-mountain-sun me-1"></i><span><input name="tenantCountryside" id="tenantCountryside${tenant.tenantId}"
                                                                                                           class="border-0 bg-secondary-cus" type="text" value="${tenant.tenantCountryside}" placeholder="Countryside"></span>
                                             </div>
                                             <div>
@@ -194,24 +204,26 @@
                                                             </c:forEach>
                                                             <a class="tag a-none" onclick="getAllVehicleByTenant(${tenant.tenantId})" data-bs-toggle="modal"
                                                                data-bs-target="#modal-list-vehicle">View List Vehicle</a>
-                                                            <a class="tag a-none" onclick="GetTenantId(${tenant.tenantId},${tenant.room.roomId})" data-bs-toggle="modal"
-                                                               data-bs-target="#add-vehicle">Add</a>
+                                                            <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                                                <a class="tag a-none" onclick="GetTenantId(${tenant.tenantId},${tenant.room.roomId})" data-bs-toggle="modal"
+                                                                   data-bs-target="#add-vehicle">Add</a></c:if>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                                <div class="action mt-2">
+                                                    <div class="row">
+                                                        <div class="col-6">
 
-                                            <div class="action mt-2">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        
-                                                        <button class="btn btn-primary w-100" onclick="validateTenantInfo${tenant.tenantId}();" type="button">Save</button>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <button onclick="resetTenant${tenant.tenantId}();" class="btn btn-danger w-100" type="button">Reset</button>
+                                                            <button class="btn btn-primary w-100" onclick="validateTenantInfo${tenant.tenantId}();" type="button">Save</button>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button onclick="resetTenant${tenant.tenantId}();" class="btn btn-danger w-100" type="button">Reset</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </form>
@@ -235,18 +247,18 @@
         <script src="assets/js/validate.js"></script>
         <script src="assets/js/main.js"></script>
         <script>
-                                                            const REGEX_ROOM_NAME = '^[1-9][0-9]{2}[A-Z]{1}$';
-                                                            function validateUpdateRoom() {
-                                                                const roomName = document.getElementById('update-room-name').value;
-                                                                if (roomName.trim() === '') {
-                                                                    showToast('warning', 'APAMAN Notification', 'Room\'s name Empty');
-                                                                } else if (!roomName.match(REGEX_ROOM_NAME)) {
-                                                                    showToast('warning', 'APAMAN Notification', 'Room\'s name is malformed (101A)');
-                                                                } else {
-                                                                    document.getElementById("submitType").value = 'Update';
-                                                                    document.getElementById('room-update').submit();
+                                                                const REGEX_ROOM_NAME = '^[1-9][0-9]{2}[A-Z]{1}$';
+                                                                function validateUpdateRoom() {
+                                                                    const roomName = document.getElementById('update-room-name').value;
+                                                                    if (roomName.trim() === '') {
+                                                                        showToast('warning', 'APAMAN Notification', 'Room\'s name Empty');
+                                                                    } else if (!roomName.match(REGEX_ROOM_NAME)) {
+                                                                        showToast('warning', 'APAMAN Notification', 'Room\'s name is malformed (101A)');
+                                                                    } else {
+                                                                        document.getElementById("submitType").value = 'Update';
+                                                                        document.getElementById('room-update').submit();
+                                                                    }
                                                                 }
-                                                            }
         </script>
 
         <script>
@@ -341,8 +353,9 @@
                                     '<td>' + vehicles[i].vehicleDescription + '</td>' +
                                     '<td>' + vehicles[i].vehicleLicensePlate + '</td>' +
                                     '<td><a href="' + vehicles[i].vehicleImgPath + '" class="a-none">View</a></td>' +
+                                                <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
                                     '<td style="position: relative;"><a class="a-none" onclick="confirmDeleteVehicle(' + vehicles[i].vehicleId + ')" href="javascript:void(0)">Delete</a>' +
-                                    '<i data-vehicleid="' + vehicles[i].vehicleId + '" onclick="deleteVehicle(' + vehicles[i].vehicleId + ',' + vehicles[i].tenant.tenantId + ')" style="display: none; position: absolute; top: 12px; left: 50px; cursor: pointer" class="text-danger ms-3 fa-solid fa-trash"></i></td>' +
+                                    '<i data-vehicleid="' + vehicles[i].vehicleId + '" onclick="deleteVehicle(' + vehicles[i].vehicleId + ',' + vehicles[i].tenant.tenantId + ')" style="display: none; position: absolute; top: 12px; left: 50px; cursor: pointer" class="text-danger ms-3 fa-solid fa-trash"></i></td>' </c:if>+
                                     '</tr>';
                         }
                         document.getElementById('list-vehicle-by-tenant').innerHTML = listVehicle;

@@ -52,7 +52,9 @@
                                     <th>Room Name</th>
                                     <th>Roomtype</th>
                                     <th>Status</th>
-                                    <th>Payment</th>
+                                        <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                        <th>Payment</th>
+                                        </c:if>
                                     <th>Electric/Water</th>
                                 </tr>
                             </thead>
@@ -62,21 +64,26 @@
                                         <td>${i.count}</td>
                                         <td><a href="room-member?roomId=${room.roomId}" class="a-none">${room.roomName}</a></td>
                                         <td>${room.roomtype.roomtypeName}</td>
-                                        <td>${room.roomStatus.roomStatusName}</td>
-                                        <td><a <c:if test="${room.paymentStatus.paymentStatusId == 1}">
-                                                href="#" 
-                                                </c:if>
-                                                <c:if test="${room.paymentStatus.paymentStatusId == 2}">
-                                                href="Payment?roomId=${room.roomId}&floorId=${room.floorId}" 
-                                                </c:if>
-                                                <c:if test="${room.paymentStatus.paymentStatusId == 3}">
-                                                href="confirmPayment?roomId=${room.roomId}&floorId=${room.floorId}" 
-                                                </c:if>
-                                                class="text-warning a-none" >${room.paymentStatus.paymentStatusName}</a></td>
+                                        <td><c:if test="${room.findRoommate}"> Find Roommate</c:if>
+                                            <c:if test="${!room.findRoommate}">${room.roomStatus.roomStatusName}</c:if>
+                                            
+                                        </td>
+                                        <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                            <td><a <c:if test="${room.paymentStatus.paymentStatusId == 1}">
+                                                        href="#" 
+                                                    </c:if>
+                                                    <c:if test="${room.paymentStatus.paymentStatusId == 2}">
+                                                        href="Payment?roomId=${room.roomId}&floorId=${room.floorId}" 
+                                                    </c:if>
+                                                    <c:if test="${room.paymentStatus.paymentStatusId == 3}">
+                                                        href="confirmPayment?roomId=${room.roomId}&floorId=${room.floorId}" 
+                                                    </c:if>
+                                                    class="text-warning a-none" >${room.paymentStatus.paymentStatusName}</a></td>
+                                            </c:if>
                                         <td>
                                             <c:if test="${room.paymentStatus.paymentStatusId == 1}">
-                                            <a href="GetElectricWater?roomId=${room.roomId}&floorId=${room.floorId}" class="a-none"  ><i class="fa-solid fa-pen-to-square text-danger"></i></a>
-                                            </c:if>
+                                                <a href="GetElectricWater?roomId=${room.roomId}&floorId=${room.floorId}" class="a-none"  ><i class="fa-solid fa-pen-to-square text-danger"></i></a>
+                                                </c:if>
                                         </td>
 
                                     </tr>
@@ -104,12 +111,12 @@
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
 
         <script>
-                                            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
-                                            if (messageUpdate !== 'null') {
-                                                const words = messageUpdate.split("|");
-                                                showToast(words[0], words[1], words[2]);
-                                                openModal(words[3]);
-                                            }
+            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+            if (messageUpdate !== 'null') {
+                const words = messageUpdate.split("|");
+                showToast(words[0], words[1], words[2]);
+                openModal(words[3]);
+            }
         </script>
 
         <script>
@@ -121,7 +128,7 @@
                 };
             }
         </script>
-        
+
         <script>
             const isOpenModalPayment = '<%= session.getAttribute("isOpenModalPayment") %>';
             if (isOpenModalPayment !== 'null') {
@@ -131,7 +138,7 @@
                 };
             }
         </script>
-        
+
         <script>
             const isOpenModalConfirm = '<%= session.getAttribute("isOpenModalConfirm") %>';
             if (isOpenModalConfirm !== 'null') {

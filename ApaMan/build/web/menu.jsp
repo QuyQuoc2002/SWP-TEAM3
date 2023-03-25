@@ -36,6 +36,7 @@
             <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">Menu</div>
             <div class="container-fluid pt-4 px-4">
                 <div class="row">
+                    <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'|| sessionScope.curAccount.role.roleName eq 'STAFF'}">
                     <div class="col-4 mb-4">
                         <a href="homepage-management" class="a-none">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
@@ -49,6 +50,25 @@
                             </div>
                         </a>
                     </div>
+                    </c:if>
+                    
+                    <c:if test="${sessionScope.curAccount.role.roleName eq 'TENANT'}">
+                    <div class="col-4 mb-4">
+                        <a href="room-member?roomId=${sessionScope.myRoomId}" class="a-none">
+                            <div class="bg-secondary-cus rounded p-4 card-feature">
+                                <div class="card-feature-content">
+                                    <i class="fa fa-tachometer-alt text-primary-cus "></i>
+                                    <div class="card-feature-title">
+                                        <h4 class="text-white">My Room</h4></a>
+                                        <p class="text-white">Information my room</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    </c:if> 
+                    
+                    <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST' || sessionScope.curAccount.role.roleName eq 'STAFF'}">
                     <div class="col-4 mb-4">
                         <a href="members">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
@@ -62,6 +82,8 @@
                             </div>
                         </a>
                     </div>
+                    </c:if>
+                    
                     <div class="col-4 mb-4">
                         <a href="staff" class="a-none">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
@@ -75,6 +97,7 @@
                             </div>
                         </a>
                     </div>
+                    <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST' || sessionScope.curAccount.role.roleName eq 'STAFF'}">
                     <div class="col-4 mb-4">
                         <a href="vehicles">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
@@ -88,6 +111,8 @@
                             </div>
                         </a>
                     </div>
+                    </c:if>
+                    <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
                     <div class="col-4 mb-4">
                         <a href="room-control" class="a-none">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
@@ -101,7 +126,8 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-4 mb-4">
+                    </c:if>
+<!--                    <div class="col-4 mb-4">
                         <a href="">
                             <div class="bg-secondary-cus rounded p-4 card-feature">
                                 <div class="card-feature-content">
@@ -126,7 +152,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

@@ -28,6 +28,10 @@ public class RoomService {
         return roomDAO.numberOfTenantActive(roomId);
     }
     
+    public int getRoomIdByAccountId(int accountID) {
+        return roomDAO.getRoomIdByAccountId(accountID);
+    }
+    
     
     public int countVehicle(int roomId, int vehicaleTypeId) {
         return roomDAO.countVehicle(roomId, vehicaleTypeId);

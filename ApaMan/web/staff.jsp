@@ -38,87 +38,92 @@
                 <div class="text-center my-4 text-danger text-uppercase fw-bolder" style="font-size: 50px;">STAFF</div>
                 <div id="staff" class="container-fluid pt-4 px-4">
                     <div class="row">
-                        <div class="col-4 mb-4" id="new-staff">
-                            <div class="bg-secondary-cus rounded p-2 card-staff">
-                                <form action="add-staff" method="post">
-                                    <div class="row px-3 pt-2">
-                                        <div class="col-12 text-center text-wheat">
-                                            <h1 style="line-height: 70px">ADD NEW</h1>
-                                        </div>                        
-                                    </div>
-                                    <hr>
-                                    <div class="card-staff-header">
-                                        <div>
-                                            <i class="fa-solid fa-mountain-sun me-1"></i><span><input name="countrySide" class="border-0 bg-secondary-cus countryside" type="text" placeholder="Countryside"></span>
+                        <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                            <div class="col-4 mb-4" id="new-staff">
+                                <div class="bg-secondary-cus rounded p-2 card-staff">
+                                    <form action="add-staff" method="post">
+                                        <div class="row px-3 pt-2">
+                                            <div class="col-12 text-center text-wheat">
+                                                <h1 style="line-height: 70px">ADD NEW</h1>
+                                            </div>                        
                                         </div>
-                                        <div>
-                                            <i class="fa-regular fa-calendar-days me-1"></i><span><input name="dob" class="border-0 bg-secondary-cus dob" type="text" placeholder="dd-MM-yyyy"></span>
-                                        </div>
-                                    </div>
-                                    <div class="card-staff-body">
-                                        <div class="contact text-white">
-                                            <div class="phone">
-                                                <i class="fa-solid fa-phone-volume me-2"></i><span><input name="phoneNumber" class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number"></span>
+                                        <hr>
+                                        <div class="card-staff-header">
+                                            <div>
+                                                <i class="fa-solid fa-mountain-sun me-1"></i><span><input name="countrySide" class="border-0 bg-secondary-cus countryside" type="text" placeholder="Countryside"></span>
                                             </div>
                                             <div>
-                                                <i class="fa-regular fa-id-card me-2"></i><span><input name="citizenIdentification" class="border-0 bg-secondary-cus text-white citizen-identification" type="text" placeholder="citizen identification"></span>
+                                                <i class="fa-regular fa-calendar-days me-1"></i><span><input name="dob" class="border-0 bg-secondary-cus dob" type="text" placeholder="dd-MM-yyyy"></span>
                                             </div>
                                         </div>
-                                        <div class="price"><input name="salary" class="border-0 bg-transparent text-white text-center salary" type="text" placeholder="Salary"><sup>đ</sup>
-                                        </div>
-                                        <div class="user mt-4">
-                                            <div class="media d-flex">
-                                                <a class="circle">
-                                                    <img class="avatar" src="assets/images/avatar.png" alt="">
-                                                </a>
-                                                <div class="media-body pt-2">
-                                                    <h5><input name="name" class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name"></h5>
-                                                    <p class="mt-1"><input name="job" class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job"></p>
+                                        <div class="card-staff-body">
+                                            <div class="contact text-white">
+                                                <div class="phone">
+                                                    <i class="fa-solid fa-phone-volume me-2"></i><span><input name="phoneNumber" class="border-0 bg-secondary-cus text-white w-75 phone-number" type="text" placeholder="Phone number"></span>
+                                                </div>
+                                                <div>
+                                                    <i class="fa-regular fa-id-card me-2"></i><span><input name="citizenIdentification" class="border-0 bg-secondary-cus text-white citizen-identification" type="text" placeholder="citizen identification"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="price"><input name="salary" class="border-0 bg-transparent text-white text-center salary" type="text" placeholder="Salary"><sup>đ</sup>
+                                            </div>
+                                            <div class="user mt-4">
+                                                <div class="media d-flex">
+                                                    <a class="circle">
+                                                        <img class="avatar" src="assets/images/avatar.png" alt="">
+                                                    </a>
+                                                    <div class="media-body pt-2">
+                                                        <h5><input name="name" class="border-0 bg-secondary-cus text-white name" type="text" placeholder="Name"></h5>
+                                                        <p class="mt-1"><input name="job" class="border-0 bg-secondary-cus text-white job" type="text" placeholder="Job"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="action mt-2">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <button onclick="validateNewStaffInfo();" type="button" class="btn btn-primary w-100">Create</button>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="action mt-2">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <button onclick="validateNewStaffInfo();" type="button" class="btn btn-primary w-100">Create</button>
-                                                </div>
-                                                <div class="col-6">
-                                                    <button onclick="resetStaff();" class="btn btn-danger w-100">Reset</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
                         <c:forEach items="${staffs}" var="staff">
                             <div class="col-4 mb-4">
                                 <div class="bg-secondary-cus rounded p-2 card-staff">
                                     <form action="staff" method="post">
-                                        <div class="row px-3 pt-2">
-                                            <div class="col-8 text-wheat">
-                                                <div style="line-height: 34px; font-size: 20px;">
-                                                    <i class="fa-solid fa-user me-2"></i>${staff.account.accountUsername}
-                                                </div>
-                                                <div class="d-flex">
-                                                    <i class="fa-solid fa-lock me-2" style="line-height: 34px;"></i>
-                                                    <input name="password" class="text-wheat w-100 border-0" style="background: transparent; line-height: 34px; font-size: 20px;" type="text" value="${staff.account.accountPassword}">
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="d-flex justify-content-end">
-                                                    <span class="text-secondary">Active</span>
-                                                </div>
-                                                <div class="d-flex justify-content-end">
-                                                    <label class="switch ms-3">
-                                                        <input name="accountAccessible" type="checkbox" <c:if test="${staff.account.accountAccessible}"> checked</c:if>><span class="slider round"></span>
-                                                        </label>
+                                        <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                            <div class="row px-3 pt-2">
+                                                <div class="col-8 text-wheat">
+                                                    <div style="line-height: 34px; font-size: 20px;">
+                                                        <i class="fa-solid fa-user me-2"></i>${staff.account.accountUsername}
                                                     </div>
-                                                </div>                        
-                                            </div>
-                                            <hr>
-                                            <div class="card-staff-header">
-                                                <div><i class="fa-solid fa-mountain-sun me-1"></i><span><input name="countrySide" class="border-0 bg-secondary-cus" type="text" value="${staff.staffCountryside}"></span></div>
+                                                    <div class="d-flex">
+                                                        <i class="fa-solid fa-lock me-2" style="line-height: 34px;"></i>
+                                                        <input name="password" class="text-wheat w-100 border-0" style="background: transparent; line-height: 34px; font-size: 20px;" type="text" value="${staff.account.accountPassword}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="d-flex justify-content-end">
+                                                        <span class="text-secondary">Active</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <label class="switch ms-3">
+                                                            <input name="accountAccessible" type="checkbox" <c:if test="${staff.account.accountAccessible}"> checked</c:if>><span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>                        
+                                                </div>
+                                        </c:if>
+                                        <hr>
+                                        <div class="card-staff-header">
+                                            <div><i class="fa-solid fa-mountain-sun me-1"></i><span><input name="countrySide" class="border-0 bg-secondary-cus" type="text" value="${staff.staffCountryside}"></span></div>
                                             <div>
                                                 <i class="fa-regular fa-calendar-days me-1"></i><span><input name="dob" class="border-0 bg-secondary-cus" type="text" value="${staff.staffDob}"></span>
                                             </div>
@@ -132,8 +137,10 @@
                                                     <i class="fa-regular fa-id-card me-2"></i><span><input name="citizenIdentification" class="border-0 bg-secondary-cus text-white" type="text" value="${staff.staffCitizenIdentification}"></span>
                                                 </div>
                                             </div>
-                                            <div class="price"><input name="salary" class="border-0 bg-transparent text-white text-center" type="text" value="${staff.staffSalary}"><sup>đ</sup>
-                                            </div>
+                                            <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                                <div class="price"><input name="salary" class="border-0 bg-transparent text-white text-center" type="text" value="${staff.staffSalary}"><sup>đ</sup>
+                                                </div>
+                                            </c:if> 
                                             <div class="user mt-4">
                                                 <div class="media d-flex">
                                                     <a class="circle">
@@ -145,17 +152,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="action mt-2">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="hidden" name="accountId" value="${staff.account.accountId}">
-                                                        <input type="hidden" name="staffId" value="${staff.staffId}">
-                                                        <input type="submit" name="submitType" value="Save" class="btn btn-primary w-100">
+                                                <c:if test="${sessionScope.curAccount.role.roleName eq 'HOST'}">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <input type="hidden" name="accountId" value="${staff.account.accountId}">
+                                                            <input type="hidden" name="staffId" value="${staff.staffId}">
+                                                            <input type="submit" name="submitType" value="Save" class="btn btn-primary w-100">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <a onclick="confirmDeleteStaff('${staff.account.accountId}', '${staff.staffId}', '${staff.account.accountUsername}');" class="btn btn-danger w-100">Delete</a>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <a onclick="confirmDeleteStaff('${staff.account.accountId}', '${staff.staffId}', '${staff.account.accountUsername}');" class="btn btn-danger w-100">Delete</a>
-                                                    </div>
-                                                </div>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </form>
@@ -179,11 +189,11 @@
 
         <!---------------------------------------------SHOW TOAST---------------------------------------------------------->
         <script>
-            const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
-            if (messageUpdate !== 'null') {
-                const words = messageUpdate.split("|");
-                showToast(words[0], words[1], words[2]);
-            }
+                                                                const messageUpdate = '<%= session.getAttribute("messageUpdate") %>';
+                                                                if (messageUpdate !== 'null') {
+                                                                    const words = messageUpdate.split("|");
+                                                                    showToast(words[0], words[1], words[2]);
+                                                                }
         </script>
 
     </body>

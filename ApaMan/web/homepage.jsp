@@ -94,8 +94,11 @@
                                             <li class="nav-item"><a class="nav-link" href="login?apartmentId=${requestScope.apartment.apartmentId}">Sign In</a></li>
                                         </c:if>
                                         <c:if test="${sessionScope.curAccount != null}">
+                                            <!--<li class="nav-item"><a class="nav-link" href="manager">My Page</a></li>-->
                                             <li class="nav-item"><a class="nav-link" href="sign-out">Sign Out</a></li>
-                                            <c:if test="${sessionScope.curAccount.role.roleId == 1}"><li class="nav-item"><a class="nav-link" href="admin">Menu</a></li></c:if>
+                                            
+                                            <c:if test="${sessionScope.curAccount.role.roleName eq 'ADMIN'}"><li class="nav-item"><a class="nav-link" href="admin">Menu</a></li></c:if>
+                                            <c:if test="${sessionScope.curAccount.role.roleName ne 'ADMIN'}"><li class="nav-item"><a class="nav-link" href="apartment">Menu</a></li></c:if>
                                         </c:if>
 
                                     </ul>

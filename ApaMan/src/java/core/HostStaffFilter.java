@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebFilter(filterName = "HostStaffFilter", urlPatterns = {"/vehicle-page"})
+@WebFilter(filterName = "HostStaffFilter", urlPatterns = {"/vehicle-page","/homepage-management"})
 public class HostStaffFilter implements Filter {
     
     private static final boolean debug = true;

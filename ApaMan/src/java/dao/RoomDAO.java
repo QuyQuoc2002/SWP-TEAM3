@@ -83,6 +83,24 @@ public class RoomDAO {
         }
         return 0;
     }
+    
+    public int getRoomIdByAccountId(int accountId) {
+        String sql = "Select t.room_id "
+                + "FROM apamandb.account a join apamandb.tenant t "
+                + "on a.account_id = t.account_id where a.account_id = ?;";//
+
+        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("room_id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return 0;
+    }
 
     public int countVehicle(int roomId, int vehicaleTypeId) {
         int countVehicle;

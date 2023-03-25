@@ -58,7 +58,7 @@
                                     <th>Vehicle Money</th>
                                     <th>Total Money</th>
                                     <th>Done Date</th>
-                                    <th>More</th>
+                                    <!--<th>More</th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,7 +71,7 @@
                                         <td>${paymentHistory.paymentCarMoney + paymentHistory.paymentMotorMoney + paymentHistory.paymentBikeMoney}</td>
                                         <td>${paymentHistory.paymentRoomUnitFee + paymentHistory.paymentWaterMoney + paymentHistory.paymentElectricMoney +  paymentHistory.paymentCarMoney + paymentHistory.paymentMotorMoney + paymentHistory.paymentBikeMoney}</td>
                                         <td>${requestScope.Calenders.formatTime("dd/MM/yyyy", paymentHistory.paymentDoneDate)}</td>
-                                        <td><a href="" class="a-none">Detail</a></td>
+                                        <!--<td><a href="" class="a-none">Detail</a></td>-->
                                     </tr>
                                 </c:forEach>
                             </tbody>
